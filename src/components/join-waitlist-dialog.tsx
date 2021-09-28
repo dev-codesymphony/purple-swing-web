@@ -56,7 +56,7 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
                     We’re planning to launch sometime in late 2021. Enter your email and the city you live in below, and we’ll send you an invite as soon as we’re live!
                 </label><br />
 
-                <form onSubmit={this.onFinished}>
+                <form onSubmit={this.onFinished} autoComplete="off">
                     <TextField autoComplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="email" required={true} placeholder="Email" styles={inputStyles} onChange={(email) => { this.setState({ email: email.currentTarget.value }) }} />
                     <TextField autoComplete="off" pattern="^[A-Za-z -]+$" required={true} placeholder="City" styles={inputStyles} onChange={(city) => { this.setState({ city: city.currentTarget.value }) }} />
                     <ActionButton hidden={this.state.isSubmitted} type="submit" className="join-button">Join waitlist </ActionButton>

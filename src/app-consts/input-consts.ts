@@ -11,11 +11,13 @@ export const inputStyles = {
     },
     field: {
         fontSize: 25,
-        marginLeft: 15,
         '&::placeholder': {
             fontSize: 25,
             color: "#D6D6D6",
-            fontWeight:"bold"
-        }
+            fontWeight: "bold"
+        },
+        borderRadius: 30,
+        marginLeft: 0,
+        paddingLeft: 22
     }
 }

@@ -555,3 +555,18 @@ code {
     font-family: "ModernEraBold"!important;
   }
 }
+
+/* Registration */
+
+.step-button {
+  font-size: 23px;
+}
+
+.registration-form {
+  height: 100vh;
+  font-family: "ModernEraBold"!important;
+}
+
+.registration-form .form-group {
+  font-size: 39px;
+}
