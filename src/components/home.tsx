@@ -15,13 +15,25 @@ export class HomeComponent extends React.Component {
         super(props);
         this.openDialog = this.openDialog.bind(this);
     }
-    headerRef: any = React.createRef<HeaderComponent>();
+    headerRef: any = React.createRef<HeaderComponent>(); // Ref for header component.
+
+    /**
+     * Open modal dialog.
+     */
     openDialog() {
         this.headerRef?.current.openDialog();
     }
     render() {
         return <>
             <HeaderComponent ref={this.headerRef} />
+
+            <div className="mobile-container">
+                <h4 className="app-title">The Purple Swing</h4>
+                <span className="description">Hey there! Just a heads up, we haven’t launched yet. But feel free to join the waitlist and we’ll send you a message as soon as we’re live!</span>
+                <div className="mobile-button-div">
+                    <DefaultButton text="Join waitlist" onClick={this.openDialog} allowDisabledFocus />
+                </div>
+            </div>
 
             <div className="container-fluid app-container">
                 {/**** top section ****/}
@@ -59,11 +71,6 @@ export class HomeComponent extends React.Component {
                     *You can click on the different headers in the little screen above ⬆️ to get a better idea of what the website is like;)
                 </label>
                 <br />
-                <label className="hint-label">
-                    You can click around the little screen above to get a better sense of
-                    what it is. Just a note; the real thing has more features, but this will give
-                    you and idea!
-                </label>
                 <img src={groupImageTwo} className="group-image-two" alt="Group of people" />
 
                 {/**** bottom section ****/}

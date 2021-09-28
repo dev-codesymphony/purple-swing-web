@@ -23,28 +23,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body,
-button,
-h1,
-h2,
-h3,
-h4,
-h5,
-p,
-label,
-input::placeholder,
-input {
+body, button, h1, h2, h3, h4, h5, p, label, input::placeholder, input {
   font-family: "ModernEraReguar" !important;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.mobile-container {
+  display: none;
 }
 
 /* header | footer css */
-.app-title,
-.button-panel button {
+
+.app-title, .button-panel button {
   font-family: "ModernEraBold" !important;
 }
 
@@ -98,10 +91,6 @@ code {
   font-size: 97px;
   font-weight: bolder;
   color: black;
-}
-
-.first-section .home-title {
-  /* font-weight: bolder; */
 }
 
 .preview-section img {
@@ -211,7 +200,7 @@ code {
 
 /* Modal css */
 
-.join-waitlist-dialog input{
+.join-waitlist-dialog input {
   font-family: "ModernEraBold" !important;
   color: #B6B6B6;
 }
@@ -254,15 +243,14 @@ code {
 }
 
 .app-container {
-  width: 1442px !important;
+  width: 1331px !important;
 }
 
 .join-waitlist {
   display: none;
 }
 
-.ms-Modal.is-open .ms-Overlay.ms-Overlay--dark,
-body.css-0 #root {
+.ms-Modal.is-open .ms-Overlay.ms-Overlay--dark, body.css-0 #root {
   -webkit-filter: blur(10px);
   -moz-filter: blur(10px);
   -o-filter: blur(10px);
@@ -274,6 +262,7 @@ body.css-0 #root {
 
 .mid-section-title {
   margin-bottom: 63px !important;
+  margin-left: 117px;
 }
 
 .app-mobile-footer {
@@ -287,7 +276,6 @@ body.css-0 #root {
     margin: 0 auto;
     position: relative;
   }
-
   .group-image-one {
     margin-right: auto;
   }
@@ -295,49 +283,41 @@ body.css-0 #root {
 
 /* tablet css */
 
-@media (min-width: 768px) and (max-width: 1450px) {
+@media (min-width: 390px) and (max-width: 1450px) {
+  .mid-section-title {
+    margin-left: auto;
+  }
   .app-header .button-panel:first {
     margin-left: 0;
   }
-
   .app-container {
     width: 877px !important;
     margin: 0 auto;
   }
-
   .preview-section {
     width: auto;
     max-width: 1040px;
     max-height: 624px;
+    overflow: hidden;
   }
-
   .app-container .first-section {
-    min-height: 550px;
+    min-height: 600px;
     margin-top: 156px;
   }
-
   .preview-section button {
     font-size: 12px !important;
   }
-
-  .group-image-one,
-  .group-image-two {
+  .group-image-one, .group-image-two {
     width: 70vh;
     height: auto;
     min-width: 680px;
   }
-
   .group-image-one {
     margin-top: 0px;
   }
-
   .home-title {
     font-size: 55px;
     margin-bottom: -40px;
-  }
-
-  .questions-form-label {
-    font-size: 65px;
   }
 }
 
@@ -345,60 +325,158 @@ body.css-0 #root {
   .app-header .button-panel button {
     font-size: 20px !important;
   }
-
   .app-title {
     font-size: 22px !important;
   }
 }
 
-/* mobile css */
-@media (max-width: 768px) {
+/* iPad (horizontal) */
 
+@media (max-width: 1024px) {
+  .preview-section {
+    max-width: 828px;
+    max-height: 670.38px;
+  }
+  .app-title {
+    font-size: 22px;
+  }
+  .app-header .button-panel button {
+    font-size: 18px !important;
+  }
+  .button-panel .ms-Button--default {
+    height: 30px;
+    padding: 10px;
+  }
+  .hint-label {
+    font-size: 17px;
+  }
+  .questions-form-label {
+    font-size: 55px;
+  }
+  .question-form p {
+    font-size: 24px;
+  }
+  .app-container .first-section {
+    margin-top: 114px;
+  }
+}
+
+@media (max-width: 1450px) {
+  .first-section {
+    position: relative;
+  }
+}
+
+@media (max-width: 877px) {
+  .app-container {
+    width: auto!important;
+  }
+}
+
+/* iPad (vertical) */
+
+@media (max-width: 768px) {
+  .group-image-one {
+    width: 538px;
+    min-width: 538px;
+    margin-top: 60px;
+  }
+  .group-image-two {
+    width: 490.96px;
+    min-width: 490.96px;
+  }
+  .preview-section {
+    max-width: 657px;
+    max-height: 534.73px;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 768px) {
+  .container-fluid.app-container {
+    padding-left: unset;
+    padding-right: unset;
+  }
+  .app-container {
+    width: 657px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-header.d-flex {
+    display: inherit!important;
+  }
+  .app-header .button-panel {
+    text-align: right;
+  }
+  .app-container {
+    width: 100% !important;
+  }
+  .button-panel button {
+    margin-left: auto;
+  }
+  .join-waitlist-dialog .ms-Dialog-main {
+    max-width: unset!important;
+    min-width: 100%!important;
+  }
+  .join-waitlist-dialog .ms-TextField-fieldGroup {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .group-image-two, .group-image-one {
+    width: 45vh!important;
+    min-width: auto!important;
+  }
+}
+
+@media (max-width: 445px) {
+  .group-image-two, .group-image-one {
+    width: 38vh!important;
+    min-width: auto!important;
+  }
+}
+
+/* mobile css */
+
+@media (max-width: 390px) {
+  .mobile-container {
+    display: block;
+  }
   .join-waitlist {
     display: block;
   }
-
   .app-container {
     margin-left: auto !important;
     margin-right: auto !important;
+    padding-left: unset!important;
+    padding-right: unset!important;
   }
-
-  .group-image-one,
-  .preview-section,
-  .hint-label,
-  .group-image-two,
-  .app-header-main,
-  .mid-section-title {
+  .group-image-one, .preview-section, .hint-label, .group-image-two, .app-header-main, .mid-section-title, .app-container, .app-footer {
     display: none !important;
   }
-
-  .ms-Dialog-main {
-    max-width: auto !important;
-  }
-
   .join-waitlist {
     margin: 0 auto;
     display: block;
-    font-size: 30px;
+    font-size: 20px;
     background-color: transparent;
     color: white;
-    border: 2px solid white;
+    border: 3px solid white;
     border-radius: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    margin-top: 20rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 250px;
+    height: 47px;
+    width: 169px;
+    font-family: "ModernEraBold"!important;
   }
-
   .join-waitlist .ms-Button-label {
     font-weight: bold;
   }
-
-  .first-section,
-  .first-section .title-highlight {
+  .first-section, .first-section .title-highlight {
     background-color: #5640FB;
     color: white !important;
   }
-
   .app-container .first-section {
     min-height: 920px;
     margin-top: 0;
@@ -407,49 +485,73 @@ body.css-0 #root {
     padding-left: 22px;
     padding-right: 22px;
     padding-top: 220px;
-    padding-bottom: 500px;
+    padding-bottom: 132px;
   }
-
   .app-footer {
     display: flex;
     text-align: center;
     justify-content: center;
   }
-
   .app-mobile-footer {
     width: 200px;
     padding-top: 70px;
     padding-bottom: 70px;
   }
-
   .app-mobile-footer button {
     margin-bottom: 27px;
   }
-
   .app-mobile-footer button:last-child {
     margin-bottom: 0;
   }
-
   .question-form {
     max-width: 100% !important;
   }
-
-  .question-form p,
-  .questions-form-label {
+  .question-form p, .questions-form-label {
     overflow-wrap: break-word;
     display: inline-block;
   }
-
   .app-container {
     width: auto !important;
   }
-
-  .questions-form-label,
-  .home-title {
-    font-size: 70px;
+  .questions-form-label {
+    font-size: 55px;
   }
-
   .home-title {
+    font-size: 40px;
     color: white;
+    font-family: "ModernEraBold"!important;
+  }
+  .bottom-section {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  .app-footer {
+    padding: 0;
+  }
+  .mobile-container {
+    padding: 25px;
+    margin-top: 68px;
+  }
+  .mobile-button-div {
+    text-align: center;
+  }
+  .mobile-button-div button {
+    color: #5640FB;
+    border: 3px solid #5640FB;
+    border-radius: 30px;
+    font-size: 20px;
+    font-family: "ModernEraBold"!important;
+    width: 169px;
+    height: 47px;
+    margin-top: 71px;
+    margin-bottom: 73px;
+  }
+  .mobile-container .app-title {
+    font-size: 17px;
+    font-family: "ModernEraBold"!important;
+  }
+  .mobile-container .description {
+    font-size: 45px;
+    font-family: "ModernEraBold"!important;
   }
 }
