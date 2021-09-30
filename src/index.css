@@ -2,16 +2,28 @@
   font-family: 'ModernEraLight';
   src: local('ModernEraLight'), url(./assets/fonts/ModernEra-Light.ttf) format('opentype');
 }
-
+/* Fonts */
 @font-face {
   font-family: 'ModernEraBold';
-  src: local('ModernEraBold'), url(./assets/fonts/ModernEra-Bold.ttf) format('opentype');
+  src: local('ModernEraBold'), url(./assets/fonts/ModernEra-Bold.otf) format('opentype');
 }
-
 @font-face {
   font-family: 'ModernEraReguar';
-  src: local('ModernEraReguar'), url(./assets/fonts/ModernEra-Regular.ttf) format('opentype');
+  src: local('ModernEraReguar'), url(./assets/fonts/ModernEra-Regular.otf) format('opentype');
 }
+@font-face {
+  font-family: 'ModernEraBlack';
+  src: local('ModernEraBlack'), url(./assets/fonts/ModernEra-Black.otf) format('opentype');
+}
+@font-face {
+  font-family: 'ModernEraRegular';
+  src: local('ModernEraRegular'), url(./assets/fonts/ModernEra-Regular.otf) format('opentype');
+}
+@font-face {
+  font-family: 'ModernEraExtraBold';
+  src: local('ModernEraExtraBold'), url(./assets/fonts/ModernEra-ExtraBold.otf) format('opentype');
+}
+/* Fonts */
 
 @font-face {
   font-family: 'HelveticaNeueBold';
@@ -142,7 +154,7 @@ code {
 .questions-form-label {
   font-size: 97px;
   /* font-weight: 400; */
-  font-family: "ModernEraBold"!important;
+  font-family: "ModernEraExtraBold"!important;
   margin-top: 122px;
   color: black;
 }
@@ -158,7 +170,7 @@ code {
   font-size: 30px;
   margin-bottom: 120px;
   color: black;
-  font-family: "ModernEraBold"!important;
+  font-family: "ModernEraExtraBold"!important;
 }
 
 .preview-section {
