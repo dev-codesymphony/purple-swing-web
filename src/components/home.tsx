@@ -68,7 +68,7 @@ export class HomeComponent extends React.Component {
                 </div>
 
                 <label className="hint-label">
-                    *You can click on the different headers in the little screen above ⬆️ to get a better idea of what the website is like;)
+                    *You can click on the different headers in the little screen above ⬆ to get a better idea of what the website is like;)
                 </label>
                 <br />
                 <img src={groupImageTwo} className="group-image-two" alt="Group of people" />
