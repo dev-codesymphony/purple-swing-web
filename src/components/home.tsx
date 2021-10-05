@@ -9,6 +9,7 @@ import previewFeed from "../assets/images/preview-feed.png";
 import previewMessages from "../assets/images/preview-messages.png";
 import previewMyList from "../assets/images/preview-my-list.png";
 import previewMyProfile from "../assets/images/preview-my-profile.png";
+import { MobileContainerComponent } from "./mobile-container";
 
 export class HomeComponent extends React.Component {
     constructor(props: any) {
@@ -27,13 +28,7 @@ export class HomeComponent extends React.Component {
         return <>
             <HeaderComponent ref={this.headerRef} />
 
-            <div className="mobile-container">
-                <h4 className="app-title">The Purple Swing</h4>
-                <span className="description">Hey there! Just a heads up, we haven’t launched yet. But feel free to join the waitlist and we’ll send you a message as soon as we’re live!</span>
-                <div className="mobile-button-div">
-                    <DefaultButton text="Join waitlist" onClick={this.openDialog} allowDisabledFocus />
-                </div>
-            </div>
+            <MobileContainerComponent />
 
             <div className="container-fluid app-container">
                 {/**** top section ****/}

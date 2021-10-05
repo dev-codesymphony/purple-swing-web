@@ -19,12 +19,14 @@ export class HeaderComponent extends React.Component {
     render() {
         return <>
             <div className="app-header-main">
-                <div className="app-header d-flex justify-content-between">
-                    <h4 className="app-title">The Purple Swing</h4>
-                    <div className="button-panel">
-                        <ActionButton>How it works</ActionButton>
-                        <ActionButton>FAQ</ActionButton>
-                        <DefaultButton text="Join waitlist" onClick={this.openDialog} allowDisabledFocus />
+                <div className="sticky-header">
+                    <div className="app-header d-flex justify-content-between">
+                        <h4 className="app-title">The Purple Swing</h4>
+                        <div className="button-panel">
+                            <ActionButton>How it works</ActionButton>
+                            <ActionButton>FAQ</ActionButton>
+                            <DefaultButton text="Join waitlist" onClick={this.openDialog} allowDisabledFocus />
+                        </div>
                     </div>
                 </div>
             </div>
