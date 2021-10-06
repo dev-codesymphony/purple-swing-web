@@ -3,12 +3,12 @@ import { FooterComponent } from "../shared/footer";
 import { HeaderComponent } from "../shared/header";
 import { Pivot, PivotItem } from '@fluentui/react';
 import { DefaultButton } from '@fluentui/react/lib/Button';
-import groupImageOne from "../assets/images/group-image-one.png";
-import groupImageTwo from "../assets/images/group-image-two.png";
-import previewFeed from "../assets/images/preview-feed.png";
-import previewMessages from "../assets/images/preview-messages.png";
-import previewMyList from "../assets/images/preview-my-list.png";
-import previewMyProfile from "../assets/images/preview-my-profile.png";
+import groupImageOne from "../assets/images/group-image-one.svg";
+import groupImageTwo from "../assets/images/group-image-two.svg";
+import previewFeed from "../assets/images/preview-feed.svg";
+import previewMessages from "../assets/images/preview-messages.svg";
+import previewMyList from "../assets/images/preview-my-list.svg";
+import previewMyProfile from "../assets/images/preview-my-profile.svg";
 import { MobileContainerComponent } from "./mobile-container";
 
 export class HomeComponent extends React.Component {
