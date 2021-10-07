@@ -1,19 +1,20 @@
 import { DefaultButton, TextField } from "@fluentui/react";
 import React from "react";
 import { inputStyles } from "../app-consts/input-consts";
+const initialState = {
+    isSubmitted: false,
+    isValid: false,
+    email: String(),
+    city: String()
+}
+export class MobileContainerComponent extends React.Component<any, any> {
 
-export class MobileContainerComponent extends React.Component {
-    state = {
-        isSubmitted: false,
-        isValid: false,
-        email: String(),
-        city: String()
-    }
     joinWaitlistForm = React.createRef();
     constructor(props: any) {
         super(props);
         this.onFinished = this.onFinished.bind(this);
         this.validate = this.validate.bind(this);
+        this.state = initialState;
     }
     onFinished(event: any) {
         this.setState({ isSubmitted: true })

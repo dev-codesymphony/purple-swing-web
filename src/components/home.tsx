@@ -12,9 +12,13 @@ import previewMyProfile from "../assets/images/preview-my-profile.svg";
 import { MobileContainerComponent } from "./mobile-container";
 
 export class HomeComponent extends React.Component {
+    howItWorksRef: any;
+    faqRef: any;
     constructor(props: any) {
         super(props);
         this.openDialog = this.openDialog.bind(this);
+        this.howItWorksRef = React.createRef();
+        this.faqRef = React.createRef();
     }
     headerRef: any = React.createRef<HeaderComponent>(); // Ref for header component.
 
@@ -26,7 +30,7 @@ export class HomeComponent extends React.Component {
     }
     render() {
         return <>
-            <HeaderComponent ref={this.headerRef} />
+            <HeaderComponent ref={this.headerRef} howItWorksRef={this.howItWorksRef} faqRef={this.faqRef} />
 
             <MobileContainerComponent />
 
@@ -44,22 +48,24 @@ export class HomeComponent extends React.Component {
                 </div>
 
                 {/**** mid section ****/}
-                <h1 className="home-title mid-section-title">It looks like this…</h1>
-                <div className="preview-section">
-                    <Pivot>
-                        <PivotItem headerText="My Lists">
-                            <img src={previewMyList} alt="My Lists" />
-                        </PivotItem>
-                        <PivotItem headerText="Feed">
-                            <img src={previewFeed} alt="Feed" />
-                        </PivotItem>
-                        <PivotItem headerText="Messages">
-                            <img src={previewMessages} alt="Messages" />
-                        </PivotItem>
-                        <PivotItem headerText="My Profile">
-                            <img src={previewMyProfile} alt="My Profile" />
-                        </PivotItem>
-                    </Pivot>
+                <div ref={this.howItWorksRef} style={{ marginTop: 122 }}>
+                    <label className="home-title mid-section-title">How it works…</label>
+                    <div className="preview-section">
+                        <Pivot>
+                            <PivotItem headerText="My Lists">
+                                <img src={previewMyList} alt="My Lists" />
+                            </PivotItem>
+                            <PivotItem headerText="Feed">
+                                <img src={previewFeed} alt="Feed" />
+                            </PivotItem>
+                            <PivotItem headerText="Messages">
+                                <img src={previewMessages} alt="Messages" />
+                            </PivotItem>
+                            <PivotItem headerText="My Profile">
+                                <img src={previewMyProfile} alt="My Profile" />
+                            </PivotItem>
+                        </Pivot>
+                    </div>
                 </div>
 
                 <label className="hint-label">
@@ -69,9 +75,9 @@ export class HomeComponent extends React.Component {
                 <img src={groupImageTwo} className="group-image-two" alt="Group of people" />
 
                 {/**** bottom section ****/}
-                <div className="bottom-section">
+                <div ref={this.faqRef} className="bottom-section">
                     <label className="questions-form-label">
-                        Questions you might have…
+                        FAQ…
                     </label>
                     <div className="question-form">
                         <p>What is it? — It’s a website where you can meet other swingers.</p>

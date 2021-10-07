@@ -1,7 +1,7 @@
 import React from "react";
 import { Dialog } from '@fluentui/react/lib/Dialog';
 import { TextField } from '@fluentui/react/lib/TextField';
-import { ActionButton } from '@fluentui/react/lib/Button';
+import { DefaultButton } from '@fluentui/react/lib/Button';
 import { inputStyles } from "../app-consts/input-consts";
 import { dialogContentProps, modalProps } from "../app-consts/modal-consts";
 
@@ -9,7 +9,8 @@ const initialState = {
     hideDialog: true,
     email: String(),
     city: String(),
-    isSubmitted: false
+    isSubmitted: false,
+    isValid: false
 }
 
 export class JoinWaitlistDialogComponent extends React.Component<any, any> {
@@ -18,6 +19,7 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
         this.onFinished = this.onFinished.bind(this);
+        this.validate = this.validate.bind(this);
         this.state = initialState; // Initialize state
     }
 
@@ -42,6 +44,10 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
         event.preventDefault();
     }
 
+    validate() {
+        this.setState({ isValid: this.state.city && /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.email) })
+    }
+
     render() {
         return <>
             {/**** Join waitlist dialog. ****/}
@@ -57,9 +63,9 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
                 </label><br />
 
                 <form onSubmit={this.onFinished} autoComplete="off">
-                    <TextField autoComplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="email" required={true} placeholder="Email" styles={inputStyles} onChange={(email) => { this.setState({ email: email.currentTarget.value }) }} />
-                    <TextField autoComplete="off" pattern="^[A-Za-z -]+$" required={true} placeholder="City" styles={inputStyles} onChange={(city) => { this.setState({ city: city.currentTarget.value }) }} />
-                    <ActionButton hidden={this.state.isSubmitted} type="submit" className="join-button">Join waitlist </ActionButton>
+                    <TextField autoComplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="email" required={true} placeholder="Email" styles={inputStyles} onChange={(email) => { this.setState({ email: email.currentTarget.value }, () => { this.validate(); }) }} />
+                    <TextField autoComplete="off" pattern="^[A-Za-z -]+$" required={true} placeholder="City" styles={inputStyles} onChange={(city) => { this.setState({ city: city.currentTarget.value }, () => { this.validate(); }) }} />
+                    <DefaultButton hidden={this.state.isSubmitted} type="submit" className={"join-button " + (this.state.isValid ? "isvalid" : "")}>Join waitlist </DefaultButton>
                 </form>
 
                 {this.state.isSubmitted ? <label className="dialog-label">

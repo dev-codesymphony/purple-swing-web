@@ -33,8 +33,8 @@
 /* Fonts */
 
 @font-face {
-  font-family: 'HelveticaNeueBold';
-  src: local('HelveticaNeueBold'), url(./assets/fonts/HelveticaNeue-Bold.otf) format('opentype');
+  font-family: 'Helvetica-Bold';
+  src: local('Helvetica-Bold'), url(./assets/fonts/Helvetica-Bold.ttf) format('opentype');
 }
 
 body {
@@ -74,7 +74,7 @@ code {
 }
 
 .app-header {
-  padding: 28px;
+  padding: 10px 28px;
   max-width: 1920px;
   margin: 0 auto;
   background: white;
@@ -120,6 +120,16 @@ code {
 
 /* home css */
 
+.join-button.isvalid {
+  color: #5640FB;
+  border: 3px solid #5640FB;
+}
+
+.join-button.isvalid:hover, .join-button.isvalid:active {
+  color: #5640FB;
+  background-color: white;
+}
+
 .ms-Button {
   color: black;
 }
@@ -160,8 +170,8 @@ code {
 }
 
 .app-container .first-section {
-  min-height: 920px;
-  margin-top: 256px;
+  min-height: 800px;
+  margin-top: 228px;
 }
 
 .sample-preview {
@@ -192,7 +202,7 @@ code {
 }
 
 .question-form {
-  margin-top: 100px !important;
+  margin-top: 65px !important;
   display: block;
   margin: 0 auto;
 }
@@ -200,7 +210,7 @@ code {
 .question-form p {
   /* font-weight: 400; */
   font-size: 30px;
-  margin-bottom: 120px;
+  margin-bottom: 80px;
   color: black;
 }
 
@@ -226,7 +236,7 @@ code {
   height: 25px;
   line-height: 2.3;
   margin-right: 20px;
-  font-family: "HelveticaNeueBold"!important;
+  font-family: "Helvetica-Bold"!important;
   border-radius: 15px;
   padding-left: 12px;
   padding-right: 12px;
@@ -246,7 +256,7 @@ code {
 
 /* Modal css */
 
-.join-waitlist-dialog input {
+.join-waitlist-dialog input, .join-waitlist-dialog input::placeholder {
   font-family: "ModernEraBold" !important;
   color: #B6B6B6;
 }
@@ -260,7 +270,7 @@ code {
 }
 
 .dialog-title {
-  font-size: 45px;
+  font-size: 35px;
   /* font-weight: bold; */
   margin-bottom: 50px;
   font-family: "ModernEraBold" !important;
@@ -278,9 +288,21 @@ code {
 }
 
 .join-button {
-  font-size: 30px;
-  font-family: "ModernEraBold" !important;
-  color: #B6B6B6;
+  color: #7C7C7C;
+  border: 3px solid #7C7C7C;
+  border-radius: 30px;
+  font-family: "ModernEraExtraBold"!important;
+  font-size: 18px;
+  height: 41px;
+  /* width: 154px; */
+  /* font-size: 30px; */
+  /* font-family: "ModernEraBold" !important; */
+  /* color: #B6B6B6; */
+}
+
+.join-button:active, .join-button:hover {
+  color: #7C7C7C;
+  background-color: white;
 }
 
 .ms-Dialog-button--close i {
@@ -307,8 +329,9 @@ code {
 }
 
 .mid-section-title {
-  margin-bottom: 63px !important;
+  margin-bottom: 54px !important;
   margin-left: 117px;
+  margin-top: 120px;
 }
 
 .app-mobile-footer {
@@ -525,7 +548,7 @@ code {
     color: white !important;
   }
   .app-container .first-section {
-    min-height: 920px;
+    min-height: 800px;
     margin-top: 0;
     margin-left: -10px;
     margin-right: -10px;
@@ -582,7 +605,7 @@ code {
   .mobile-button-div {
     text-align: center;
   }
-  .mobile-button-div button {
+  .mobile-button-div button, .join-button {
     color: #5640FB;
     border: 3px solid #5640FB;
     border-radius: 30px;
@@ -593,7 +616,10 @@ code {
     margin-top: 41px;
     margin-bottom: 41px;
   }
-
+  .mobile-button-div button:hover, .mobile-button-div button:active, .join-button:hover, .join-button:active {
+    color: #5640FB;
+    background-color: white;
+  }
   .mobile-container .app-title {
     font-size: 17px;
     font-family: "ModernEraBlack"!important;

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1040" height="238" viewBox="0 0 1040 238">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1040" height="243" viewBox="0 0 1040 243">
   <defs>
     <clipPath id="clip-path">
       <rect width="594" height="150" fill="none"/>
@@ -12,9 +12,9 @@
     <linearGradient id="linear-gradient-3" x1="0.5" y1="1" x2="0.5" y2="0" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-4" x1="0.5" y1="1" x2="0.5" y2="0.001" xlink:href="#linear-gradient"/>
   </defs>
-  <g id="Group_96" data-name="Group 96" transform="translate(7690 -7558)">
+  <g id="Group_96" data-name="Group 96" transform="translate(7690 -7557)">
     <g id="Group_97" data-name="Group 97" transform="translate(-1 -825)">
-      <rect id="Rectangle_627" data-name="Rectangle 627" width="1040" height="238" rx="15" transform="translate(-7689 8383)" fill="#fff"/>
+      <rect id="Rectangle_627" data-name="Rectangle 627" width="1040" height="243" rx="15" transform="translate(-7689 8382)" fill="#fff"/>
     </g>
     <g id="Repeat_Grid_25" data-name="Repeat Grid 25" transform="translate(-7575 7574)" clip-path="url(#clip-path)">
       <g transform="translate(7585 -7577)">
@@ -95,10 +95,10 @@
       </g>
       <path id="Path_66" data-name="Path 66" d="M298.14,507.2s7.353-.181,6.84-2.715" transform="translate(-254.099 -365.67)" opacity="0.05"/>
     </g>
-    <text id="Couples" transform="translate(-7494 7754)" font-size="16" font-family="SFProText-Medium, SF Pro Text" font-weight="500"><tspan x="-31.504" y="0">Couples</tspan></text>
-    <text id="_25" data-name="25" transform="translate(-7494 7788)" fill="#6f6f6f" font-size="16" font-family="SFProText-Medium, SF Pro Text" font-weight="500"><tspan x="-10.016" y="0">25</tspan></text>
-    <text id="Single_Women" data-name="Single Women" transform="translate(-7288 7754)" font-size="16" font-family="SFProText-Medium, SF Pro Text" font-weight="500"><tspan x="-54.898" y="0">Single Women</tspan></text>
-    <text id="_14" data-name="14" transform="translate(-7288 7788)" fill="#6f6f6f" font-size="16" font-family="SFProText-Medium, SF Pro Text" font-weight="500"><tspan x="-9.121" y="0">14</tspan></text>
+    <text id="Couples" transform="translate(-7494 7754)" font-size="16" font-family="SegoeUI, Segoe UI"><tspan x="-28.387" y="0">Couples</tspan></text>
+    <text id="_25" data-name="25" transform="translate(-7494 7788)" fill="#6f6f6f" font-size="16" font-family="SegoeUI, Segoe UI"><tspan x="-8.625" y="0">25</tspan></text>
+    <text id="Single_Women" data-name="Single Women" transform="translate(-7288 7754)" font-size="16" font-family="SegoeUI, Segoe UI"><tspan x="-51.188" y="0">Single Women</tspan></text>
+    <text id="_14" data-name="14" transform="translate(-7288 7788)" fill="#6f6f6f" font-size="16" font-family="SegoeUI, Segoe UI"><tspan x="-8.625" y="0">14</tspan></text>
     <g id="Group_100" data-name="Group 100" transform="translate(-7430.727 7582.458)">
       <rect id="Rectangle_640" data-name="Rectangle 640" width="17.954" height="22.496" transform="translate(133.163 7.536)" fill="#2f2e41"/>
       <path id="Path_320" data-name="Path 320" d="M147.92,451.681l-2.448,9.053,4.081,3.018,1.088-.823,1.9-9.328Z" transform="translate(-29.583 -339.209)" fill="#ffb8b8"/>
