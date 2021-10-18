@@ -21,7 +21,7 @@ export class HeaderComponent extends React.Component<any, any> {
             <div className="app-header-main">
                 <div className="sticky-header">
                     <div className="app-header d-flex justify-content-between">
-                        <h4 className="app-title">The Purple Swing</h4>
+                        <a href="#" className="app-title">The Purple Swing</a>
                         <div className="button-panel">
                             <ActionButton onClick={() => { this.props?.howItWorksRef?.current?.scrollIntoView() }}>How it works</ActionButton>
                             <ActionButton onClick={() => { this.props?.faqRef?.current?.scrollIntoView() }}>FAQ</ActionButton>

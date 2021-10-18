@@ -40,8 +40,11 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
-
+#root{
+  overflow-x: hidden;
+}
 body, button, h1, h2, h3, h4, h5, p, label, input::placeholder, input {
   font-family: "ModernEraReguar" !important;
 }
@@ -70,12 +73,17 @@ code {
 
 .app-title {
   font-size: 30px;
-  /* font-weight: bold; */
+  text-decoration: none;
+  color: black;
 }
-
+.app-title:hover{
+  color:black ;
+}
 .app-header {
-  padding: 10px 28px;
-  max-width: 1920px;
+  padding: 0px 28px;
+  padding-top: 20px;
+  /* max-width: 1920px; */
+  max-width:1570px;
   margin: 0 auto;
   background: white;
   z-index: 5;
@@ -88,8 +96,13 @@ code {
 }
 
 .button-panel button:hover {
-  color: #5640FB;
+  color: #5640FB!important;
   background-color: white;
+  /* border-color: #5640FB!important; */
+}
+
+.button-panel .ms-Button--default:hover {
+  border: 3px solid #5640FB;
 }
 
 .button-panel .ms-Button--default {
@@ -115,18 +128,18 @@ code {
 }
 
 .app-footer .ms-Button:hover {
-  color: #5640FB;
+  color: #5640FB!important;
 }
 
 /* home css */
 
 .join-button.isvalid {
-  color: #5640FB;
-  border: 3px solid #5640FB;
+  color: #5640FB!important;
+  border: 3px solid #5640FB!important;
 }
 
 .join-button.isvalid:hover, .join-button.isvalid:active {
-  color: #5640FB;
+  color: #5640FB!important;
   background-color: white;
 }
 
@@ -135,9 +148,11 @@ code {
 }
 
 .home-title {
-  font-size: 97px;
+  /* font-size: 97px; */
+  font-size: 73px;
   font-weight: bolder;
   color: black;
+margin-left: 71px;
 }
 
 .first-section .home-title, .home-title.mid-section-title {
@@ -161,17 +176,21 @@ code {
 } */
 
 .group-image-one {
-  width: 1177px;
-  height: 534px;
-  position: absolute;
-  right: 0;
-  margin-top: -112px;
-  margin-right: 62.4px;
+    /* width: 1177px; */
+    width: 809px;
+    /* height: 534px; */
+    position: absolute;
+    right: -82px;
+    bottom: 26px;
 }
-
+.inner-110{
+  padding: 50px 50px 120px 50px !important;
+}
 .app-container .first-section {
-  min-height: 800px;
-  margin-top: 228px;
+  position: relative;
+  min-height: 620px;
+  /* margin-top: 228px; */
+  margin-top: 114px;
 }
 
 .sample-preview {
@@ -189,13 +208,15 @@ code {
 }
 
 .group-image-two {
+  width: 100%;
   display: block;
   margin: 0 auto;
   margin-top: 128px;
 }
 
 .questions-form-label {
-  font-size: 97px;
+  /* font-size: 97px; */
+  font-size: 73px;
   /* font-weight: 400; */
   margin-top: 122px;
   color: black;
@@ -221,7 +242,7 @@ code {
   border-radius: 10px;
   display: block;
   margin: 0 auto;
-  margin-top: 56px;
+  margin-top: 62px;
   text-align: center;
 }
 
@@ -256,6 +277,19 @@ code {
 
 /* Modal css */
 
+.Toastify__progress-bar--success {
+  background: #5640FB!important;
+}
+
+.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: #5640FB!important;
+}
+
+.ms-Dialog-button--close {
+  top: -8px;
+  right: -8px;
+}
+
 .join-waitlist-dialog input, .join-waitlist-dialog input::placeholder {
   font-family: "ModernEraBold" !important;
   color: #B6B6B6;
@@ -288,8 +322,9 @@ code {
 }
 
 .join-button {
-  color: #7C7C7C;
-  border: 3px solid #7C7C7C;
+  color: #b6b6b6;
+  /* border: 3px solid #7sC7C7C; */
+  border: none;
   border-radius: 30px;
   font-family: "ModernEraExtraBold"!important;
   font-size: 18px;
@@ -311,48 +346,40 @@ code {
 }
 
 .app-container {
-  width: 1389px !important;
+  width: 1200px !important;
+  max-width: 1200px !important;
+  /* overflow-x: hidden; */
 }
 
 .join-waitlist {
   display: none;
 }
 
-.ms-Modal.is-open .ms-Overlay.ms-Overlay--dark, body.css-0 #root {
+.ms-Modal.is-open .ms-Overlay.ms-Overlay--dark, body #root.is-dialog-open {
   -webkit-filter: blur(10px);
   -moz-filter: blur(10px);
   -o-filter: blur(10px);
   -ms-filter: blur(10px);
   filter: blur(10px);
   background-color: rgb(255 255 255 / 40%);
-  ;
 }
 
 .mid-section-title {
-  margin-bottom: 54px !important;
-  margin-left: 117px;
+  /* margin-bottom: 54px !important; */
+  margin-left: 0px;
   margin-top: 120px;
 }
 
 .app-mobile-footer {
-  max-width: 1920px;
+  /* max-width: 1920px; */
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-@media (min-width: 1921px) {
-  .app-container {
-    max-width: 1920px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .group-image-one {
-    margin-right: auto;
-  }
-}
 
 /* tablet css */
 
-@media (min-width: 390px) and (max-width: 1450px) {
+/* @media (min-width: 390px) and (max-width: 1024px) {
   .mid-section-title {
     margin-left: auto;
   }
@@ -370,7 +397,7 @@ code {
     overflow: hidden;
   }
   .app-container .first-section {
-    min-height: 600px;
+    min-height: 400px;
     margin-top: 156px;
   }
   .preview-section button {
@@ -385,8 +412,65 @@ code {
     margin-top: 0px;
   }
   .home-title {
-    font-size: 55px;
     margin-bottom: -40px;
+  }
+} */
+
+
+.ms-Dialog-main{
+  max-width: 700px!important;
+  /* width: auto; */
+}
+.inner-110 {
+  padding: 50px 50px 60px 50px !important;
+}
+@media(max-width:1440px){
+  .home-title{
+    margin-left: 143px;
+  }
+}
+@media (max-width: 1345px) {
+  .group-image-one {
+    right: 0px!important;
+  }
+}
+@media (max-width: 1200px) {
+  .app-container {
+    width: 1000px !important;
+  }
+  .home-title{
+    font-size: 67px;
+  }
+  .group-image-one{
+    bottom: 0px;
+  }
+  .preview-section{
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .app-container {
+    width: 90% !important;
+  }
+  .home-title{
+    font-size: 58px;
+  }
+  .ms-Button.ms-Button--action {
+    display: none;
+  }
+}
+
+@media (max-width: 950px) {
+  .home-title{
+    font-size: 52px;
+  }
+  .group-image-one{
+    width: 100%;
+    position: static;
+  }
+  .app-container .first-section{
+    min-height: auto !important;
   }
 }
 
@@ -428,6 +512,15 @@ code {
   .app-container .first-section {
     margin-top: 114px;
   }
+  .home-title {
+  margin-left: 0px;
+  }
+  .group-image-two {
+    width: 88%;
+    /* display: block; */
+    margin: 0;
+    /* margin-top: 128px; */
+  }
 }
 
 @media (max-width: 1450px) {
@@ -440,23 +533,29 @@ code {
   .app-container {
     width: auto!important;
   }
+  .app-container .first-section {
+    min-height: 600px;
+  }
 }
 
 /* iPad (vertical) */
 
 @media (max-width: 768px) {
   .group-image-one {
-    width: 538px;
-    min-width: 538px;
-    margin-top: 60px;
+    /* width: 538px; */
+    /* min-width: 538px; */
+    margin-top: 10px;
   }
-  .group-image-two {
+  /* .group-image-two {
     width: 490.96px;
     min-width: 490.96px;
-  }
+  } */
   .preview-section {
     max-width: 657px;
     max-height: 534.73px;
+  }
+  .app-container .first-section {
+    min-height: 890px;
   }
 }
 
@@ -468,12 +567,16 @@ code {
   .app-container {
     width: 657px !important;
   }
+  .ms-Dialog-main{
+    max-width: 0!important;
+    min-width: 600px!important;
+  }
 }
 
 @media (max-width: 700px) {
-  .app-header.d-flex {
+  /* .app-header.d-flex {
     display: inherit!important;
-  }
+  } */
   .app-header .button-panel {
     text-align: right;
   }
@@ -485,31 +588,52 @@ code {
     margin-left: auto;
   }
   .join-waitlist-dialog .ms-Dialog-main {
-    max-width: unset!important;
-    min-width: 100%!important;
+    /* max-width: 600px!important; */
+    /* min-width: 40%!important; */
+  }
+  .ms-Dialog-main{
+    max-width: 00px!important;
+    /* width: auto; */
+    min-width: 500px!important;
   }
   .join-waitlist-dialog .ms-TextField-fieldGroup {
     width: 100%;
   }
+
 }
 
 @media (max-width: 600px) {
-  .group-image-two, .group-image-one {
+  /* .group-image-two, .group-image-one {
     width: 45vh!important;
     min-width: auto!important;
+  } */
+  .app-container .first-section {
+    min-height: 300px;
   }
 }
 
 @media (max-width: 445px) {
-  .group-image-two, .group-image-one {
+  /* .group-image-two, .group-image-one {
     width: 38vh!important;
     min-width: auto!important;
-  }
+  } */
 }
 
 /* mobile css */
 
-@media (orientation: landscape) and (max-width: 847px), (max-width: 390px) {
+
+
+@media (orientation: landscape) and (max-width: 847px) {
+  .join-mobile-footer {
+    text-align: left;
+    margin-top: 0;
+  }
+  .mobile-container .ms-TextField-fieldGroup {
+    width: 333px;
+    margin-bottom: 28px;
+  }
+}
+/* @media (orientation: landscape) and (max-width: 847px), (max-width: 576px) {
   .mobile-container {
     display: block;
   }
@@ -656,19 +780,108 @@ code {
     font-family: "ModernEraBold"!important;
     font-size: 20px;
   }
-}
-
-@media (orientation: landscape) and (max-width: 847px) {
-  .join-mobile-footer {
-    text-align: left;
-    margin-top: 0;
+} */
+@media(max-width:576px){
+  .mobile-container{
+    display: block;
+  }
+  .app-container{
+    display: none;
+  }
+  .app-footer{
+    display: none;
+  }
+    .join-waitlist {
+    margin: 0 auto;
+    display: block;
+    font-size: 20px;
+    background-color: transparent;
+    color: white;
+    border: 3px solid white;
+    border-radius: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 250px;
+    height: 47px;
+    width: 169px;
+    font-family: "ModernEraBold"!important;
+  }
+    .join-waitlist .ms-Button-label {
+    font-weight: bold;
+  }
+   .question-form {
+    max-width: 100% !important;
+  }
+  .question-form p, .questions-form-label {
+    overflow-wrap: break-word;
+    display: inline-block;
+  }
+  .mobile-container {
+    padding: 25px;
+    margin-top: 0px;
+  }
+  .mobile-button-div {
+    text-align: center;
+  }
+  .mobile-button-div button, .join-button {
+    color: #5640FB;
+    border: 3px solid #5640FB;
+    border-radius: 30px;
+    font-size: 18px;
+    font-family: "ModernEraExtraBold"!important;
+    width: 154px;
+    height: 41px;
+    margin-top: 41px;
+    margin-bottom: 41px;
+  }
+  .mobile-button-div button:hover, .mobile-button-div button:active, .join-button:hover, .join-button:active {
+    color: #5640FB;
+    background-color: white;
+  }
+  .mobile-container .app-title {
+    font-size: 17px;
+    font-family: "ModernEraBlack"!important;
+  }
+  .mobile-container .description {
+    font-size: 43px;
+    font-family: "ModernEraBlack"!important;
   }
   .mobile-container .ms-TextField-fieldGroup {
-    width: 333px;
-    margin-bottom: 28px;
+    width: auto;
+    background: #F4F4F4;
+    border: 0!important;
+    margin: 0px 0px 16px;
+    height: 45px;
+  }
+  .mobile-container form {
+    margin-top: 37px;
+  }
+  .mobile-container form .join-button {
+    color: #7C7C7C;
+    border: 3px solid #7C7C7C;
+    border-radius: 30px;
+    font-family: "ModernEraExtraBold"!important;
+    font-size: 18px;
+    height: 41px;
+    width: 154px;
+  }
+  .join-mobile-footer {
+    text-align: center;
+    margin-top: 41px;
+  }
+  .mobile-container .ms-TextField-fieldGroup input, .mobile-container .ms-TextField-fieldGroup input::placeholder {
+    color: #7C7C7C;
+    font-family: "ModernEraBold"!important;
+    font-size: 20px;
+  }
+  .ms-Dialog-main{
+    max-width: 0!important;
+    min-width: 345px!important;
+  }
+  .button-panel {
+    display: none;
   }
 }
-
 /* Registration */
 
 .step-button {
@@ -682,4 +895,22 @@ code {
 
 .registration-form .form-group {
   font-size: 39px;
+}
+@media(max-width:450px){
+  .dialog-title {
+    font-size: 27px;
+  }
+  .inner-110 {
+    padding: 20px 20px 60px 20px !important;
+}
+.ms-Dialog-main{
+  max-width: 0!important;
+  min-width: 300px!important;
+}
+
+}
+@media(max-width:400px){
+  .mobile-container .description {
+    font-size: 36px;
+  }
 }

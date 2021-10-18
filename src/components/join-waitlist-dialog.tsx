@@ -4,6 +4,7 @@ import { TextField } from '@fluentui/react/lib/TextField';
 import { DefaultButton } from '@fluentui/react/lib/Button';
 import { inputStyles } from "../app-consts/input-consts";
 import { dialogContentProps, modalProps } from "../app-consts/modal-consts";
+import { ToastContainer, toast } from 'react-toastify';
 
 const initialState = {
     hideDialog: true,
@@ -20,6 +21,8 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
         this.closeDialog = this.closeDialog.bind(this);
         this.onFinished = this.onFinished.bind(this);
         this.validate = this.validate.bind(this);
+        this.copyToClipboard = this.copyToClipboard.bind(this);
+        this.fallbackCopyTextToClipboard = this.fallbackCopyTextToClipboard.bind(this);
         this.state = initialState; // Initialize state
     }
 
@@ -28,12 +31,16 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
      */
     openDialog() {
         this.setState({ hideDialog: false });
+        document.getElementById("root")?.classList?.add("is-dialog-open");
     }
 
     /**
     * Close modal dialog.
     */
-    closeDialog() { this.setState(initialState) }
+    closeDialog() {
+        this.setState(initialState)
+        document.getElementById("root")?.classList?.remove("is-dialog-open");
+    }
 
     /**
      * Submit form.
@@ -47,6 +54,29 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
     validate() {
         this.setState({ isValid: this.state.city && /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.email) })
     }
+
+    copyToClipboard() {
+        if (navigator.clipboard) navigator.clipboard.writeText("http://thepurpleswing.com");
+        else this.fallbackCopyTextToClipboard()
+        toast.success("Copied to clipboard!");
+    }
+    fallbackCopyTextToClipboard() {
+        var textArea = document.createElement("textarea");
+        textArea.value = "http://thepurpleswing.com";
+
+        // Avoid scrolling to bottom
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+
 
     render() {
         return <>
@@ -70,8 +100,9 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
 
                 {this.state.isSubmitted ? <label className="dialog-label">
                     Awesome, you’re on the list! 🥳<br />
-                    <a href="/"><u>And here’s a link if you want to refer a friend.</u></a>
+                    <a href="javascript:;" onClick={this.copyToClipboard}><u>And here’s a link if you want to refer a friend.</u></a>
                 </label> : <></>}
+                <ToastContainer />
             </Dialog>
         </>
     }
