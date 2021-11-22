@@ -4,6 +4,7 @@ import { TextField } from '@fluentui/react/lib/TextField';
 import { DefaultButton } from '@fluentui/react/lib/Button';
 import { inputStyles } from "../app-consts/input-consts";
 import { dialogContentProps, modalProps } from "../app-consts/modal-consts";
+import { addContactToMailchimp } from "../network/api";
 
 const initialState = {
     hideDialog: true,
@@ -40,8 +41,17 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
      * @param event 
      */
     onFinished(event: any) {
-        this.setState({ isSubmitted: true })
         event.preventDefault();
+
+        (async () => {
+            try {
+                const result = await addContactToMailchimp(this.state.email)
+                console.log("coming", result)
+                this.setState({ isSubmitted: true })
+            } catch (error) {
+                console.log("error", error)
+            }
+        })();
     }
 
     validate() {
