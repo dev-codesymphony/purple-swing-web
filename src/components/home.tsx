@@ -48,20 +48,20 @@ export class HomeComponent extends React.Component {
                 </div>
 
                 {/**** mid section ****/}
-                <div ref={this.howItWorksRef} style={{ marginTop: 122 }}>
+                <div ref={this.howItWorksRef} style={{ marginTop: 0 }}>
                     <label className="home-title mid-section-title">How it works…</label>
                     <div className="preview-section">
-                        <Pivot>
-                            <PivotItem headerText="My Lists">
+                        <Pivot defaultSelectedKey={"1"}>
+                            <PivotItem headerText="My Lists" key="1">
                                 <img src={previewMyList} alt="My Lists" />
                             </PivotItem>
-                            <PivotItem headerText="Feed">
+                            <PivotItem headerText="Feed" key="2">
                                 <img src={previewFeed} alt="Feed" />
                             </PivotItem>
-                            <PivotItem headerText="Messages">
+                            <PivotItem headerText="Messages" key="3">
                                 <img src={previewMessages} alt="Messages" />
                             </PivotItem>
-                            <PivotItem headerText="My Profile">
+                            <PivotItem headerText="My Profile" key="4">
                                 <img src={previewMyProfile} alt="My Profile" />
                             </PivotItem>
                         </Pivot>
@@ -69,7 +69,7 @@ export class HomeComponent extends React.Component {
                 </div>
 
                 <label className="hint-label">
-                    *You can click on the different headers in the little screen above ⬆ to get a better idea of what the website is like;)
+                    *You can click on the different headers in the panel above ⬆ to get a better idea of what the website is like;)
                 </label>
                 <br />
                 <img src={groupImageTwo} className="group-image-two" alt="Group of people" />

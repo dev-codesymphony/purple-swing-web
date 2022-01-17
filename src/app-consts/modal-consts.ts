@@ -10,7 +10,7 @@ export const modalProps: IModalProps = {
         main: {
             maxWidth: "1023px!important",
             minWidth: "756px!important",
-            padding: "55px!important",
+            padding: "10px!important",
             paddingTop: "10px!important",
             borderRadius: "20px",
             color:"black"

@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:3050';
+// const BASE_URL = 'http://localhost:3050';
+const BASE_URL = 'https://api.thepurpleswing.com';
+// const BASE_URL = 'https://thepurpleswing.com:3050';
 
 export async function addContactToMailchimp (emailId:string) {
     try {
