@@ -51,7 +51,7 @@ export class MobileContainerComponent extends React.Component<any, any> {
                             {this.state.isValid ?
                                 <DefaultButton type="submit" text="Join waitlist" allowDisabledFocus onClick={() => this.setState({ joinWaitlist: true })} />
                                 :
-                                <DefaultButton type="button" className="join-button">Join waitlist </DefaultButton>
+                                <DefaultButton type="button" className="join-button">Join&nbsp;waitlist </DefaultButton>
                             }
                         </div></>}
                     </form>
