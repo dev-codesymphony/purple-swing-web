@@ -82,6 +82,7 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
         this.setState({ isValid: this.state.city && /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.email) })
     }
 
+
     copyToClipboard() {
         if (navigator.clipboard) navigator.clipboard.writeText("http://thepurpleswing.com");
         else this.fallbackCopyTextToClipboard()
@@ -115,14 +116,20 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
                 modalProps={modalProps}
                 className="join-waitlist-dialog"
             >
+                <div className="mobile-title">
+                    <h4>
+                        <a href="#" className="app-title">The Purple Swing</a>
+                    </h4>
+                </div>
                 <label className="dialog-title">
-                    We’re planning to launch sometime in late 2021. Enter your email and the city you live in below, and we’ll send you an invite as soon as we’re live!
+                   <p className="large-screen-text"> We’re planning to launch sometime in late 2021. Enter your email and the city you live in below, and we’ll send you an invite as soon as we’re live!</p>
+                   <p className="small-screen-text">👋 We’re planning to launch sometime in late 2021/early 2022. The first 2,000 people to sign up will receive a <span className="popup-text-color">premium lifetime membership for free</span> and a ‘Founding Member’ designation on their profile.</p>
                 </label><br />
 
                 <form onSubmit={this.onFinished} autoComplete="off">
                     <TextField autoComplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="email" required={true} placeholder="Email" styles={inputStyles} onChange={(email) => { this.setState({ email: email.currentTarget.value }, () => { this.validate(); }) }} />
-                    <TextField autoComplete="off" pattern="^[A-Za-z -]+$" required={true} placeholder="City" styles={inputStyles} onChange={(city) => { this.setState({ city: city.currentTarget.value }, () => { this.validate(); }) }} />
-                    {(this.state.errorMsg!="") ? <label className="dialog-label text-danger">{this.state.errorMsg}</label> : <></>}                
+                    
+                    <TextField autoComplete="off" required={true} placeholder="City" styles={inputStyles} onChange={(city) => { this.setState({ city: city.currentTarget.value }, () => { this.validate(); }) }} />
                     <DefaultButton hidden={this.state.isSubmitted} type="submit" className={"join-button " + (this.state.isValid ? "isvalid" : "")}>Join waitlist </DefaultButton>
                 </form>
 

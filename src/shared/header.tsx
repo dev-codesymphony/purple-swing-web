@@ -1,6 +1,7 @@
 import React from "react";
 import { ActionButton, DefaultButton } from '@fluentui/react/lib/Button';
 import { JoinWaitlistDialogComponent } from "../components/join-waitlist-dialog";
+import { Link } from "react-router-dom";
 
 export class HeaderComponent extends React.Component<any, any> {
     constructor(props: any) {
@@ -26,6 +27,7 @@ export class HeaderComponent extends React.Component<any, any> {
                             <ActionButton onClick={() => { this.props?.howItWorksRef?.current?.scrollIntoView() }}>How it works</ActionButton>
                             <ActionButton onClick={() => { this.props?.faqRef?.current?.scrollIntoView() }}>FAQ</ActionButton>
                             <DefaultButton text="Join waitlist" onClick={this.openDialog} allowDisabledFocus />
+                            <DefaultButton className="register-btn"><Link to={"/registration"}>Registration</Link></DefaultButton>
                         </div>
                     </div>
                 </div>

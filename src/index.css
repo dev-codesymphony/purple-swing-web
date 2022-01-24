@@ -220,10 +220,14 @@ code {
   margin-left: 50px;
   font-size: 25px;
 }
-
-.button-panel button:hover {
+.register-btn a{
+  text-decoration: none;
+  padding: 0 6px;
+  color: black;
+}
+.button-panel button:hover, .register-btn a:hover {
   color: #5640FB!important;
-  background-color: white;
+  background-color: transparent;
 }
 
 .button-panel .ms-Button--default:hover {
@@ -583,6 +587,9 @@ font-weight: bold;
   .registration-form .form-group{
     font-size: 32px;
   }
+  .button-panel button{
+    font-size: 22px;
+  }
 }
 /* iPad (horizontal) */
 
@@ -601,7 +608,7 @@ font-weight: bold;
     font-size: 22px;
   }
   .app-header .button-panel button {
-    font-size: 18px !important;
+    /* font-size: 18px !important; */
   }
   .button-panel .ms-Button--default {
     height: 37px;
@@ -640,6 +647,9 @@ font-weight: bold;
   }
 }
 @media screen and (max-width: 950px) {
+  .button-panel button {
+    margin-left: 15px;
+  }
   .home-title, .questions-form-label{
     font-size: 52px;
   }
@@ -719,6 +729,7 @@ font-weight: bold;
   .registration-form .country-code input{
     width: 100%;
   }
+  
   .add-more-div{
     margin-top: 0px;
   }
@@ -728,6 +739,9 @@ font-weight: bold;
 }
 
 @media (max-width: 576px){
+  .register-btn:hover a{
+    background-color: transparent !important;
+  }
   .registration-form .ms-Dropdown-title, .registration-form input, .registration-form .ms-Dropdown{
     width: 197px;
   }
@@ -880,7 +894,7 @@ font-weight: bold;
     margin-top: 150px!important;
   }
   .button-panel button {
-    margin-left: auto;
+    /* margin-left: auto; */
   }
   .ms-Dialog-main{
     max-width: auto !important;
@@ -939,7 +953,7 @@ font-weight: bold;
     display: block;
     margin-bottom: 5.5rem;
   }
-  .button-panel .ms-Button--default {
+  .button-panel .ms-Button--default, .button-panel .ms-Button--default a {
     border-radius: 4px!important;
     background-color: #5640FB;
     border: none;
@@ -960,6 +974,7 @@ font-weight: bold;
   }
   .app-header .button-panel button {
     font-size: 18px!important;
+    margin: 2px;
   }
   .button-panel .ms-Button--default {
     height: 35px;
