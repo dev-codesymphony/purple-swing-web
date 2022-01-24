@@ -16,6 +16,7 @@ export default function AppRouter() {
         <Route path="/registration">
           <RegistrationComponent />
         </Route>
+        
       </Switch>
     </Router>
   );

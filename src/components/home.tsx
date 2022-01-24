@@ -80,14 +80,17 @@ export class HomeComponent extends React.Component {
                         FAQ…
                     </label>
                     <div className="question-form">
-                        <p>What is it? — It’s a website where you can meet other swingers.</p>
-                        <p>Is it totally free?  — Yes</p>
-                        <p>What about privacy? Do you require face pictures? — No, we don’t. We’re open to to whatever level of transparency you’re open to. If you want to add photos of your face to your profile, that’s cool. And if not, that’s cool too. And yes, you can absolutely upload naked photos to your profile, a lot people do.</p>
-                        <p>Are most people on here couples or singles?</p>
-                        <p>Is there an app?</p>
+                        <p><span className="question-form-span"> How’s it different?</span> We’re not trying to reinvent the wheel. We really just want to give the swinger community a much better product than everything currently out there by combining our experience in swinging lifestyle with human-centric design and software engineering. </p>
+                        <p><span className="question-form-span">Can non-members see my profile?</span> No, only members can.</p>
+                        <p><span className="question-form-span">Is it totally free?</span> Yes, for now. We don’t think it’s fair to be asking anyone who does us a favour by using our platform in the early days to pay. So thank you to everyone who signs up for your support. We’re excited to grow this community with you! </p>
+                        <p><span className="question-form-span">Where are you located?</span> We’re based in Vancouver, Canada, but the platform is open to everyone across the world. </p>
+                        <p><span className="question-form-span">How do you deal with the problem of scammers/bots/‘time wasters’/dishonest users?</span> Two-factor authentication. Combining various metrics to help sort your feed, so the most sincere/serious users show up at the top. Encouraging users to report anything suspicious, harmful, etc.</p>
+                        <p><span className="question-form-span">Do you require real names or facial pictures?</span> No, we don’t require either. We’re open to to whatever level of transparency you’re open to. If you want to use your real name or add photos of your face to your profile, that’s cool. And if not, that’s cool too. And yes, you can absolutely add naked photos to your profile.</p>
+                        <p><span className="question-form-span">Is there an app?</span> Not yet, but there will be in hopefully not too long!</p>
                     </div>
                 </div>
             </div>
+
 
             <FooterComponent />
         </>

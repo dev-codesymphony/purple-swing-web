@@ -38,25 +38,150 @@
 }
 
 body {
-  -webkit-font-smoothing: antialiased;
+  /* -webkit-font-smoothing: antialiased; */
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 #root{
   overflow-x: hidden;
 }
-body, button, h1, h2, h3, h4, h5, p, label, input::placeholder, input {
-  font-family: "ModernEraReguar" !important;
+body {
+  font-family: "ModernEraReguar";
 }
-
+.css-0{
+  /* overflow: scroll !important; */
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
+.send-again-link{
+  margin-top: 30px;
+}
+.send-again-link a{
+  color: red;
+  font-size: 28px;
+}
+.step-number{
+  font-size: 23px;
+  position: absolute;
+  top: 25px;
+  right: 30px;
+}
 .mobile-container {
   display: none;
 }
+.mobile-title{
+  display: none;
+}
+.dd1 button, .dd1 button:hover, .dd1 button:focus{
+  height: 100%;
+  background: white;
+  border: 4px solid lightgray;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+.dd1 button:focus{
+  box-shadow: none !important;
+}
+.reg-link{
+  border: 3px solid black !important;
+  border-radius: 30px !important;
+  width: 300px !important;
+  font-size: 20px !important;
+  padding: 10px 0px !important;
+  margin: 7px 0px;
+}
+.registration-form .ms-Dropdown-title, .registration-form input{
+  border-radius: 34px!important;
+  border: 4px solid #D6D6D6;
+  height: 65px;
+  width: 500px;
+}
+.registration-form input{
+  padding:0px 20px;
+  color: #D6D6D6;
+}
+.registration-form input::placeholder{
+  color: #D6D6D6;
+}
+.registration-form .ms-Dropdown{
+  width: 500px;
+  height: auto;
+}
+.registration-form .ms-Dropdown:focus::after{
+  border: none;
+}
 
+.registration-form .country-code .ms-Dropdown, .registration-form .country-code .ms-Dropdown-title{
+  width: 125px;
+  text-align: left;
+  margin-right: 10px;
+}
+.registration-form .country-code input::-webkit-outer-spin-button,
+.registration-form .country-code input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.registration-form .form-group .country-code .ms-Dropdown-container{
+  padding: 0;
+}
+.phone-num span.reg-label{
+  margin-top: -180px;
+  margin-bottom: 60px;
+  padding: 0 13%;
+}
+.phone-otp span.reg-label, .email-id span.reg-label, .email-otp span.reg-label{
+  margin-bottom: 60px;
+  margin-top: -20px;
+}
+
+.bdy{
+  min-width: 50%;
+  text-align: right;
+}
+.awe-final{
+  font-size: 50px;
+  font-family: "ModernEraExtraBold"!important;
+  max-width: 1517px;
+}
+.add-more-div{
+  margin-top: 55px;
+}
+.add-more-div p{
+  text-align: center;
+}
+.add-more-div p a{
+  color: #D6D6D6;
+  font-size: 23px;
+  text-decoration: none;
+}
+.take-me button:hover{
+  color: #5640FB!important
+}
+.prof-setting{
+  color: black;
+  text-decoration: underline;
+}
+.prof-setting:hover{
+  color: black;
+}
+.registration-form .ms-Dropdown-caretDownWrapper{
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  height: 20px;
+  line-height: 1;
+}
+.awe-final{
+  color: black!important;
+}
+.opac{
+  opacity: 0;
+}
+.reg-label{
+  padding-right: 15px;
+}
 /* header | footer css */
 
 .sticky-header {
@@ -68,7 +193,11 @@ code {
 }
 
 .app-title, .button-panel button {
-  font-family: "ModernEraBold" !important;
+  font-family: "ModernEraBold" ;
+}
+
+.app-title:focus-visible{
+  outline: 0;
 }
 
 .app-title {
@@ -80,9 +209,7 @@ code {
   color:black ;
 }
 .app-header {
-  padding: 0px 28px;
-  padding-top: 20px;
-  /* max-width: 1920px; */
+  padding: 20px 28px;
   max-width:1570px;
   margin: 0 auto;
   background: white;
@@ -92,13 +219,15 @@ code {
 .button-panel button {
   margin-left: 50px;
   font-size: 25px;
-  /* font-weight: bold; */
 }
-
-.button-panel button:hover {
+.register-btn a{
+  text-decoration: none;
+  padding: 0 6px;
+  color: black;
+}
+.button-panel button:hover, .register-btn a:hover {
   color: #5640FB!important;
-  background-color: white;
-  /* border-color: #5640FB!important; */
+  background-color: transparent;
 }
 
 .button-panel .ms-Button--default:hover {
@@ -108,18 +237,13 @@ code {
 .button-panel .ms-Button--default {
   border-radius: 2rem;
   border: 3px solid;
-  padding: 15px;
-  height: 36px;
+  padding: 10px;
+  height: 45px;
 }
-
-/* .button-panel .ms-Button--default .ms-Button-label {
-  font-weight: bold !important;
-} */
 
 .app-footer {
   text-align: right;
-  padding: 1rem;
-  /* background: #5640FB; */
+  padding: 1.5rem;
 }
 
 .app-footer .ms-Button {
@@ -148,7 +272,6 @@ code {
 }
 
 .home-title {
-  /* font-size: 97px; */
   font-size: 73px;
   font-weight: bolder;
   color: black;
@@ -171,14 +294,8 @@ margin-left: 71px;
   color: #5640FB;
 }
 
-/* .app-container {
-  font-weight: bold;
-} */
-
 .group-image-one {
-    /* width: 1177px; */
     width: 809px;
-    /* height: 534px; */
     position: absolute;
     right: -82px;
     bottom: 26px;
@@ -189,7 +306,6 @@ margin-left: 71px;
 .app-container .first-section {
   position: relative;
   min-height: 620px;
-  /* margin-top: 228px; */
   margin-top: 114px;
 }
 
@@ -215,9 +331,7 @@ margin-left: 71px;
 }
 
 .questions-form-label {
-  /* font-size: 97px; */
   font-size: 73px;
-  /* font-weight: 400; */
   margin-top: 122px;
   color: black;
 }
@@ -229,26 +343,25 @@ margin-left: 71px;
 }
 
 .question-form p {
-  /* font-weight: 400; */
-  font-size: 30px;
+  font-size: 25px;
   margin-bottom: 80px;
   color: black;
 }
 
 .preview-section {
   width: 1040px;
-  height: 821px;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 10px;
   display: block;
   margin: 0 auto;
   margin-top: 62px;
   text-align: center;
+  height: 775px;
 }
 
 .ms-Pivot {
   margin-top: 21px;
-  margin-bottom: 29px;
+  margin-bottom: 10px;
 }
 
 .ms-Pivot .ms-Button {
@@ -291,7 +404,7 @@ margin-left: 71px;
 }
 
 .join-waitlist-dialog input, .join-waitlist-dialog input::placeholder {
-  font-family: "ModernEraBold" !important;
+  font-family: "ModernEraReguar" !important;
   color: #B6B6B6;
 }
 
@@ -305,14 +418,12 @@ margin-left: 71px;
 
 .dialog-title {
   font-size: 35px;
-  /* font-weight: bold; */
   margin-bottom: 50px;
   font-family: "ModernEraBold" !important;
 }
 
 .dialog-label {
   font-size: 30px;
-  /* font-weight: bold; */
   font-family: "ModernEraBold" !important;
   color: black;
 }
@@ -322,17 +433,12 @@ margin-left: 71px;
 }
 
 .join-button {
-  color: #b6b6b6;
-  /* border: 3px solid #7sC7C7C; */
+  color: #7c7c7c;
   border: none;
   border-radius: 30px;
   font-family: "ModernEraExtraBold"!important;
   font-size: 18px;
   height: 41px;
-  /* width: 154px; */
-  /* font-size: 30px; */
-  /* font-family: "ModernEraBold" !important; */
-  /* color: #B6B6B6; */
 }
 
 .join-button:active, .join-button:hover {
@@ -348,7 +454,6 @@ margin-left: 71px;
 .app-container {
   width: 1200px !important;
   max-width: 1200px !important;
-  /* overflow-x: hidden; */
 }
 
 .join-waitlist {
@@ -365,140 +470,149 @@ margin-left: 71px;
 }
 
 .mid-section-title {
-  /* margin-bottom: 54px !important; */
   margin-left: 0px;
   margin-top: 120px;
 }
 
 .app-mobile-footer {
-  /* max-width: 1920px; */
-  max-width: 1200px;
+  max-width: 1510px;
   margin: 0 auto;
 }
 
 
-/* tablet css */
 
-/* @media (min-width: 390px) and (max-width: 1024px) {
-  .mid-section-title {
-    margin-left: auto;
-  }
-  .app-header .button-panel:first {
-    margin-left: 0;
-  }
-  .app-container {
-    width: 877px !important;
-    margin: 0 auto;
-  }
-  .preview-section {
-    width: auto;
-    max-width: 1040px;
-    max-height: 624px;
-    overflow: hidden;
-  }
-  .app-container .first-section {
-    min-height: 400px;
-    margin-top: 156px;
-  }
-  .preview-section button {
-    font-size: 12px !important;
-  }
-  .group-image-one, .group-image-two {
-    width: 70vh;
-    height: auto;
-    min-width: 680px;
-  }
-  .group-image-one {
-    margin-top: 0px;
-  }
-  .home-title {
-    margin-bottom: -40px;
-  }
-} */
+
 
 
 .ms-Dialog-main{
   max-width: 700px!important;
-  /* width: auto; */
 }
 .inner-110 {
   padding: 50px 50px 60px 50px !important;
 }
-@media(max-width:1440px){
-  .home-title{
-    margin-left: 143px;
+
+
+.large-screen-text{
+font-weight: bold;
   }
+.small-screen-text{
+  display:none;
+  }
+
+.registration-form .ms-Dropdown-caretDownWrapper i {
+  font-size: 23px!important;
+  color: #D6D6D6!important;
+  font-weight: bolder!important;
 }
-@media (max-width: 1345px) {
+.blurOpac{
+  color: #D6D6D6;
+}
+/* Registration */
+
+.step-button {
+  font-size: 22px;
+  font-family: "ModernEraBold"!important;
+}
+.alignRight{
+  text-align: right;
+  margin-top: 170px;
+}
+.registration-form {
+  height: 100vh;
+  font-family: "ModernEraBold"!important;
+}
+
+.registration-form .form-group {
+  font-size: 39px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* @media screen and (max-width:1440px){ */
+  @media screen and (max-width :1439px){
+    .first-section {
+      position: relative;
+    }
+    .phone-num span.reg-label {
+      padding: 0 9%;
+    }
+  
+}
+@media screen and (max-width: 1345px) {
   .group-image-one {
     right: 0px!important;
   }
+  .home-title, .questions-form-label{
+    font-size: 72px;
+  }
+  .awe-final{
+    font-size: 42px;
+  }
+  .phone-num span.reg-label {
+    padding: 0 6%;
+  }
 }
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   .app-container {
     width: 1000px !important;
   }
-  .home-title{
-    font-size: 67px;
+  .home-title, .questions-form-label{
+    font-size: 64px;
   }
   .group-image-one{
     bottom: 0px;
   }
   .preview-section{
     width: 100%;
+    height: 730px;
+  }
+  .registration-form .form-group{
+    font-size: 35px;
+  }
+  .reg-label{
+    padding-left: 40px;
+  }
+  .registration-form .form-group .ms-Dropdown-container{
+    padding-right: 40px;
+  }
+  .registration-form .ms-Dropdown-title, .registration-form input, .registration-form .ms-Dropdown{
+    width: 350px;
+  }
+  .awe-final{
+    font-size: 39px;
   }
 }
+@media  (max-width:1095px) {
+  .registration-form .form-group{
+    font-size: 32px;
+  }
+  .button-panel button{
+    font-size: 22px;
+  }
+}
+/* iPad (horizontal) */
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .app-container {
     width: 90% !important;
   }
-  .home-title{
+  .home-title, .questions-form-label{
     font-size: 58px;
   }
-  .ms-Button.ms-Button--action {
-    display: none;
-  }
-}
-
-@media (max-width: 950px) {
-  .home-title{
-    font-size: 52px;
-  }
-  .group-image-one{
-    width: 100%;
-    position: static;
-  }
-  .app-container .first-section{
-    min-height: auto !important;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 905px) {
-  .app-header .button-panel button {
-    font-size: 20px !important;
-  }
-  .app-title {
-    font-size: 22px !important;
-  }
-}
-
-/* iPad (horizontal) */
-
-@media (max-width: 1024px) {
   .preview-section {
     max-width: 828px;
-    max-height: 670.38px;
+    height: 630px;
   }
   .app-title {
     font-size: 22px;
   }
   .app-header .button-panel button {
-    font-size: 18px !important;
+    /* font-size: 18px !important; */
   }
   .button-panel .ms-Button--default {
-    height: 30px;
-    padding: 10px;
+    height: 37px;
+    padding:5px;
   }
   .hint-label {
     font-size: 17px;
@@ -517,66 +631,261 @@ margin-left: 71px;
   }
   .group-image-two {
     width: 88%;
-    /* display: block; */
     margin: 0;
-    /* margin-top: 128px; */
+  }
+  .reg-label {
+    padding-left: 65px;
+  }
+  .registration-form .form-group .ms-Dropdown-container {
+    padding-right: 65px;
+  }
+  .awe-final{
+    font-size: 36px;
+  }
+  .phone-num span.reg-label {
+    padding: 0%;
+  }
+}
+@media screen and (max-width: 950px) {
+  .button-panel button {
+    margin-left: 15px;
+  }
+  .home-title, .questions-form-label{
+    font-size: 52px;
+  }
+  .group-image-one{
+    width: 100%;
+    position: static;
+  }
+  .app-container .first-section{
+    min-height: auto !important;
+  }
+  .preview-section{
+    max-height: 630px;
+  }
+  .registration-form .ms-Dropdown-title, .registration-form input, .registration-form .ms-Dropdown{
+    width: 300px;
+    margin: auto;
+  }
+  .registration-form input, .registration-form .ms-Dropdown span{
+    font-size: 24px;
+  }
+  .reg-label {
+    padding-left: 30px;
+    width: 40%;
+  }
+  .phone-num .reg-label, .phone-otp .reg-label, .email-id .reg-label, .email-otp .reg-label{
+    width: 100%;
+  }
+  .registration-form .form-group .ms-Dropdown-container {
+    padding-right: 30px;
+  }
+  .bdy .reg-label{
+    padding-right: 0px;
+  }
+  .bdy{
+    padding-right: 15px;
+  }
+  .registration-form .form-group{
+    font-size: 33px;
+  }
+  .awe-final{
+    font-size: 31px;
+  }
+  .phone-num span.reg-label{
+    margin-top: 0;
   }
 }
 
-@media (max-width: 1450px) {
-  .first-section {
-    position: relative;
+@media (max-width: 768px){
+  .registration-form .form-group{
+    display: block!important;
+    font-size: 30px;
+    text-align: center;
+  }
+  .registration-form .phone-otp.form-group, .email-id.form-group, .email-otp.form-group{
+    display: flex !important;
+  }
+  .registration-form .form-group .bdy{
+    text-align: center!important;
+  }
+  .registration-form .ms-Dropdown .ms-Dropdown-title{
+    width: 100%;
+  }
+  .reg-label {
+    padding: 10px;
+    width: 100%;
+  }
+  .registration-form .form-group .ms-Dropdown-container {
+    padding: 10px;
+    text-align: left;
+  }
+  .awe-final{
+    font-size: 25px!important;
+  }
+  .country-code{
+    margin-top: 50px;
+  }
+  .registration-form .country-code input{
+    width: 100%;
+  }
+  
+  .add-more-div{
+    margin-top: 0px;
+  }
+  .add-more-div p a{
+    font-size: 20px;
   }
 }
 
-@media (max-width: 877px) {
+@media (max-width: 576px){
+  .register-btn:hover a{
+    background-color: transparent !important;
+  }
+  .registration-form .ms-Dropdown-title, .registration-form input, .registration-form .ms-Dropdown{
+    width: 197px;
+  }
+  .registration-form .ms-Dropdown-title, .registration-form input{
+    height: 55px;
+    border: 3px solid #D6D6D6;
+    line-height: 21px;
+  }
+  .registration-form .step-button i{
+    font-size: 15px;
+    height: 15px;
+    width: 15px;
+    margin: 2px;
+  }
+  .registration-form .form-group{
+    font-size: 23px;
+  }
+  .registration-form .ms-Dropdown-caretDownWrapper{
+    right: 10px;
+    height: 14px;
+  }
+  .registration-form input, .registration-form .ms-Dropdown span{
+    font-size: 16px;
+  }
+  .registration-form .ms-Dropdown-caretDownWrapper i{
+    font-size: 13px !important;
+  }
+  .registration-form .step-button{
+    font-size: 17px;
+    padding: 0;
+  }
+  .registration-form .step-button span{
+    align-items: normal;
+  }
+  .awe-final{
+    font-size: 20px!important;
+  }
+  .reg-label{
+    padding: 10px;
+  }
+  .registration-form .form-group .ms-Dropdown-container{
+    padding: 10px 0;
+  }
+  .registration-form .ms-Dropdown .ms-Dropdown-title{
+    width: 197px;
+  }
+  .registration-form .country-code input{
+    width: 250px;
+  }
+  .registration-form .country-code .ms-Dropdown, .registration-form .country-code .ms-Dropdown-title{
+    width: 100px;
+    margin:10px auto;
+  }
+  .phone-otp span.reg-label, .email-id span.reg-label, .email-otp span.reg-label{
+    margin-bottom: 30px;
+  }
+  .country-code{
+    margin-top: 30px;
+  }
+  .send-again-link a {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 425px){
+  .registration-form input{
+    padding: 10px 20px;
+  }
+  .registration-form .country-code input{
+    width: 100%;
+  }
+  .reg-link{
+    width: 85% !important;
+    padding: 10px !important;
+  }
+}
+
+@media screen and (max-width:905px){
+  .app-header .button-panel button {
+    font-size: 20px !important;
+  }
+  .app-title {
+    font-size: 22px !important;
+  }
+  .preview-section{
+    max-height: 600px;
+  }
+}
+
+
+@media screen and (max-width: 877px) {
   .app-container {
-    width: auto!important;
+    padding: 0 30px !important;
   }
   .app-container .first-section {
     min-height: 600px;
   }
+  .preview-section{
+    height: 545px;
+    border-width: 2px;
+  }
+  .preview-section img{
+    height: auto !important;
+    width: 100%;
+  }
 }
+
+
+
 
 /* iPad (vertical) */
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .group-image-one {
-    /* width: 538px; */
-    /* min-width: 538px; */
     margin-top: 10px;
   }
-  /* .group-image-two {
-    width: 490.96px;
-    min-width: 490.96px;
-  } */
   .preview-section {
     max-width: 657px;
-    max-height: 534.73px;
+    height: 500px;
   }
   .app-container .first-section {
     min-height: 890px;
   }
-}
 
-@media (min-width: 700px) and (max-width: 768px) {
   .container-fluid.app-container {
     padding-left: unset;
     padding-right: unset;
-  }
-  .app-container {
-    width: 657px !important;
   }
   .ms-Dialog-main{
     max-width: 0!important;
     min-width: 600px!important;
   }
+   .app-mobile-footer .ms-Button.ms-Button--action.ms-Button--command {
+    display:block;
+    margin: auto;
+    color: #5640FB;
+
+  }
+  .button-panel .ms-Button.ms-Button--action.ms-Button--command {
+    display:none !important;
+  }
 }
 
-@media (max-width: 700px) {
-  /* .app-header.d-flex {
-    display: inherit!important;
-  } */
+@media screen and (max-width: 700px) {
   .app-header .button-panel {
     text-align: right;
   }
@@ -585,45 +894,48 @@ margin-left: 71px;
     margin-top: 150px!important;
   }
   .button-panel button {
-    margin-left: auto;
-  }
-  .join-waitlist-dialog .ms-Dialog-main {
-    /* max-width: 600px!important; */
-    /* min-width: 40%!important; */
+    /* margin-left: auto; */
   }
   .ms-Dialog-main{
-    max-width: 00px!important;
-    /* width: auto; */
-    min-width: 500px!important;
+    max-width: auto !important;
+    min-width: 500px !important;
   }
   .join-waitlist-dialog .ms-TextField-fieldGroup {
     width: 100%;
   }
 
 }
-
-@media (max-width: 600px) {
-  /* .group-image-two, .group-image-one {
-    width: 45vh!important;
-    min-width: auto!important;
-  } */
+/* @media screen and (max-width:639px){
+  .ms-Panel-main{
+    position: absolute !important;
+    top: 58%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: auto;
+    max-height: 216px;
+    width: 283px;
+  }
+  .ms-Panel-commands, .ms-Panel-content, .ms-Panel-contentInner{
+    padding: 0px;
+  }
+} */
+@media screen and (max-width: 600px) {
   .app-container .first-section {
     min-height: 300px;
   }
+  .preview-section{
+    height: 430px;
+    
+  }
 }
 
-@media (max-width: 445px) {
-  /* .group-image-two, .group-image-one {
-    width: 38vh!important;
-    min-width: auto!important;
-  } */
-}
+
 
 /* mobile css */
 
 
 
-@media (orientation: landscape) and (max-width: 847px) {
+@media (orientation: landscape) and (max-device-width: 812px) {
   .join-mobile-footer {
     text-align: left;
     margin-top: 0;
@@ -633,284 +945,155 @@ margin-left: 71px;
     margin-bottom: 28px;
   }
 }
-/* @media (orientation: landscape) and (max-width: 847px), (max-width: 576px) {
-  .mobile-container {
+@media screen and (max-width: 576px){
+  .join-waitlist-dialog .ms-Dialog-header.ms-Dialog--close {
+    display: none;
+  }
+  .mobile-title{
     display: block;
+    margin-bottom: 5.5rem;
   }
-  .join-waitlist {
-    display: block;
-  }
-  .app-container {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding-left: unset!important;
-    padding-right: unset!important;
-  }
-  .group-image-one, .preview-section, .hint-label, .group-image-two, .app-header-main, .mid-section-title, .app-container, .app-footer {
-    display: none !important;
-  }
-  .join-waitlist {
-    margin: 0 auto;
-    display: block;
-    font-size: 20px;
-    background-color: transparent;
-    color: white;
-    border: 3px solid white;
-    border-radius: 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-top: 250px;
-    height: 47px;
-    width: 169px;
-    font-family: "ModernEraBold"!important;
-  }
-  .join-waitlist .ms-Button-label {
-    font-weight: bold;
-  }
-  .first-section, .first-section .title-highlight {
+  .button-panel .ms-Button--default, .button-panel .ms-Button--default a {
+    border-radius: 4px!important;
     background-color: #5640FB;
-    color: white !important;
-  }
-  .app-container .first-section {
-    min-height: 800px;
-    margin-top: 0;
-    margin-left: -10px;
-    margin-right: -10px;
-    padding-left: 22px;
-    padding-right: 22px;
-    padding-top: 220px;
-    padding-bottom: 132px;
-  }
-  .app-footer {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-  }
-  .app-mobile-footer {
-    width: 200px;
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-  .app-mobile-footer button {
-    margin-bottom: 27px;
-  }
-  .app-mobile-footer button:last-child {
-    margin-bottom: 0;
-  }
-  .question-form {
-    max-width: 100% !important;
-  }
-  .question-form p, .questions-form-label {
-    overflow-wrap: break-word;
-    display: inline-block;
-  }
-  .app-container {
-    width: auto !important;
-  }
-  .questions-form-label {
-    font-size: 55px;
-  }
-  .home-title {
-    font-size: 40px;
+    border: none;
     color: white;
-    font-family: "ModernEraBold"!important;
+    
   }
-  .bottom-section {
-    padding-left: 25px;
-    padding-right: 25px;
+  .large-screen-text{
+  display: none;
   }
-  .app-footer {
-    padding: 0;
+  .small-screen-text{
+  display: block;
+  font-family:'ModernEraBold' !important;
+  font-weight: bold;
+  -webkit-font-smoothing: subpixel-antialiased;
   }
-  .mobile-container {
-    padding: 25px;
-    margin-top: 0px;
-  }
-  .mobile-button-div {
-    text-align: center;
-  }
-  .mobile-button-div button, .join-button {
+  .popup-text-color{
     color: #5640FB;
-    border: 3px solid #5640FB;
-    border-radius: 30px;
-    font-size: 18px;
-    font-family: "ModernEraExtraBold"!important;
-    width: 154px;
-    height: 41px;
-    margin-top: 41px;
-    margin-bottom: 41px;
   }
-  .mobile-button-div button:hover, .mobile-button-div button:active, .join-button:hover, .join-button:active {
-    color: #5640FB;
-    background-color: white;
+  .app-header .button-panel button {
+    font-size: 18px!important;
+    margin: 2px;
   }
-  .mobile-container .app-title {
-    font-size: 17px;
-    font-family: "ModernEraBlack"!important;
+  .button-panel .ms-Button--default {
+    height: 35px;
   }
-  .mobile-container .description {
-    font-size: 45px;
-    font-family: "ModernEraBlack"!important;
+  .home-title, .questions-form-label{
+    font-size: 40px!important;
   }
-  .mobile-container .ms-TextField-fieldGroup {
-    width: auto;
-    background: #F4F4F4;
-    border: 0!important;
-    margin: 0px 0px 16px;
-    height: 45px;
+  .app-header .ms-Button-textContainer .ms-Button-label{
+    padding: 0 2px!important;
   }
-  .mobile-container form {
-    margin-top: 37px;
-  }
-  .mobile-container form .join-button {
-    color: #7C7C7C;
-    border: 3px solid #7C7C7C;
-    border-radius: 30px;
-    font-family: "ModernEraExtraBold"!important;
-    font-size: 18px;
-    height: 41px;
-    width: 154px;
-  }
-  .join-mobile-footer {
-    text-align: center;
-    margin-top: 41px;
-  }
-  .mobile-container .ms-TextField-fieldGroup input, .mobile-container .ms-TextField-fieldGroup input::placeholder {
-    color: #7C7C7C;
-    font-family: "ModernEraBold"!important;
-    font-size: 20px;
-  }
-} */
-@media(max-width:576px){
-  .mobile-container{
-    display: block;
-  }
-  .app-container{
-    display: none;
-  }
-  .app-footer{
-    display: none;
-  }
-    .join-waitlist {
-    margin: 0 auto;
-    display: block;
-    font-size: 20px;
-    background-color: transparent;
-    color: white;
-    border: 3px solid white;
-    border-radius: 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-top: 250px;
-    height: 47px;
-    width: 169px;
-    font-family: "ModernEraBold"!important;
-  }
-    .join-waitlist .ms-Button-label {
-    font-weight: bold;
-  }
-   .question-form {
-    max-width: 100% !important;
-  }
-  .question-form p, .questions-form-label {
-    overflow-wrap: break-word;
-    display: inline-block;
-  }
-  .mobile-container {
-    padding: 25px;
-    margin-top: 0px;
-  }
-  .mobile-button-div {
-    text-align: center;
-  }
-  .mobile-button-div button, .join-button {
-    color: #5640FB;
-    border: 3px solid #5640FB;
-    border-radius: 30px;
-    font-size: 18px;
-    font-family: "ModernEraExtraBold"!important;
-    width: 154px;
-    height: 41px;
-    margin-top: 41px;
-    margin-bottom: 41px;
-  }
-  .mobile-button-div button:hover, .mobile-button-div button:active, .join-button:hover, .join-button:active {
-    color: #5640FB;
-    background-color: white;
-  }
-  .mobile-container .app-title {
-    font-size: 17px;
-    font-family: "ModernEraBlack"!important;
-  }
-  .mobile-container .description {
-    font-size: 43px;
-    font-family: "ModernEraBlack"!important;
-  }
-  .mobile-container .ms-TextField-fieldGroup {
-    width: auto;
-    background: #F4F4F4;
-    border: 0!important;
-    margin: 0px 0px 16px;
-    height: 45px;
-  }
-  .mobile-container form {
-    margin-top: 37px;
-  }
-  .mobile-container form .join-button {
-    color: #7C7C7C;
-    border: 3px solid #7C7C7C;
-    border-radius: 30px;
-    font-family: "ModernEraExtraBold"!important;
-    font-size: 18px;
-    height: 41px;
-    width: 154px;
-  }
-  .join-mobile-footer {
-    text-align: center;
-    margin-top: 41px;
-  }
-  .mobile-container .ms-TextField-fieldGroup input, .mobile-container .ms-TextField-fieldGroup input::placeholder {
-    color: #7C7C7C;
-    font-family: "ModernEraBold"!important;
-    font-size: 20px;
+  .dialog-title {
+    font-size: 22px;
+    line-height: 1.3;
+    margin-bottom: 25px;
   }
   .ms-Dialog-main{
-    max-width: 0!important;
-    min-width: 345px!important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    height: 100% !important;
+    max-height:100%;
+    border-radius: 0px;
+    padding-bottom: 0px !important;
   }
-  .button-panel {
-    display: none;
+  .join-waitlist-dialog input, .join-waitlist-dialog input::placeholder{
+    color: #7C7C7C;
+    background-color: #f4f4f4;
+    border: none;
+    font-size: 20px;
   }
-}
-/* Registration */
-
-.step-button {
-  font-size: 23px;
-}
-
-.registration-form {
-  height: 100vh;
-  font-family: "ModernEraBold"!important;
-}
-
-.registration-form .form-group {
-  font-size: 39px;
-}
-@media(max-width:450px){
-  .dialog-title {
-    font-size: 27px;
+  .join-waitlist-dialog .ms-TextField-fieldGroup{
+    border: none !important;
+    margin-bottom: 35px;
+    height: 40px;
   }
+  .dialog-label{
+    font-size: 20px;
+  }
+  .join-button{
+    display: block;
+    margin: auto;
+  }
+  .ms-Pivot .ms-Button{
+    font-size: 2.4vw;
+    margin-right: 0px;
+  }
+  .preview-section{
+    height: 400px;
+  }
+  /* .ms-Panel-main{
+    top: 57%;
+    width: 197px;
+  } */
+}
+@media screen and (max-width:450px){
   .inner-110 {
     padding: 20px 20px 60px 20px !important;
+  }
+  .preview-section{
+    height: 322px;
+  }
 }
-.ms-Dialog-main{
-  max-width: 0!important;
-  min-width: 300px!important;
-}
-
-}
-@media(max-width:400px){
+@media screen and (max-width:400px){
   .mobile-container .description {
     font-size: 36px;
+  }
+  .home-title, .questions-form-label{
+    font-size: 35px;
+  }
+  .question-form p {
+    font-size: 20px;
+  }
+  .app-header .button-panel button {
+    font-size: 15px!important;
+  }
+  .app-title {
+    font-size: 17px!important;
+    padding: 6px 0!important;
+  }
+  .ms-Pivot .ms-Button{
+    font-size: 3vw;
+    padding-left: 7px;
+    padding-right: 8px;
+  }
+  .preview-section{
+    height: 290px;
+  }
+  .mobile-title{
+    margin-bottom: 2.5rem;
+  }
+  .awe-final{
+    font-size: 17px!important;
+  }
+}
+
+.question-form-span{
+  color: #5640FB;
+}
+.app-mobile-footer .ms-Button-label{
+  margin: 0 0 0 69px!important;
+}
+@media(max-width:1227px){
+  .app-mobile-footer .ms-Button-label{
+    margin: 0 0 0 25px!important;
+  }
+}
+@media(max-width:1024px){
+  .app-mobile-footer .ms-Button-label{
+    margin: 0 0 0 9px!important;
+  }
+}
+@media(max-width:940px){
+  .app-mobile-footer .ms-Button-label{
+    margin: 0 0 0 20px!important;
+    font-size: 18px;
+  }
+}
+@media(max-width:800px){
+  .app-mobile-footer .ms-Button-label{
+    margin: 0 0 0 12px!important;
+    font-size: 18px;
   }
 }
