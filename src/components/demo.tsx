@@ -344,7 +344,7 @@ export class Demo extends React.Component<any, any> {
 										}}
 									>
 										{' '}
-										<FaEnvelope /> Containue with Email
+										<FaEnvelope /> Continue with Email
 									</button>
 									<GoogleLogin
 										onSuccess={this.responseGoogle}
@@ -358,7 +358,7 @@ export class Demo extends React.Component<any, any> {
 												className="btn reg-link"
 												onClick={renderProps.onClick}
 											>
-												<FaGoogle /> Containue with Google
+												<FaGoogle /> Continue with Google
 											</button>
 										)}
 									></GoogleLogin>
@@ -369,7 +369,7 @@ export class Demo extends React.Component<any, any> {
 											this.setState({ step_2Values: { googleBtn: e } });
 										}}
 									>
-										<FaGoogle /> Containue with Google
+										<FaGoogle /> Continue with Google
 									</button> */}
 
 									<FacebookLogin
@@ -385,7 +385,7 @@ export class Demo extends React.Component<any, any> {
 													value="facebook"
 													onClick={renderProps.onClick}
 												>
-													<FaFacebook /> Containue with Facebook
+													<FaFacebook /> Continue with Facebook
 												</button>
 											);
 										}}
