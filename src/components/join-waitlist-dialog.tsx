@@ -4,14 +4,12 @@ import { TextField } from '@fluentui/react/lib/TextField';
 import { DefaultButton } from '@fluentui/react/lib/Button';
 import { inputStyles } from "../app-consts/input-consts";
 import { dialogContentProps, modalProps } from "../app-consts/modal-consts";
-import { addContactToMailchimp } from "../network/api";
 import { ToastContainer, toast } from 'react-toastify';
 
 const initialState = {
     hideDialog: true,
     email: String(),
     city: String(),
-    errorMsg: "",
     isSubmitted: false,
     isValid: false
 }
@@ -49,33 +47,8 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
      * @param event 
      */
     onFinished(event: any) {
+        this.setState({ isSubmitted: true })
         event.preventDefault();
-
-        (async () => {
-            try {
-                const result = await addContactToMailchimp(this.state.email)
-                console.log("coming", result)
-                this.setState({ isSubmitted: false })
-                this.setState({ errorMsg: "" })
-                if (result.status != "error") {
-                    this.setState({ isSubmitted: true })
-                    setTimeout(() => {
-                        this.closeDialog();
-                    }, 5000);
-                } else {
-                    if (result.data.status == 400) {
-                        var text= JSON.parse(result.data.response.text);
-                        var msg = "This email is already a list member.";
-                        if (text.title != "Member Exists") {
-                            msg = text.detail;
-                        }
-                        this.setState({ errorMsg: msg })
-                    }
-                }
-            } catch (error) {
-                console.log("error", error)
-            }
-        })();
     }
 
     validate() {
@@ -135,7 +108,7 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
 
                 {this.state.isSubmitted ? <label className="dialog-label">
                     Awesome, you’re on the list! 🥳<br />
-                    <a href="#!" onClick={this.copyToClipboard}><u>And here’s a link if you want to refer a friend.</u></a>
+                    <a href="javascript:;" onClick={this.copyToClipboard}><u>And here’s a link if you want to refer a friend.</u></a>
                 </label> : <></>}
                 <ToastContainer />
             </Dialog>
