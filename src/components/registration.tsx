@@ -47,6 +47,7 @@ const dropdownStyles: Partial<IDropdownStyles> = {
     title: { width: 514, height: 60, fontSize: 30, padding: 12 },
     caretDownWrapper: { top: 15, right: 17, "&& i": { fontSize: 30 } }
 };
+
 const iconClass = mergeStyles({
     fontSize: 20,
     height: 20,
@@ -122,11 +123,11 @@ export class RegistrationComponent extends React.Component<any, any>     {
                 // && this.state.step_4Values.dbdy) return true;
                 && this.state.step_4Values.dbdy && this.state.step_4Values.ibdy && this.state.step_4Values.ibdy.length==10) return true ;
         if (this.state.step == -3 ) if (this.state.step_3Values) return true;
-        // if (this.state.step == -2) if (this.state.step_2Values && this.state.step_2Values.emailBtn) return true;
-        if (this.state.step == -2) if (this.state.step_2Values && this.state.step_2Values.emailBtn){
-            let step = this.state.step
-            return this.setState({ step: step + 1 })
-        }
+        if (this.state.step == -2) if (this.state.step_2Values && this.state.step_2Values.emailBtn) return true;
+        // if (this.state.step == -2) if (this.state.step_2Values && this.state.step_2Values.emailBtn){
+        //     let step = this.state.step
+        //     return this.setState({ step: step + 1 })
+        // }
         if (this.state.step == -1 && /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.step_1Values)) if (this.state.step_1Values) return true;
         if (this.state.step == 0) if (this.state.step0Values) return true;
         if (this.state.step == 1) if (this.state.step1Values) return true;
@@ -207,20 +208,9 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     <div className="">
 
                         <div className="d-flex flex-column form-group">
-                            {/* <span className="reg-label"> step_2Values:</span> */}
-                            <button className="btn reg-link" value="email" onClick={(e) => {this.setState({ step_2Values:{emailBtn: e} }) }}> <FaEnvelope /> Containue with Email</button>
-                            <button className="btn reg-link" value="google" onClick={(e) => {this.setState({ step_2Values:{googleBtn: e} }) }}><FaGoogle /> Containue with Google</button>
-                            <button className="btn reg-link" value="facebook" onClick={(e) => {this.setState({ step_2Values:{facebookBtn: e} }) }}><FaFacebook /> Containue with Facebook</button>
-                            {/* <p className="reg-link"><a href="/">Containue with Email</a></p>
-                            <p className="reg-link"><a href="/">Containue with Google</a></p>
-                            <p className="reg-link"><a href="/">Containue with Facebook</a></p> */}
-                            {/* <Dropdown
-                                options={options0}
-                                styles={dropdownStyles}
-                                onChange={(e) => {
-                                    this.setState({ step_2Values: e })
-                                }}
-                            /> */}
+                            <button className="btn reg-link" value="email" onClick={(e) => {this.setState({ step_2Values:{emailBtn: e} }) }}> <FaEnvelope /> Continue with Email</button>
+                            <button className="btn reg-link" value="google" onClick={(e) => {this.setState({ step_2Values:{googleBtn: e} }) }}><FaGoogle /> Continue with Google</button>
+                            <button className="btn reg-link" value="facebook" onClick={(e) => {this.setState({ step_2Values:{facebookBtn: e} }) }}><FaFacebook /> Continue with Facebook</button>
                         </div>
                     </div>
                 </> : <></>}
