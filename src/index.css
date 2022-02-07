@@ -479,11 +479,6 @@ margin-left: 71px;
   margin: 0 auto;
 }
 
-
-
-
-
-
 .ms-Dialog-main{
   max-width: 700px!important;
 }
@@ -533,6 +528,14 @@ font-weight: bold;
 .ms-Callout.ms-Dropdown-callout div span{
   margin-left: 8px;
   margin-right: 8px;
+}
+
+.name-para{
+  font-size: 23px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 12%;
 }
 
 /* @media screen and (max-width:1440px){ */
@@ -701,6 +704,9 @@ font-weight: bold;
   .phone-num span.reg-label{
     margin-top: 0;
   }
+  .name-para{
+    font-size:19px;
+  }
 }
 
 @media (max-width: 768px){
@@ -741,6 +747,11 @@ font-weight: bold;
   }
   .add-more-div p a{
     font-size: 20px;
+  }
+  .name-para{
+    position: static;
+    transform: none;
+    margin-top: 40px;
   }
 }
 
@@ -822,6 +833,9 @@ font-weight: bold;
   .reg-link{
     width: 85% !important;
     padding: 10px !important;
+  }
+  .name-para{
+    font-size: 17px;
   }
 }
 

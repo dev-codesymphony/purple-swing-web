@@ -163,7 +163,6 @@ export class RegistrationComponent extends React.Component<any, any>     {
             <div className="registration-form d-flex justify-content-between align-items-center">
                 <ActionButton onClick={this.previous} disabled={this.state.step == -4} className={"step-button " + opacity}><FontIcon aria-label="Compass" iconName="ChevronLeftSmall" className={iconClass} />back</ActionButton>
                 {this.state.step == -4 ? <>
-                    <p className="step-number">1/13</p>
                     <div className="d-flex flex-column text-center form-group phone-num">
                         <span className="reg-label"> Enter your mobile phone number and we'll send you a text message with a verification code</span>
                         <div className="d-sm-flex country-code">
@@ -188,7 +187,6 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == -3 ? <>
-                    <p className="step-number">2/13</p>
                     <div className="">
 
                         <div className="d-flex flex-column text-center form-group phone-otp">
@@ -204,7 +202,6 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == -2 ? <>
-                    <p className="step-number">3/13</p>
                     <div className="">
 
                         <div className="d-flex flex-column form-group">
@@ -215,7 +212,6 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == -1 ? <>
-                    <p className="step-number">4/13</p>
                     <div className="">
 
                         <div className="d-flex flex-column text-center form-group email-id">
@@ -225,7 +221,6 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == 0 ? <>
-                    <p className="step-number">5/13</p>
                     <div className="">
 
                         <div className="d-flex flex-column text-center form-group email-otp">
@@ -239,7 +234,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == 1 ? <>
-                    <p className="step-number">6/13</p>
+                    <p className="step-number">1/8</p>
                     <div className="first-step">
                         {/* ChevronLeftIcon
                         ChevronLeftMedIcon
@@ -262,7 +257,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == 2 ? <>
-                    <p className="step-number">7/13</p>
+                    <p className="step-number">2/8</p>
                     <div className="d-flex form-group">
                         <span className="reg-label"> I am / we are looking for:</span>
                         <div className="add-more-div">
@@ -276,10 +271,10 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == 3 ? <>
-                    <p className="step-number">8/13</p>
+                    <p className="step-number">3/8</p>
                     <div>
                         <div className="d-flex form-group" style={{ marginBottom: "31px" }}>
-                            <span className="reg-label"> First name:</span>
+                            <span className="reg-label"> First&nbsp;name:</span>
                             <input placeholder="person 1" onChange={(e) => {
                                 this.setState({
                                     step3Values: {
@@ -290,7 +285,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                             }} />
                         </div>
                         <div className="d-flex form-group">
-                            <span className="reg-label"> First name:</span>
+                            <span className="reg-label"> First&nbsp;name:</span>
                             <input placeholder="person 2" onChange={(e) => {
                                 this.setState({
                                     step3Values: {
@@ -300,10 +295,11 @@ export class RegistrationComponent extends React.Component<any, any>     {
                                 })
                             }} />
                         </div>
+                        <p className="name-para">*The name(s) you add above are seen by other users, so if it makes you  more comfortable, feel free to make them up.</p>
                     </div>
                 </> : <></>}
                 {this.state.step == 4 ? <>
-                    <p className="step-number">9/13</p>
+                    <p className="step-number">4/8</p>
                     <div>
                         <div className="d-flex form-group" style={{ marginBottom: "31px" }}>
                             <div className="bdy">
@@ -342,7 +338,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == 5 ? <>
-                    <p className="step-number">10/13</p>
+                    <p className="step-number">5/8</p>
                     <div className="d-flex form-group">
                         <span className="reg-label"> Country:</span>
                         <Dropdown
@@ -353,7 +349,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == 6 ? <>
-                    <p className="step-number">11/13</p>
+                    <p className="step-number">6/8</p>
                     <div>
                         <div className="d-flex form-group">
                             <span className="reg-label"> City:</span>
@@ -362,7 +358,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == 7 ? <>
-                    <p className="step-number">12/13</p>
+                    <p className="step-number">7/8</p>
                     <div>
                         <div className="d-flex form-group">
                             <span className="reg-label"> Email:</span>
@@ -371,7 +367,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     </div>
                 </> : <></>}
                 {this.state.step == 8 ? <>
-                    <p className="step-number">13/13</p>
+                    <p className="step-number">8/8</p>
                     <div>
                         <div className="d-flex form-group">
                             <span className="reg-label"> Password:</span>
