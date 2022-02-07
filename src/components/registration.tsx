@@ -279,7 +279,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                     <p className="step-number">8/13</p>
                     <div>
                         <div className="d-flex form-group" style={{ marginBottom: "31px" }}>
-                            <span className="reg-label"> First name:</span>
+                            <span className="reg-label"> First&nbsp;name:</span>
                             <input placeholder="person 1" onChange={(e) => {
                                 this.setState({
                                     step3Values: {
@@ -290,7 +290,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                             }} />
                         </div>
                         <div className="d-flex form-group">
-                            <span className="reg-label"> First name:</span>
+                            <span className="reg-label"> First&nbsp;name:</span>
                             <input placeholder="person 2" onChange={(e) => {
                                 this.setState({
                                     step3Values: {
@@ -300,6 +300,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                                 })
                             }} />
                         </div>
+                        <p className="name-para">*The name(s) you add above are seen by other users, so if it makes you  more comfortable, feel free to make them up.</p>
                     </div>
                 </> : <></>}
                 {this.state.step == 4 ? <>
