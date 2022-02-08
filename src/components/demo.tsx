@@ -5,6 +5,8 @@ import {
 	FontIcon,
 	IDropdownOption,
 	IDropdownStyles,
+	DatePicker, 
+	IDatePickerStyles
 } from '@fluentui/react';
 import React, { useState } from 'react';
 import { mergeStyles } from '@fluentui/react/lib/Styling';
@@ -63,6 +65,16 @@ const dropdownStyles: Partial<IDropdownStyles> = {
 	title: { width: 514, height: 60, fontSize: 30, padding: 12 },
 	caretDownWrapper: { top: 15, right: 17, '&& i': { fontSize: 30 } },
 };
+
+const dpStyles: Partial<IDatePickerStyles> = {
+    textField: { 
+        borderRadius: '34px!important',
+        border: 'none',
+        height: '65px',
+    },
+    icon: { display: 'none' }
+}
+
 const iconClass = mergeStyles({
 	fontSize: 20,
 	height: 20,
@@ -437,6 +449,7 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 1 ? (
 						<>
+						<p className="step-number">1/8</p>
 							<div className="first-step">
 								{/* ChevronLeftIcon
                         ChevronLeftMedIcon
@@ -465,6 +478,7 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 2 ? (
 						<>
+						<p className="step-number">2/8</p>
 							<div className="d-flex form-group">
 								<span className="reg-label"> I am / we are looking for:</span>
 								<Dropdown
@@ -481,6 +495,7 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 3 ? (
 						<>
+						<p className="step-number">3/8</p>
 							<div>
 								<div className="d-flex form-group" style={{ marginBottom: '31px' }}>
 									<span className="reg-label"> First name:</span>
@@ -510,6 +525,7 @@ export class Demo extends React.Component<any, any> {
 										}}
 									/>
 								</div>
+								<p className="name-para">*The name(s) you add above are seen by other users, so if it makes you  more comfortable, feel free to make them up.</p>
 							</div>
 						</>
 					) : (
@@ -517,6 +533,7 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 4 ? (
 						<>
+						<p className="step-number">4/8</p>
 							<div>
 								<div className="d-flex form-group" style={{ marginBottom: '31px' }}>
 									<div className="bdy">
@@ -525,7 +542,19 @@ export class Demo extends React.Component<any, any> {
 											{this.state.step3Values.person1}’s birthday:
 										</span>
 									</div>
-									<Dropdown
+									<DatePicker
+										borderless
+										styles={dpStyles}
+										onSelectDate={( e ) => {
+											this.setState({
+												step4Values: {
+													ebdy: e,
+													tbdy: this.state.step4Values.tbdy
+												}
+											})
+										}}
+									/>
+									{/* <Dropdown
 										options={selectOptions}
 										styles={dropdownStyles}
 										onChange={(e) => {
@@ -536,7 +565,7 @@ export class Demo extends React.Component<any, any> {
 												},
 											});
 										}}
-									/>
+									/> */}
 								</div>
 								<div className="d-flex form-group">
 									<div className="bdy">
@@ -546,7 +575,19 @@ export class Demo extends React.Component<any, any> {
 										</span>
 									</div>
 
-									<Dropdown
+									<DatePicker
+										borderless
+										styles={dpStyles}
+										onSelectDate={( e ) => {
+											this.setState({
+												step4Values: {
+													tbdy: e,
+													ebdy: this.state.step4Values.ebdy
+												}
+											})
+										}}
+									/>
+									{/* <Dropdown
 										options={selectOptions}
 										styles={dropdownStyles}
 										onChange={(e) => {
@@ -557,7 +598,7 @@ export class Demo extends React.Component<any, any> {
 												},
 											});
 										}}
-									/>
+									/> */}
 								</div>
 							</div>
 						</>
@@ -566,6 +607,7 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 5 ? (
 						<>
+						<p className="step-number">5/8</p>
 							<div className="d-flex form-group">
 								<span className="reg-label"> Country:</span>
 								<Dropdown
@@ -582,6 +624,7 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 6 ? (
 						<>
+						<p className="step-number">6/8</p>
 							<div>
 								<div className="d-flex form-group">
 									<span className="reg-label"> City:</span>
@@ -598,6 +641,7 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 7 ? (
 						<>
+						<p className="step-number">7/8</p>
 							<div>
 								<div className="d-flex form-group">
 									<span className="reg-label"> Email:</span>
@@ -637,6 +681,7 @@ export class Demo extends React.Component<any, any> {
 					)} */}
 					{this.state.step === 8 ? (
 						<>
+						<p className="step-number">8/8</p>
 							<div>
 								<div className="awe-final">
 									{`Awesome, ${
