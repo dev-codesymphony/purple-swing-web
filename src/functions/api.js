@@ -2,8 +2,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { BASE_URL } from '../app.config';
 
-async function apiCall(value, body) {
+async function apiCall(value, body,setEmail) {
 	try {
+        console.log(body)
 		switch (value) {
 			case -4:
 				let contactNumber = body.step_4Values.ibdy;
@@ -69,19 +70,20 @@ async function apiCall(value, body) {
 				if (finalEmailResponse.status === 200) {
 					localStorage.setItem('token', finalEmailResponse?.data?.data?.data?.jwt);
 					localStorage.setItem('email', verifiedEmail);
-
+                    setEmail(verifiedEmail)
 					toast.success('Email verified successfully');
 					return { success: true, message: 'Success' };
 				}
 
 				throw new Error('Something went wrong');
-			case 7:
+			case 8:
 				const fristResponse = body.step1Values;
 				const secondResponse = body.step2Values;
 				const person1 = body.step3Values.person1;
 				const person2 = body.step3Values.person2;
 				const bdy1 = body.step4Values.tbdy;
 				const bdy2 = body.step4Values.ebdy;
+                const password = body.step8Values
 				const jwtToken = localStorage.getItem('token');
 
 				const finalResponse = await axios.post(
@@ -93,6 +95,7 @@ async function apiCall(value, body) {
 						Firstname2: person2,
 						Birthday1: bdy1,
 						Birthday2: bdy2,
+                        password
 					},
 					{ headers: { Authorization: `Bearer ${jwtToken}` } }
 				);

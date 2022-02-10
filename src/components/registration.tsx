@@ -97,7 +97,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
     constructor(props: any) {
         super(props);
         this.state = {
-            step: 4,
+            step: -4,
             step_4Values: {
                 dbdy: null,
                 ibdy: null,

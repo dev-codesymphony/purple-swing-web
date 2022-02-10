@@ -8,7 +8,7 @@ import {
 	DatePicker, 
 	IDatePickerStyles
 } from '@fluentui/react';
-import React, { useState } from 'react';
+import React, { useState, createRef } from 'react';
 import { mergeStyles } from '@fluentui/react/lib/Styling';
 import { FaEnvelope, FaGoogle, FaFacebook } from 'react-icons/fa';
 import { apiCall } from '../functions/api';
@@ -27,10 +27,10 @@ import axios from 'axios';
 import FacebookLogin from '@doopage/react-facebook-login';
 
 const options0: IDropdownOption[] = [
-	{ key: 'CA', text: 'CA' },
-	{ key: 'IN', text: 'IN' },
-	{ key: 'US', text: 'US' },
-	{ key: 'AUS', text: 'AUS' },
+	{ key: 'Canada', text: 'CA' },
+	{ key: 'India', text: 'IN' },
+	{ key: 'USA', text: 'US' },
+	{ key: 'Australia', text: 'AUS' },
 ];
 
 const options: IDropdownOption[] = [
@@ -50,7 +50,7 @@ const options: IDropdownOption[] = [
 	// { key: 'carrot', text: 'Carrot' },
 	// { key: 'lettuce', text: 'Lettuce' },
 ];
-const lookingForOptions: IDropdownOption[] = [
+const lookingForDefaultOptions: IDropdownOption[] = [
 	{ key: 'single female', text: 'single female' },
 	{ key: 'single male', text: 'single male' },
 	{ key: 'female/male couple', text: 'female/male couple' },
@@ -67,13 +67,14 @@ const dropdownStyles: Partial<IDropdownStyles> = {
 };
 
 const dpStyles: Partial<IDatePickerStyles> = {
-    textField: { 
-        borderRadius: '34px!important',
-        border: 'none',
-        height: '65px',
-    },
-    icon: { display: 'none' }
-}
+	textField: {
+		// borderRadius: '34px!important',
+		// border: 'none',
+		fontSize: '25px',
+		height: '65px',
+	},
+	icon: { display: 'none' },
+};
 
 const iconClass = mergeStyles({
 	fontSize: 20,
@@ -109,6 +110,7 @@ export class Demo extends React.Component<any, any> {
 		step6Values: any;
 		step7Values: any;
 		step8Values: any;
+		lookingForOptions: any;
 	};
 
 	constructor(props: any) {
@@ -126,7 +128,7 @@ export class Demo extends React.Component<any, any> {
 			step_1Values: null,
 			step0Values: null,
 			step1Values: null,
-			step2Values: null,
+			step2Values: [],
 			step3Values: {
 				person1: null,
 				person2: null,
@@ -139,24 +141,40 @@ export class Demo extends React.Component<any, any> {
 			step6Values: null,
 			step7Values: null,
 			step8Values: null,
+			lookingForOptions: [
+				{ key: 'single female', text: 'single female' },
+				{ key: 'single male', text: 'single male' },
+				{ key: 'female/male couple', text: 'female/male couple' },
+				{ key: 'female/female couple', text: 'female/female couple' },
+				{ key: 'male/male couple', text: 'male/male couple' },
+				{ key: 'anyone', text: 'anyone' }, // (if this is chosen in on of the ‘add more’ boxes, delete all the other boxes
+			]
 		};
 		this.next = this.next.bind(this);
 		this.previous = this.previous.bind(this);
 		this.validate = this.validate.bind(this);
+		this.resendOtp = this.resendOtp.bind(this);
+		this.responseGoogle = this.responseGoogle.bind(this);
+		this.setEmail = this.setEmail.bind(this);
 	}
 
 	responseGoogle = async ({ profileObj, tokenId }: any) => {
 		try {
 			let jwt = localStorage.getItem('token');
 
-			const response = await axios.post(
-				`${BASE_URL}/auth/login`,
-				{ login_type: 'google', token: tokenId },
-				{ headers: { Authorization: `Bearer ${jwt}` } }
-			);
+			let response: any;
 
-			if (response.status === 200) {
+			if (tokenId) {
+				response = await axios.post(
+					`${BASE_URL}/auth/login`,
+					{ login_type: 'google', token: tokenId },
+					{ headers: { Authorization: `Bearer ${jwt}` } }
+				);
+			}
+
+			if (response?.status === 200) {
 				localStorage.setItem('email', response.data.data.user.Email);
+				this.setEmail(response.data.data.user.Email);
 				toast.success('Login Successful');
 				this.setState((prevState: any) => {
 					return { ...prevState, step: 1, step7Values: response.data.data.user.Email };
@@ -167,6 +185,23 @@ export class Demo extends React.Component<any, any> {
 			toast.error(error.message);
 		}
 	};
+	async resendOtp(e: any) {
+		e.preventDefault();
+		try {
+			let contactNumber = this.state.step_4Values.ibdy;
+			const response = await axios.post(`${BASE_URL}/auth/send-otp`, {
+				mobile: contactNumber,
+			});
+
+			if (response.status === 200) {
+				toast.success('OTP resend successfully');
+				return { success: true, message: response?.data?.data?.message };
+			}
+			throw new Error('Something went wrong');
+		} catch (error: any) {
+			toast.error(error.message);
+		}
+	}
 
 	responseFacebook = async (profile: any) => {
 		const { accessToken } = profile;
@@ -180,7 +215,7 @@ export class Demo extends React.Component<any, any> {
 
 		if (response.status === 200) {
 			localStorage.setItem('email', response.data.data.user.Email);
-
+			this.setEmail(response.data.data.user.Email);
 			toast.success('Login Successful');
 
 			this.setState((prevState: any) => {
@@ -188,6 +223,24 @@ export class Demo extends React.Component<any, any> {
 			});
 		}
 	};
+
+	addMore = (e:any) => { 
+		this.setState({ step2Values: [...this.state.step2Values, '']})
+	}
+
+	setStep2Value = (e:any, index:any) => {
+		if(!this.state.step2Values.includes(e))
+			this.setState((state:any) => {
+				if(e === 'anyone') {
+					state.step2Values = [e]
+					// state.lookingForOptions =  [] //lookingForDefaultOptions.filter((op:any) => !state.step2Values.includes(op.key))
+				} else {
+					state.step2Values[index] = e
+				}
+				state.lookingForOptions =  lookingForDefaultOptions.filter((op:any) => !state.step2Values.includes(op.key))
+				return state
+			})
+	}
 
 	validate() {
 		if (this.state.step === -4)
@@ -240,9 +293,14 @@ export class Demo extends React.Component<any, any> {
 			if (this.state.step8Values) return true;
 			else return false;
 	}
+
+	setEmail(email: any) {
+		this.setState({ step7Values: email });
+	}
+
 	async next() {
 		try {
-			const apiResponse: any = await apiCall(this.state.step, this.state);
+			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
 
 			if (apiResponse.success) {
 				let step = this.state.step;
@@ -263,6 +321,8 @@ export class Demo extends React.Component<any, any> {
 		const opacity = this.state.step === -4 || this.state.step > 8 ? 'opac' : '';
 		const nextOpct = this.state.step > 8 ? 'opac' : '';
 		const blurOpac = this.validate() ? '' : 'blurOpac';
+
+		const { lookingForOptions } = this.state;
 
 		return (
 			<>
@@ -290,18 +350,24 @@ export class Demo extends React.Component<any, any> {
 									<Dropdown
 										options={options0}
 										styles={dropdownStyles}
-										onChange={(e) => {
+										onChange={(e, i: any) => {
 											this.setState({
 												step_4Values: {
-													dbdy: e,
+													dbdy: i.key,
 													ibdy: this.state.step_4Values.ibdy,
 												},
 											});
+											this.setState({ step5Values: i.key });
 										}}
 									/>
 									<input
 										placeholder=""
 										type="text"
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										onChange={(e) => {
 											this.setState({
 												step_4Values: {
@@ -327,6 +393,11 @@ export class Demo extends React.Component<any, any> {
 									</span>
 									<input
 										placeholder=""
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										onChange={(e) => {
 											this.setState({
 												step_3Values: e.currentTarget.value,
@@ -336,7 +407,9 @@ export class Demo extends React.Component<any, any> {
 								</div>
 
 								<p className="text-center send-again-link">
-									<a href="#">Send again</a>
+									<a onClick={this.resendOtp} href="#">
+										Send again
+									</a>
 								</p>
 							</div>
 						</>
@@ -362,6 +435,7 @@ export class Demo extends React.Component<any, any> {
 										onSuccess={this.responseGoogle}
 										onFailure={this.responseGoogle}
 										cookiePolicy={'single_host_origin'}
+										autoLoad={false}
 										buttonText="Login with Google"
 										clientId={GOOGLE_CLIENT_ID}
 										icon
@@ -414,6 +488,11 @@ export class Demo extends React.Component<any, any> {
 								<div className="d-flex flex-column text-center form-group email-id">
 									<span className="reg-label"> Enter your email</span>
 									<input
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
 										onChange={(e) => {
 											this.setState({ step_1Values: e.currentTarget.value });
@@ -434,6 +513,11 @@ export class Demo extends React.Component<any, any> {
 										Enter the code that was just sent to your email
 									</span>
 									<input
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										placeholder=""
 										onChange={(e) => {
 											this.setState({
@@ -449,7 +533,7 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 1 ? (
 						<>
-						<p className="step-number">1/8</p>
+							<p className="step-number">1/8</p>
 							<div className="first-step">
 								{/* ChevronLeftIcon
                         ChevronLeftMedIcon
@@ -478,16 +562,42 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 2 ? (
 						<>
-						<p className="step-number">2/8</p>
+							<p className="step-number">2/8</p>
 							<div className="d-flex form-group">
 								<span className="reg-label"> I am / we are looking for:</span>
-								<Dropdown
-									options={lookingForOptions}
-									styles={dropdownStyles}
-									onChange={(e) => {
-										this.setState({ step2Values: e.currentTarget.textContent });
-									}}
-								/>
+								<div className="add-more-div">
+									{(this.state.step2Values && this.state.step2Values.length > 0 ? this.state.step2Values : ['']).map((val:any, key:any) => { 
+										if(key === 0){
+											return <Dropdown
+												defaultSelectedKey={val}
+												placeholder={val}
+												options={lookingForOptions}
+												styles={dropdownStyles}
+												onChange={(e) => {
+													this.setStep2Value(e.currentTarget.textContent, key)
+												}}
+											/>
+										}
+										return (
+											<div className="mt-3">
+												<Dropdown
+													defaultSelectedKey={val}
+													placeholder={val}
+													options={lookingForOptions}
+													styles={dropdownStyles}
+													onChange={(e) => {
+														this.setStep2Value(e.currentTarget.textContent, key)
+													}}
+												/>
+											</div>
+										)
+									})}
+									{(!this.state.step2Values || this.state.step2Values.length < 5) && !this.state.step2Values.includes('anyone') ? 
+										<p><a onClick={this.addMore}>Add more</a></p>
+										:
+										<p style={{ opacity: '0'}}><a onClick={(e:any) => e.preventDefault()}>hidden</a></p>
+									}
+								</div>
 							</div>
 						</>
 					) : (
@@ -495,11 +605,16 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 3 ? (
 						<>
-						<p className="step-number">3/8</p>
+							<p className="step-number">3/8</p>
 							<div>
 								<div className="d-flex form-group" style={{ marginBottom: '31px' }}>
 									<span className="reg-label"> First name:</span>
 									<input
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										placeholder="person 1"
 										onChange={(e) => {
 											this.setState({
@@ -515,6 +630,11 @@ export class Demo extends React.Component<any, any> {
 									<span className="reg-label"> First name:</span>
 									<input
 										placeholder="person 2"
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										onChange={(e) => {
 											this.setState({
 												step3Values: {
@@ -525,7 +645,10 @@ export class Demo extends React.Component<any, any> {
 										}}
 									/>
 								</div>
-								<p className="name-para">*The name(s) you add above are seen by other users, so if it makes you  more comfortable, feel free to make them up.</p>
+								<p className="name-para">
+									*The name(s) you add above are seen by other users, so if it
+									makes you more comfortable, feel free to make them up.
+								</p>
 							</div>
 						</>
 					) : (
@@ -533,7 +656,7 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 4 ? (
 						<>
-						<p className="step-number">4/8</p>
+							<p className="step-number">4/8</p>
 							<div>
 								<div className="d-flex form-group" style={{ marginBottom: '31px' }}>
 									<div className="bdy">
@@ -545,15 +668,16 @@ export class Demo extends React.Component<any, any> {
 									<DatePicker
 										borderless
 										styles={dpStyles}
-										onSelectDate={( e ) => {
+										onSelectDate={(e) => {
 											this.setState({
 												step4Values: {
 													ebdy: e,
-													tbdy: this.state.step4Values.tbdy
-												}
-											})
+													tbdy: this.state.step4Values.tbdy,
+												},
+											});
 										}}
 									/>
+
 									{/* <Dropdown
 										options={selectOptions}
 										styles={dropdownStyles}
@@ -578,13 +702,13 @@ export class Demo extends React.Component<any, any> {
 									<DatePicker
 										borderless
 										styles={dpStyles}
-										onSelectDate={( e ) => {
+										onSelectDate={(e) => {
 											this.setState({
 												step4Values: {
 													tbdy: e,
-													ebdy: this.state.step4Values.ebdy
-												}
-											})
+													ebdy: this.state.step4Values.ebdy,
+												},
+											});
 										}}
 									/>
 									{/* <Dropdown
@@ -607,14 +731,24 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 5 ? (
 						<>
-						<p className="step-number">5/8</p>
+							<p className="step-number">5/8</p>
 							<div className="d-flex form-group">
 								<span className="reg-label"> Country:</span>
-								<Dropdown
+								{/* <Dropdown
 									options={countryOptions}
 									styles={dropdownStyles}
-									onChange={(e) => {
-										this.setState({ step5Values: e });
+									
+								/> */}
+								<input
+									onKeyPress={(e: any) => {
+										if (e.code === 'Enter') {
+											this.next();
+										}
+									}}
+									value={this.state.step5Values}
+									type="text"
+									onChange={(e: any) => {
+										this.setState({ step5Values: e.target.value });
 									}}
 								/>
 							</div>
@@ -624,11 +758,16 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 6 ? (
 						<>
-						<p className="step-number">6/8</p>
+							<p className="step-number">6/8</p>
 							<div>
 								<div className="d-flex form-group">
 									<span className="reg-label"> City:</span>
 									<input
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										onChange={(e) => {
 											this.setState({ step6Values: e.currentTarget.value });
 										}}
@@ -641,16 +780,17 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 7 ? (
 						<>
-						<p className="step-number">7/8</p>
+							<p className="step-number">7/8</p>
 							<div>
 								<div className="d-flex form-group">
 									<span className="reg-label"> Email:</span>
 									<input
-										value={
-											this.state.step7Values ||
-											localStorage.getItem('email') ||
-											''
-										}
+										value={this.state.step7Values || ''}
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
 										onChange={(e) => {
 											this.setState({ step7Values: e.target.value });
@@ -662,12 +802,17 @@ export class Demo extends React.Component<any, any> {
 					) : (
 						<></>
 					)}
-					{/* {this.state.step === 8 ? (
+					{this.state.step === 8 ? (
 						<>
 							<div>
 								<div className="d-flex form-group">
 									<span className="reg-label"> Password:</span>
 									<input
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										type="password"
 										onChange={(e) => {
 											this.setState({ step8Values: e.currentTarget.value });
@@ -678,10 +823,10 @@ export class Demo extends React.Component<any, any> {
 						</>
 					) : (
 						<></>
-					)} */}
-					{this.state.step === 8 ? (
+					)}
+					{this.state.step === 9 ? (
 						<>
-						<p className="step-number">8/8</p>
+							<p className="step-number">8/8</p>
 							<div>
 								<div className="awe-final">
 									{`Awesome, ${
@@ -711,12 +856,14 @@ export class Demo extends React.Component<any, any> {
 						<></>
 					)}
 
+					{/* {this.state.step === 8 ? ()} */}
+
 					<ActionButton
 						disabled={!this.validate()}
 						onClick={this.next}
 						className={'step-button ' + nextOpct + ' ' + blurOpac}
 					>
-						next{' '}
+						next
 						<FontIcon
 							aria-label="Compass"
 							iconName="ChevronRightSmall"
