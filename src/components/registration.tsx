@@ -1,8 +1,9 @@
-import { ActionButton, Dropdown, DropdownMenuItemType, FontIcon, IDropdownOption, IDropdownStyles } from "@fluentui/react";
+import { ActionButton, Dropdown, DropdownMenuItemType, FontIcon, IDropdownOption, IDropdownStyles, DatePicker, IDatePickerStyles } from "@fluentui/react";
 import React, { useState } from "react";
 import { mergeStyles } from '@fluentui/react/lib/Styling';
 import { FaEnvelope, FaGoogle, FaFacebook } from 'react-icons/fa';
 // import OtpInput from 'react-otp-input';
+
 
 const options0: IDropdownOption[] = [
     { key: 'CA', text: 'CA' },
@@ -47,6 +48,15 @@ const dropdownStyles: Partial<IDropdownStyles> = {
     title: { width: 514, height: 60, fontSize: 30, padding: 12 },
     caretDownWrapper: { top: 15, right: 17, "&& i": { fontSize: 30 } }
 };
+
+const dpStyles: Partial<IDatePickerStyles> = {
+    textField: { 
+        borderRadius: '34px!important',
+        border: 'none',
+        height: '65px',
+    },
+    icon: { display: 'none' }
+}
 
 const iconClass = mergeStyles({
     fontSize: 20,
@@ -305,7 +315,19 @@ export class RegistrationComponent extends React.Component<any, any>     {
                             <div className="bdy">
                                 <span className="reg-label"> {this.state.step3Values.person1}’s birthday:</span>
                             </div>
-                            <Dropdown
+                            <DatePicker
+                                borderless
+                                styles={dpStyles}
+                                onSelectDate={( e ) => {
+                                    this.setState({
+                                        step4Values: {
+                                            ebdy: e,
+                                            tbdy: this.state.step4Values.tbdy
+                                        }
+                                    })
+                                }}
+                            />
+                            {/* <Dropdown
                                 options={selectOptions}
                                 styles={dropdownStyles}
                                 onChange={(e) => {
@@ -316,13 +338,25 @@ export class RegistrationComponent extends React.Component<any, any>     {
                                         }
                                     })
                                 }}
-                            />
+                            /> */}
                         </div>
                         <div className="d-flex form-group">
                             <div className="bdy">
                                 <span className="reg-label"> {this.state.step3Values.person2}’s birthday:</span>
                             </div>
-                            <Dropdown
+                            <DatePicker
+                                borderless
+                                styles={dpStyles}
+                                onSelectDate={( e ) => {
+                                    this.setState({
+                                        step4Values: {
+                                            tbdy: e,
+                                            ebdy: this.state.step4Values.ebdy
+                                        }
+                                    })
+                                }}
+                            />
+                            {/* <Dropdown
                                 options={selectOptions}
                                 styles={dropdownStyles}
                                 onChange={(e) => {
@@ -333,7 +367,7 @@ export class RegistrationComponent extends React.Component<any, any>     {
                                         }
                                     })
                                 }}
-                            />
+                            /> */}
                         </div>
                     </div>
                 </> : <></>}

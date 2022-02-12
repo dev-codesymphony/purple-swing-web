@@ -97,10 +97,13 @@ code {
   border: 4px solid #D6D6D6;
   height: 65px;
   width: 500px;
+  font-size: 25px;
 }
 .registration-form input{
   padding:0px 20px;
-  color: #D6D6D6;
+  color: rgb(50, 49, 48);
+  font-size: 25px;
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
 }
 .registration-form input::placeholder{
   color: #D6D6D6;
@@ -584,9 +587,11 @@ font-weight: bold;
   }
   .registration-form .form-group .ms-Dropdown-container{
     padding-right: 40px;
+    font-size:30px
   }
   .registration-form .ms-Dropdown-title, .registration-form input, .registration-form .ms-Dropdown{
     width: 350px;
+    font-size:30px
   }
   .awe-final{
     font-size: 39px;
@@ -647,6 +652,7 @@ font-weight: bold;
   }
   .registration-form .form-group .ms-Dropdown-container {
     padding-right: 65px;
+    font-size: 30px;
   }
   .awe-final{
     font-size: 36px;
