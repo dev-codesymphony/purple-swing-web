@@ -5,15 +5,15 @@ import { Demo } from '../components/demo';
 
 export default function AppRouter() {
   return (
-    <Router basename={'/TPS-frontend'}>
+    <Router>
       <Switch>
         <Route exact path="/">
           <HomeComponent />
         </Route>
-        <Route path="/registration">
+        <Route path="/demo">
           <RegistrationComponent />
         </Route>
-        <Route path="/demo">
+        <Route path="/registration">
           <Demo />
         </Route>
       </Switch>

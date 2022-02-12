@@ -27,7 +27,7 @@ export class HeaderComponent extends React.Component<any, any> {
                             <ActionButton onClick={() => { this.props?.howItWorksRef?.current?.scrollIntoView() }}>How it works</ActionButton>
                             <ActionButton onClick={() => { this.props?.faqRef?.current?.scrollIntoView() }}>FAQ</ActionButton>
                             <DefaultButton text="Join waitlist" onClick={this.openDialog} allowDisabledFocus />
-                            <DefaultButton className="register-btn"><Link to={"/demo"}>Registration</Link></DefaultButton>
+                            <DefaultButton className="register-btn"><Link to={"/registration"}>Registration</Link></DefaultButton>
                         </div>
                     </div>
                 </div>

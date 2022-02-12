@@ -2,7 +2,6 @@
   "name": "the-purple-swing",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/TPS-frontend",
   "dependencies": {
     "@doopage/react-facebook-login": "^0.0.7",
     "@fluentui/react": "^8.34.1",

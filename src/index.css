@@ -101,7 +101,9 @@ code {
 }
 .registration-form input{
   padding:0px 20px;
-  color: #D6D6D6;
+  color: rgb(50, 49, 48);
+  font-size: 25px;
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
 }
 .registration-form input::placeholder{
   color: #D6D6D6;
