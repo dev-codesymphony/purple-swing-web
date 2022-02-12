@@ -4,12 +4,14 @@ import { TextField } from '@fluentui/react/lib/TextField';
 import { DefaultButton } from '@fluentui/react/lib/Button';
 import { inputStyles } from "../app-consts/input-consts";
 import { dialogContentProps, modalProps } from "../app-consts/modal-consts";
+import { addContactToMailchimp } from "../network/api";
 import { ToastContainer, toast } from 'react-toastify';
 
 const initialState = {
     hideDialog: true,
     email: String(),
     city: String(),
+    errorMsg: "",
     isSubmitted: false,
     isValid: false
 }
@@ -47,14 +49,38 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
      * @param event 
      */
     onFinished(event: any) {
-        this.setState({ isSubmitted: true })
         event.preventDefault();
+
+        (async () => {
+            try {
+                const result = await addContactToMailchimp(this.state.email)
+                console.log("coming", result)
+                this.setState({ isSubmitted: false })
+                this.setState({ errorMsg: "" })
+                if (result.status != "error") {
+                    this.setState({ isSubmitted: true })
+                    setTimeout(() => {
+                        this.closeDialog();
+                    }, 5000);
+                } else {
+                    if (result.data.status == 400) {
+                        var text= JSON.parse(result.data.response.text);
+                        var msg = "This email is already a list member.";
+                        if (text.title != "Member Exists") {
+                            msg = text.detail;
+                        }
+                        this.setState({ errorMsg: msg })
+                    }
+                }
+            } catch (error) {
+                console.log("error", error)
+            }
+        })();
     }
 
     validate() {
         this.setState({ isValid: this.state.city && /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.email) })
     }
-
 
     copyToClipboard() {
         if (navigator.clipboard) navigator.clipboard.writeText("http://thepurpleswing.com");
@@ -89,26 +115,20 @@ export class JoinWaitlistDialogComponent extends React.Component<any, any> {
                 modalProps={modalProps}
                 className="join-waitlist-dialog"
             >
-                <div className="mobile-title">
-                    <h4>
-                        <a href="#" className="app-title">The Purple Swing</a>
-                    </h4>
-                </div>
                 <label className="dialog-title">
-                   <p className="large-screen-text"> We’re planning to launch sometime in late 2021. Enter your email and the city you live in below, and we’ll send you an invite as soon as we’re live!</p>
-                   <p className="small-screen-text">👋 We’re planning to launch sometime in late 2021/early 2022. The first 2,000 people to sign up will receive a <span className="popup-text-color">premium lifetime membership for free</span> and a ‘Founding Member’ designation on their profile.</p>
+                    We’re planning to launch sometime in late 2021. Enter your email and the city you live in below, and we’ll send you an invite as soon as we’re live!
                 </label><br />
 
                 <form onSubmit={this.onFinished} autoComplete="off">
                     <TextField autoComplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="email" required={true} placeholder="Email" styles={inputStyles} onChange={(email) => { this.setState({ email: email.currentTarget.value }, () => { this.validate(); }) }} />
-                    
-                    <TextField autoComplete="off" required={true} placeholder="City" styles={inputStyles} onChange={(city) => { this.setState({ city: city.currentTarget.value }, () => { this.validate(); }) }} />
+                    <TextField autoComplete="off" pattern="^[A-Za-z -]+$" required={true} placeholder="City" styles={inputStyles} onChange={(city) => { this.setState({ city: city.currentTarget.value }, () => { this.validate(); }) }} />
+                    {(this.state.errorMsg!="") ? <label className="dialog-label text-danger">{this.state.errorMsg}</label> : <></>}                
                     <DefaultButton hidden={this.state.isSubmitted} type="submit" className={"join-button " + (this.state.isValid ? "isvalid" : "")}>Join waitlist </DefaultButton>
                 </form>
 
                 {this.state.isSubmitted ? <label className="dialog-label">
                     Awesome, you’re on the list! 🥳<br />
-                    <a href="javascript:;" onClick={this.copyToClipboard}><u>And here’s a link if you want to refer a friend.</u></a>
+                    <a href="#!" onClick={this.copyToClipboard}><u>And here’s a link if you want to refer a friend.</u></a>
                 </label> : <></>}
                 <ToastContainer />
             </Dialog>
