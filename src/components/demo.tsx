@@ -5,8 +5,8 @@ import {
 	FontIcon,
 	IDropdownOption,
 	IDropdownStyles,
-	DatePicker, 
-	IDatePickerStyles
+	DatePicker,
+	IDatePickerStyles,
 } from '@fluentui/react';
 import React, { useState, createRef } from 'react';
 import { mergeStyles } from '@fluentui/react/lib/Styling';
@@ -14,6 +14,7 @@ import { FaEnvelope, FaGoogle, FaFacebook } from 'react-icons/fa';
 import { apiCall } from '../functions/api';
 import { toast } from 'react-toastify';
 import GoogleLogin from 'react-google-login';
+import { OnlyLogoLayout } from '../shared/OnlyLogoLayout';
 
 import {
 	BASE_URL,
@@ -26,30 +27,21 @@ import axios from 'axios';
 // import FacebookLogin from 'react-facebook-login';
 import FacebookLogin from '@doopage/react-facebook-login';
 
-const options0: IDropdownOption[] = [
-	{ key: 'Canada', text: 'CA' },
-	{ key: 'India', text: 'IN' },
-	{ key: 'USA', text: 'US' },
-	{ key: 'Australia', text: 'AUS' },
+const options0 = [
+	{ key: 'Canada', text: 'CA', prefix: '+1' },
+	{ key: 'India', text: 'IN', prefix: '+91' },
+	{ key: 'USA', text: 'US', prefix: '+1' },
+	{ key: 'Australia', text: 'AUS', prefix: '+61' },
 ];
 
-const options: IDropdownOption[] = [
-	{ key: 'single female', text: 'single female' },
-	{ key: 'single male', text: 'single male' },
-	{ key: 'female/male couple', text: 'female/male couple' },
-	{ key: 'female/female couple', text: 'female/female couple' },
-	{ key: 'male/male couple', text: 'male/male couple' },
-	// { key: 'fruitsHeader', text: 'Fruits', itemType: DropdownMenuItemType.Header },
-	// { key: 'apple', text: 'Apple' },
-	// { key: 'banana', text: 'Banana' },
-	// { key: 'orange', text: 'Orange', disabled: true },
-	// { key: 'grape', text: 'Grape' },
-	// { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
-	// { key: 'vegetablesHeader', text: 'Vegetables', itemType: DropdownMenuItemType.Header },
-	// { key: 'broccoli', text: 'Broccoli' },
-	// { key: 'carrot', text: 'Carrot' },
-	// { key: 'lettuce', text: 'Lettuce' },
+const options = [
+	{ key: 'single female', text: 'single female', isSingle: true },
+	{ key: 'single male', text: 'single male', isSingle: true },
+	{ key: 'female/male couple', text: 'female/male couple', isSingle: false },
+	{ key: 'female/female couple', text: 'female/female couple', isSingle: false },
+	{ key: 'male/male couple', text: 'male/male couple', isSingle: false },
 ];
+
 const lookingForDefaultOptions: IDropdownOption[] = [
 	{ key: 'single female', text: 'single female' },
 	{ key: 'single male', text: 'single male' },
@@ -58,8 +50,6 @@ const lookingForDefaultOptions: IDropdownOption[] = [
 	{ key: 'male/male couple', text: 'male/male couple' },
 	{ key: 'anyone', text: 'anyone' }, // (if this is chosen in on of the ‘add more’ boxes, delete all the other boxes
 ];
-const countryOptions: IDropdownOption[] = [{ key: 'India', text: 'India' }];
-const selectOptions: IDropdownOption[] = [{ key: '13/05/1999', text: '13/05/1999' }];
 const dropdownStyles: Partial<IDropdownStyles> = {
 	dropdown: { width: 514, height: 60 },
 	title: { width: 514, height: 60, fontSize: 30, padding: 12 },
@@ -111,6 +101,7 @@ export class Demo extends React.Component<any, any> {
 		step7Values: any;
 		step8Values: any;
 		lookingForOptions: any;
+		isSingle: any;
 	};
 
 	constructor(props: any) {
@@ -118,8 +109,8 @@ export class Demo extends React.Component<any, any> {
 		this.state = {
 			step: -4,
 			step_4Values: {
-				dbdy: null,
-				ibdy: null,
+				dbdy: 'India',
+				ibdy: '+91',
 			},
 			step_3Values: null,
 			step_2Values: {
@@ -134,10 +125,18 @@ export class Demo extends React.Component<any, any> {
 				person2: null,
 			},
 			step4Values: {
-				ebdy: null,
-				tbdy: null,
+				ebdy: {
+					month: null,
+					day: null,
+					year: null,
+				},
+				tbdy: {
+					month: null,
+					day: null,
+					year: null,
+				},
 			},
-			step5Values: null,
+			step5Values: 'India',
 			step6Values: null,
 			step7Values: null,
 			step8Values: null,
@@ -148,7 +147,8 @@ export class Demo extends React.Component<any, any> {
 				{ key: 'female/female couple', text: 'female/female couple' },
 				{ key: 'male/male couple', text: 'male/male couple' },
 				{ key: 'anyone', text: 'anyone' }, // (if this is chosen in on of the ‘add more’ boxes, delete all the other boxes
-			]
+			],
+			isSingle: false,
 		};
 		this.next = this.next.bind(this);
 		this.previous = this.previous.bind(this);
@@ -156,7 +156,14 @@ export class Demo extends React.Component<any, any> {
 		this.resendOtp = this.resendOtp.bind(this);
 		this.responseGoogle = this.responseGoogle.bind(this);
 		this.setEmail = this.setEmail.bind(this);
+		this.handlePerson1Change = this.handlePerson1Change.bind(this);
+		this.handlePerson2Change = this.handlePerson2Change.bind(this);
 	}
+
+	person1DayRef: any = createRef();
+	person1YearRef: any = createRef();
+	person2DayRef: any = createRef();
+	person2YearRef: any = createRef();
 
 	responseGoogle = async ({ profileObj, tokenId }: any) => {
 		try {
@@ -224,23 +231,25 @@ export class Demo extends React.Component<any, any> {
 		}
 	};
 
-	addMore = (e:any) => { 
-		this.setState({ step2Values: [...this.state.step2Values, '']})
-	}
+	addMore = (e: any) => {
+		this.setState({ step2Values: [...this.state.step2Values, ''] });
+	};
 
-	setStep2Value = (e:any, index:any) => {
-		if(!this.state.step2Values.includes(e))
-			this.setState((state:any) => {
-				if(e === 'anyone') {
-					state.step2Values = [e]
+	setStep2Value = (e: any, index: any) => {
+		if (!this.state.step2Values.includes(e))
+			this.setState((state: any) => {
+				if (e === 'anyone') {
+					state.step2Values = [e];
 					// state.lookingForOptions =  [] //lookingForDefaultOptions.filter((op:any) => !state.step2Values.includes(op.key))
 				} else {
-					state.step2Values[index] = e
+					state.step2Values[index] = e;
 				}
-				state.lookingForOptions =  lookingForDefaultOptions.filter((op:any) => !state.step2Values.includes(op.key))
-				return state
-			})
-	}
+				state.lookingForOptions = lookingForDefaultOptions.filter(
+					(op: any) => !state.step2Values.includes(op.key)
+				);
+				return state;
+			});
+	};
 
 	validate() {
 		if (this.state.step === -4)
@@ -268,20 +277,15 @@ export class Demo extends React.Component<any, any> {
 		if (this.state.step === 1) if (this.state.step1Values) return true;
 		if (this.state.step === 2) if (this.state.step2Values) return true;
 		if (this.state.step === 5) if (this.state.step5Values) return true;
-		if (this.state.step === 3)
-			if (
-				this.state.step3Values &&
-				this.state.step3Values.person1 &&
-				this.state.step3Values.person2
-			)
-				return true;
-		if (this.state.step === 4)
-			if (
-				this.state.step4Values &&
-				this.state.step4Values.ebdy &&
-				this.state.step4Values.tbdy
-			)
-				return true;
+		if (this.state.step === 3) {
+			if (this.state.step3Values && this.state.step3Values.person1) return true;
+			if (!this.state.isSingle && this.state.step3Values.person2) return true;
+		}
+
+		if (this.state.step === 4) {
+			if (this.state.step4Values && this.state.step4Values.ebdy) return true;
+			if (!this.state.isSingle && this.state.step4Values.tbdy) return true;
+		}
 		if (this.state.step === 6) if (this.state.step6Values) return true;
 		if (this.state.step === 7)
 			if (
@@ -317,6 +321,104 @@ export class Demo extends React.Component<any, any> {
 		this.setState({ step: step - 1 });
 	}
 
+	handlePerson1Change(value: any, type: any) {
+		if (type === 'day') {
+			if (value?.length > 2) return;
+
+			this.setState((prevState: any) => {
+				return {
+					step4Values: {
+						...prevState.step4Values,
+						ebdy: { ...prevState.step4Values.ebdy, day: value },
+					},
+				};
+			});
+
+			if (value?.length >= 2) {
+				return this.person1YearRef.current.focus();
+			}
+		}
+
+		if (type === 'month') {
+			if (value?.length > 2) return;
+
+			this.setState((prevState: any) => {
+				return {
+					step4Values: {
+						...prevState.step4Values,
+						ebdy: { ...prevState.step4Values.ebdy, month: value },
+					},
+				};
+			});
+
+			if (value?.length >= 2) {
+				return this.person1DayRef.current.focus();
+			}
+		}
+
+		if (type === 'year') {
+			if (value?.length > 4) return;
+
+			this.setState((prevState: any) => {
+				return {
+					step4Values: {
+						...prevState.step4Values,
+						ebdy: { ...prevState.step4Values.ebdy, year: value },
+					},
+				};
+			});
+		}
+	}
+
+	handlePerson2Change(value: any, type: any) {
+		if (type === 'day') {
+			if (value?.length > 2) return;
+
+			this.setState((prevState: any) => {
+				return {
+					step4Values: {
+						...prevState.step4Values,
+						tbdy: { ...prevState.step4Values.tbdy, day: value },
+					},
+				};
+			});
+
+			if (value?.length >= 2) {
+				return this.person2YearRef.current.focus();
+			}
+		}
+
+		if (type === 'month') {
+			if (value?.length > 2) return;
+
+			this.setState((prevState: any) => {
+				return {
+					step4Values: {
+						...prevState.step4Values,
+						tbdy: { ...prevState.step4Values.tbdy, month: value },
+					},
+				};
+			});
+
+			if (value?.length >= 2) {
+				return this.person2DayRef.current.focus();
+			}
+		}
+
+		if (type === 'year') {
+			if (value?.length > 4) return;
+
+			this.setState((prevState: any) => {
+				return {
+					step4Values: {
+						...prevState.step4Values,
+						tbdy: { ...prevState.step4Values.tbdy, year: value },
+					},
+				};
+			});
+		}
+	}
+
 	render() {
 		const opacity = this.state.step === -4 || this.state.step > 8 ? 'opac' : '';
 		const nextOpct = this.state.step > 8 ? 'opac' : '';
@@ -326,6 +428,7 @@ export class Demo extends React.Component<any, any> {
 
 		return (
 			<>
+				<OnlyLogoLayout />
 				<div className="registration-form d-flex justify-content-between align-items-center">
 					<ActionButton
 						onClick={this.previous}
@@ -350,14 +453,17 @@ export class Demo extends React.Component<any, any> {
 									<Dropdown
 										options={options0}
 										styles={dropdownStyles}
+										defaultSelectedKey={this.state.step_4Values.dbdy}
 										onChange={(e, i: any) => {
 											this.setState({
 												step_4Values: {
 													dbdy: i.key,
-													ibdy: this.state.step_4Values.ibdy,
+													ibdy: i.prefix,
 												},
 											});
-											this.setState({ step5Values: i.key });
+											this.setState({
+												step5Values: i.key,
+											});
 										}}
 									/>
 									<input
@@ -368,6 +474,7 @@ export class Demo extends React.Component<any, any> {
 												this.next();
 											}
 										}}
+										value={this.state.step_4Values.ibdy}
 										onChange={(e) => {
 											this.setState({
 												step_4Values: {
@@ -548,9 +655,10 @@ export class Demo extends React.Component<any, any> {
 									<Dropdown
 										options={options}
 										styles={dropdownStyles}
-										onChange={(e) => {
+										onChange={(e, i: any) => {
 											this.setState({
-												step1Values: e.currentTarget.textContent,
+												step1Values: i.key,
+												isSingle: i.isSingle,
 											});
 										}}
 									/>
@@ -566,17 +674,25 @@ export class Demo extends React.Component<any, any> {
 							<div className="d-flex form-group">
 								<span className="reg-label"> I am / we are looking for:</span>
 								<div className="add-more-div">
-									{(this.state.step2Values && this.state.step2Values.length > 0 ? this.state.step2Values : ['']).map((val:any, key:any) => { 
-										if(key === 0){
-											return <Dropdown
-												defaultSelectedKey={val}
-												placeholder={val}
-												options={lookingForOptions}
-												styles={dropdownStyles}
-												onChange={(e) => {
-													this.setStep2Value(e.currentTarget.textContent, key)
-												}}
-											/>
+									{(this.state.step2Values && this.state.step2Values.length > 0
+										? this.state.step2Values
+										: ['']
+									).map((val: any, key: any) => {
+										if (key === 0) {
+											return (
+												<Dropdown
+													defaultSelectedKey={val}
+													placeholder={val}
+													options={lookingForOptions}
+													styles={dropdownStyles}
+													onChange={(e) => {
+														this.setStep2Value(
+															e.currentTarget.textContent,
+															key
+														);
+													}}
+												/>
+											);
 										}
 										return (
 											<div className="mt-3">
@@ -586,17 +702,26 @@ export class Demo extends React.Component<any, any> {
 													options={lookingForOptions}
 													styles={dropdownStyles}
 													onChange={(e) => {
-														this.setStep2Value(e.currentTarget.textContent, key)
+														this.setStep2Value(
+															e.currentTarget.textContent,
+															key
+														);
 													}}
 												/>
 											</div>
-										)
+										);
 									})}
-									{(!this.state.step2Values || this.state.step2Values.length < 5) && !this.state.step2Values.includes('anyone') ? 
-										<p><a onClick={this.addMore}>Add more</a></p>
-										:
-										<p style={{ opacity: '0'}}><a onClick={(e:any) => e.preventDefault()}>hidden</a></p>
-									}
+									{(!this.state.step2Values ||
+										this.state.step2Values.length < 5) &&
+									!this.state.step2Values.includes('anyone') ? (
+										<p>
+											<a onClick={this.addMore}>Add more</a>
+										</p>
+									) : (
+										<p style={{ opacity: '0' }}>
+											<a onClick={(e: any) => e.preventDefault()}>hidden</a>
+										</p>
+									)}
 								</div>
 							</div>
 						</>
@@ -626,25 +751,28 @@ export class Demo extends React.Component<any, any> {
 										}}
 									/>
 								</div>
-								<div className="d-flex form-group">
-									<span className="reg-label"> First name:</span>
-									<input
-										placeholder="person 2"
-										onKeyPress={(e: any) => {
-											if (e.code === 'Enter') {
-												this.next();
-											}
-										}}
-										onChange={(e) => {
-											this.setState({
-												step3Values: {
-													person1: this.state.step3Values.person1,
-													person2: e.currentTarget.value,
-												},
-											});
-										}}
-									/>
-								</div>
+								{!this.state.isSingle && (
+									<div className="d-flex form-group">
+										<span className="reg-label"> First name:</span>
+										<input
+											placeholder="person 2"
+											onKeyPress={(e: any) => {
+												if (e.code === 'Enter') {
+													this.next();
+												}
+											}}
+											onChange={(e) => {
+												this.setState({
+													step3Values: {
+														person1: this.state.step3Values.person1,
+														person2: e.currentTarget.value,
+													},
+												});
+											}}
+										/>
+									</div>
+								)}
+
 								<p className="name-para">
 									*The name(s) you add above are seen by other users, so if it
 									makes you more comfortable, feel free to make them up.
@@ -661,69 +789,78 @@ export class Demo extends React.Component<any, any> {
 								<div className="d-flex form-group" style={{ marginBottom: '31px' }}>
 									<div className="bdy">
 										<span className="reg-label">
-											{' '}
 											{this.state.step3Values.person1}’s birthday:
 										</span>
 									</div>
-									<DatePicker
-										borderless
-										styles={dpStyles}
-										onSelectDate={(e) => {
-											this.setState({
-												step4Values: {
-													ebdy: e,
-													tbdy: this.state.step4Values.tbdy,
-												},
-											});
-										}}
+									<input
+										style={{ width: '6rem', marginRight: '.5rem' }}
+										placeholder="MM"
+										type="text"
+										value={this.state.step4Values.ebdy.month}
+										onChange={(e) =>
+											this.handlePerson1Change(e.target.value, 'month')
+										}
 									/>
-
-									{/* <Dropdown
-										options={selectOptions}
-										styles={dropdownStyles}
-										onChange={(e) => {
-											this.setState({
-												step4Values: {
-													ebdy: e.currentTarget.textContent,
-													tbdy: this.state.step4Values.tbdy,
-												},
-											});
-										}}
-									/> */}
+									<input
+										style={{ width: '6rem', marginRight: '.5rem' }}
+										placeholder="DD"
+										type="text"
+										value={this.state.step4Values.ebdy.day}
+										onChange={(e) =>
+											this.handlePerson1Change(e.target.value, 'day')
+										}
+										ref={this.person1DayRef}
+									/>
+									<input
+										style={{ width: '7rem' }}
+										placeholder="YYYY"
+										type="text"
+										value={this.state.step4Values.ebdy.year}
+										onChange={(e) =>
+											this.handlePerson1Change(e.target.value, 'year')
+										}
+										ref={this.person1YearRef}
+									/>
 								</div>
-								<div className="d-flex form-group">
-									<div className="bdy">
-										<span className="reg-label">
-											{' '}
-											{this.state.step3Values.person2}’s birthday:
-										</span>
+								{!this.state.isSingle && (
+									<div className="d-flex form-group">
+										<div className="bdy">
+											<span className="reg-label">
+												{this.state.step3Values.person2}’s birthday:
+											</span>
+										</div>
+
+										<input
+											style={{ width: '6rem', marginRight: '.5rem' }}
+											placeholder="MM"
+											type="text"
+											value={this.state.step4Values.tbdy.month}
+											onChange={(e) =>
+												this.handlePerson2Change(e.target.value, 'month')
+											}
+										/>
+										<input
+											style={{ width: '6rem', marginRight: '.5rem' }}
+											placeholder="DD"
+											type="text"
+											value={this.state.step4Values.tbdy.day}
+											onChange={(e) =>
+												this.handlePerson2Change(e.target.value, 'day')
+											}
+											ref={this.person2DayRef}
+										/>
+										<input
+											style={{ width: '7rem' }}
+											placeholder="YYYY"
+											type="text"
+											value={this.state.step4Values.tbdy.year}
+											onChange={(e) =>
+												this.handlePerson2Change(e.target.value, 'year')
+											}
+											ref={this.person2YearRef}
+										/>
 									</div>
-
-									<DatePicker
-										borderless
-										styles={dpStyles}
-										onSelectDate={(e) => {
-											this.setState({
-												step4Values: {
-													tbdy: e,
-													ebdy: this.state.step4Values.ebdy,
-												},
-											});
-										}}
-									/>
-									{/* <Dropdown
-										options={selectOptions}
-										styles={dropdownStyles}
-										onChange={(e) => {
-											this.setState({
-												step4Values: {
-													tbdy: e.currentTarget.textContent,
-													ebdy: this.state.step4Values.ebdy,
-												},
-											});
-										}}
-									/> */}
-								</div>
+								)}
 							</div>
 						</>
 					) : (
@@ -734,11 +871,6 @@ export class Demo extends React.Component<any, any> {
 							<p className="step-number">5/8</p>
 							<div className="d-flex form-group">
 								<span className="reg-label"> Country:</span>
-								{/* <Dropdown
-									options={countryOptions}
-									styles={dropdownStyles}
-									
-								/> */}
 								<input
 									onKeyPress={(e: any) => {
 										if (e.code === 'Enter') {
@@ -827,7 +959,7 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === 9 ? (
 						<>
 							<p className="step-number">8/8</p>
-							<div>
+							<div style={{ paddingTop: '15rem' }}>
 								<div className="awe-final">
 									{`Awesome, ${
 										localStorage.getItem('email') || 'Anonymous'
