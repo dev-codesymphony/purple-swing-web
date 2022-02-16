@@ -2,9 +2,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { BASE_URL } from '../app.config';
 
-async function apiCall(value, body,setEmail) {
+async function apiCall(value, body, setEmail) {
 	try {
-        console.log(body)
 		switch (value) {
 			case -4:
 				let contactNumber = body.step_4Values.ibdy;
@@ -70,21 +69,33 @@ async function apiCall(value, body,setEmail) {
 				if (finalEmailResponse.status === 200) {
 					localStorage.setItem('token', finalEmailResponse?.data?.data?.data?.jwt);
 					localStorage.setItem('email', verifiedEmail);
-                    setEmail(verifiedEmail)
+					setEmail(verifiedEmail);
 					toast.success('Email verified successfully');
 					return { success: true, message: 'Success' };
 				}
 
 				throw new Error('Something went wrong');
 			case 8:
+				const bdy1 = body.step4Values.ebdy;
+				const bdy2 = body.step4Values.tbdy;
+
 				const fristResponse = body.step1Values;
 				const secondResponse = body.step2Values;
 				const person1 = body.step3Values.person1;
 				const person2 = body.step3Values.person2;
-				const bdy1 = body.step4Values.tbdy;
-				const bdy2 = body.step4Values.ebdy;
-                const password = body.step8Values
+				let person1Birthday = `${bdy1.day}/${bdy1.month}/${bdy1.year}`;
+				let person2Birthday = `${bdy2.day}/${bdy2.month}/${bdy2.year}`;
+				const password = body.step8Values;
+
 				const jwtToken = localStorage.getItem('token');
+
+				if (!bdy1.day || !bdy1.month || !bdy1.year) {
+					person1Birthday = null;
+				}
+
+				if (!bdy2.month || !bdy2.day || !bdy2.year) {
+					person2Birthday = null;
+				}
 
 				const finalResponse = await axios.post(
 					`${BASE_URL}/user/update-profile`,
@@ -93,9 +104,9 @@ async function apiCall(value, body,setEmail) {
 						LookingFor: secondResponse,
 						Firstname1: person1,
 						Firstname2: person2,
-						Birthday1: bdy1,
-						Birthday2: bdy2,
-                        password
+						Birthday1: person1Birthday,
+						Birthday2: person2Birthday,
+						password,
 					},
 					{ headers: { Authorization: `Bearer ${jwtToken}` } }
 				);
