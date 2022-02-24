@@ -1,14 +1,12 @@
 import {
 	ActionButton,
 	Dropdown,
-	DropdownMenuItemType,
 	FontIcon,
 	IDropdownOption,
 	IDropdownStyles,
-	DatePicker,
 	IDatePickerStyles,
 } from '@fluentui/react';
-import React, { useState, createRef } from 'react';
+import React, { createRef } from 'react';
 import { mergeStyles } from '@fluentui/react/lib/Styling';
 import { FaEnvelope, FaGoogle, FaFacebook } from 'react-icons/fa';
 import { apiCall } from '../functions/api';
@@ -16,16 +14,12 @@ import { toast } from 'react-toastify';
 import GoogleLogin from 'react-google-login';
 import { OnlyLogoLayout } from '../shared/OnlyLogoLayout';
 
-import {
-	BASE_URL,
-	GOOGLE_CLIENT_ID,
-	FACEBOOK_CLIENT_ID,
-	FACEBOOK_CLIENT_SECRET,
-} from '../app.config';
+import { BASE_URL, GOOGLE_CLIENT_ID, FACEBOOK_CLIENT_ID } from '../app.config';
 import axios from 'axios';
 // import OtpInput from 'react-otp-input';
 // import FacebookLogin from 'react-facebook-login';
 import FacebookLogin from '@doopage/react-facebook-login';
+import Loader from './Loader';
 
 const options0 = [
 	{ key: 'Canada', text: 'CA', prefix: '+1' },
@@ -54,16 +48,6 @@ const dropdownStyles: Partial<IDropdownStyles> = {
 	dropdown: { width: 514, height: 60 },
 	title: { width: 514, height: 60, fontSize: 30, padding: 12 },
 	caretDownWrapper: { top: 15, right: 17, '&& i': { fontSize: 30 } },
-};
-
-const dpStyles: Partial<IDatePickerStyles> = {
-	textField: {
-		// borderRadius: '34px!important',
-		// border: 'none',
-		fontSize: '25px',
-		height: '65px',
-	},
-	icon: { display: 'none' },
 };
 
 const iconClass = mergeStyles({
@@ -102,6 +86,10 @@ export class Demo extends React.Component<any, any> {
 		step8Values: any;
 		lookingForOptions: any;
 		isSingle: any;
+		isLoading: any;
+		isResendOtpDisabled: any;
+		resendOtpTimerSeconds: any;
+		resensdOtpTimerMinutes: any;
 	};
 
 	constructor(props: any) {
@@ -149,6 +137,10 @@ export class Demo extends React.Component<any, any> {
 				{ key: 'anyone', text: 'anyone' }, // (if this is chosen in on of the ‘add more’ boxes, delete all the other boxes
 			],
 			isSingle: false,
+			isLoading: false,
+			isResendOtpDisabled: false,
+			resendOtpTimerSeconds: 0,
+			resensdOtpTimerMinutes: 1,
 		};
 		this.next = this.next.bind(this);
 		this.previous = this.previous.bind(this);
@@ -158,6 +150,8 @@ export class Demo extends React.Component<any, any> {
 		this.setEmail = this.setEmail.bind(this);
 		this.handlePerson1Change = this.handlePerson1Change.bind(this);
 		this.handlePerson2Change = this.handlePerson2Change.bind(this);
+		this.setLoading = this.setLoading.bind(this);
+		this.startOtpTimer = this.startOtpTimer.bind(this);
 	}
 
 	person1DayRef: any = createRef();
@@ -192,6 +186,36 @@ export class Demo extends React.Component<any, any> {
 			toast.error(error.message);
 		}
 	};
+
+	startOtpTimer() {
+		this.setState({ isResendOtpDisabled: true });
+		const interval: any = setInterval(() => {
+			if (this.state.resendOtpTimerSeconds > 0) {
+				this.setState((prev: any) => {
+					return { resendOtpTimerSeconds: prev.resendOtpTimerSeconds - 1 };
+				});
+			}
+
+			if (this.state.resendOtpTimerSeconds === 0) {
+				if (this.state.resensdOtpTimerMinutes === 0) {
+					this.setState({
+						isResendOtpDisabled: false,
+						resensdOtpTimerMinutes: 1,
+						resendOtpTimerSeconds: 0,
+					});
+					return clearInterval(interval);
+				} else {
+					this.setState((prev: any) => {
+						return {
+							resensdOtpTimerMinutes: prev.resensdOtpTimerMinutes - 1,
+							resendOtpTimerSeconds: 59,
+						};
+					});
+				}
+			}
+		}, 1000);
+	}
+
 	async resendOtp(e: any) {
 		e.preventDefault();
 		try {
@@ -202,6 +226,7 @@ export class Demo extends React.Component<any, any> {
 
 			if (response.status === 200) {
 				toast.success('OTP resend successfully');
+				this.startOtpTimer();
 				return { success: true, message: response?.data?.data?.message };
 			}
 			throw new Error('Something went wrong');
@@ -302,20 +327,34 @@ export class Demo extends React.Component<any, any> {
 		this.setState({ step7Values: email });
 	}
 
+	setLoading(type: any) {
+		this.setState({ isLoading: type });
+	}
+
 	async next() {
 		try {
+			this.setLoading(true);
 			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
 
 			if (apiResponse.success) {
 				let step = this.state.step;
+
+				if (this.state.step === -4) {
+					this.startOtpTimer();
+				}
+
 				this.setState((prevState: any) => {
 					return { ...prevState, step: step + 1 };
 				});
 			}
+
+			this.setLoading(false);
 		} catch (error: any) {
 			toast.error(error.message);
+			this.setLoading(false);
 		}
 	}
+
 	previous() {
 		let step = this.state.step;
 		this.setState({ step: step - 1 });
@@ -513,11 +552,21 @@ export class Demo extends React.Component<any, any> {
 									/>
 								</div>
 
-								<p className="text-center send-again-link">
-									<a onClick={this.resendOtp} href="#">
+								<p className="text-center">
+									<button
+										className="send-again-link"
+										disabled={this.state.isResendOtpDisabled}
+										onClick={this.resendOtp}
+									>
 										Send again
-									</a>
+									</button>
 								</p>
+								{this.state.isResendOtpDisabled && (
+									<p className="text-center">
+										{this.state.resensdOtpTimerMinutes}:
+										{this.state.resendOtpTimerSeconds}
+									</p>
+								)}
 							</div>
 						</>
 					) : (
@@ -990,18 +1039,22 @@ export class Demo extends React.Component<any, any> {
 
 					{/* {this.state.step === 8 ? ()} */}
 
-					<ActionButton
-						disabled={!this.validate()}
-						onClick={this.next}
-						className={'step-button ' + nextOpct + ' ' + blurOpac}
-					>
-						next
-						<FontIcon
-							aria-label="Compass"
-							iconName="ChevronRightSmall"
-							className={iconClass}
-						/>
-					</ActionButton>
+					{this.state.isLoading ? (
+						<Loader />
+					) : (
+						<ActionButton
+							disabled={!this.validate()}
+							onClick={this.next}
+							className={'step-button ' + nextOpct + ' ' + blurOpac}
+						>
+							next
+							<FontIcon
+								aria-label="Compass"
+								iconName="ChevronRightSmall"
+								className={iconClass}
+							/>
+						</ActionButton>
+					)}
 				</div>
 			</>
 		);
