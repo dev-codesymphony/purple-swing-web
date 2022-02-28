@@ -101,7 +101,7 @@ async function apiCall(value, body, setEmail) {
 
 				const jwtToken = localStorage.getItem('token');
 
-				if(!fristResponse || !secondResponse || (Array.isArray(secondResponse) && secondResponse.length < 1) || person1 || person1Birthday || !password) {
+				if(!fristResponse || !secondResponse || (Array.isArray(secondResponse) && secondResponse.length < 1) || !person1 || !person1Birthday || !password) {
 					throw new Error('Some of the required fields are missing')
 				}
 
