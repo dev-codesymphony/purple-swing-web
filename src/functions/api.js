@@ -122,7 +122,7 @@ async function apiCall(value, body, setEmail) {
 		}
 	} catch (error) {
 		console.log(error.response);
-		throw new Error(error?.response?.data?.error || error.message);
+		throw new Error(error?.response?.data?.message || error?.response?.data?.error || error.message);
 	}
 }
 
