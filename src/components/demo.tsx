@@ -183,7 +183,7 @@ export class Demo extends React.Component<any, any> {
 			}
 		} catch (error: any) {
 			console.log(error);
-			toast.error(error.message);
+			toast.error(error?.data?.message || error.message);
 		}
 	};
 
@@ -231,7 +231,8 @@ export class Demo extends React.Component<any, any> {
 			}
 			throw new Error('Something went wrong');
 		} catch (error: any) {
-			toast.error(error.message);
+			console.log('custom error', error, ' <<===== error')
+			toast.error(error?.data?.message || error.message);
 		}
 	}
 
@@ -300,7 +301,7 @@ export class Demo extends React.Component<any, any> {
 			if (this.state.step_1Values) return true;
 		if (this.state.step === 0) if (this.state.step0Values) return true;
 		if (this.state.step === 1) if (this.state.step1Values) return true;
-		if (this.state.step === 2) if (this.state.step2Values) return true;
+		if (this.state.step === 2) if (Array.isArray(this.state.step2Values) && this.state.step2Values.length > 0) return true;
 		if (this.state.step === 5) if (this.state.step5Values) return true;
 		if (this.state.step === 3) {
 			if (this.state.step3Values && this.state.step3Values.person1) return true;
@@ -350,7 +351,7 @@ export class Demo extends React.Component<any, any> {
 
 			this.setLoading(false);
 		} catch (error: any) {
-			toast.error(error.message);
+			toast.error(error?.data?.message || error.message);
 			this.setLoading(false);
 		}
 	}
@@ -865,6 +866,11 @@ export class Demo extends React.Component<any, any> {
 										placeholder="YYYY"
 										type="text"
 										value={this.state.step4Values.ebdy.year}
+										onKeyPress={(e: any) => {
+											if (e.code === 'Enter') {
+												this.next();
+											}
+										}}
 										onChange={(e) =>
 											this.handlePerson1Change(e.target.value, 'year')
 										}
@@ -903,6 +909,11 @@ export class Demo extends React.Component<any, any> {
 											placeholder="YYYY"
 											type="text"
 											value={this.state.step4Values.tbdy.year}
+											onKeyPress={(e: any) => {
+												if (e.code === 'Enter') {
+													this.next();
+												}
+											}}
 											onChange={(e) =>
 												this.handlePerson2Change(e.target.value, 'year')
 											}

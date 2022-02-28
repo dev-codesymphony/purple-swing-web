@@ -7,6 +7,9 @@ async function apiCall(value, body, setEmail) {
 		switch (value) {
 			case -4:
 				let contactNumber = body.step_4Values.ibdy;
+				if(!contactNumber) {
+					throw new Error('Please enter a valid mobile number')
+				}
 				const response = await axios.post(`${BASE_URL}/auth/send-otp`, {
 					mobile: contactNumber,
 				});
@@ -20,6 +23,9 @@ async function apiCall(value, body, setEmail) {
 			case -3:
 				let otp = body.step_3Values;
 				let mobile = body.step_4Values.ibdy;
+				if(!otp) {
+					throw new Error('Please enter a valid OTP.')
+				}
 				const otpResponse = await axios.post(`${BASE_URL}/auth/verify-otp`, {
 					otp,
 					mobile,
@@ -35,7 +41,9 @@ async function apiCall(value, body, setEmail) {
 			case -1:
 				const email = body.step_1Values;
 				const token = localStorage.getItem('token');
-
+				if(!email) {
+					throw new Error('Please enter a valid email address');
+				}
 				const emailResponse = await axios.post(
 					`${BASE_URL}/auth/login`,
 					{
@@ -56,6 +64,10 @@ async function apiCall(value, body, setEmail) {
 				const emailOtp = body.step0Values;
 				const verifiedEmail = body.step_1Values;
 				const jwt = localStorage.getItem('token');
+
+				if(!emailOtp) {
+					throw new Error('Please enter a valid OTP.')
+				}
 
 				const finalEmailResponse = await axios.post(
 					`${BASE_URL}/auth/verify-email-otp`,
@@ -88,6 +100,10 @@ async function apiCall(value, body, setEmail) {
 				const password = body.step8Values;
 
 				const jwtToken = localStorage.getItem('token');
+
+				if(!fristResponse || !secondResponse || (Array.isArray(secondResponse) && secondResponse.length < 1) || person1 || person1Birthday || !password) {
+					throw new Error('Some of the required fields are missing')
+				}
 
 				if (!bdy1.day || !bdy1.month || !bdy1.year) {
 					person1Birthday = null;
