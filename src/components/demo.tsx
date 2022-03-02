@@ -469,7 +469,7 @@ export class Demo extends React.Component<any, any> {
 		return (
 			<>
 				<OnlyLogoLayout />
-				<div className="registration-form d-flex justify-content-between align-items-center">
+				<div className={"registration-form d-flex justify-content-between align-items-center" + (this.state.step === -4 ? ' home-screen-btn' : '')} >
 					<ActionButton
 						onClick={this.previous}
 						disabled={this.state.step === -4}
@@ -478,68 +478,100 @@ export class Demo extends React.Component<any, any> {
 						<FontIcon
 							aria-label="Compass"
 							iconName="ChevronLeftSmall"
-							className={iconClass}
+							className={iconClass + ' back '}
+							
 						/>
 						back
 					</ActionButton>
 					{this.state.step === -4 ? (
 						<>
-							<div className="d-flex flex-column text-center form-group phone-num">
-								<span className="reg-label" style={{ fontSize: 16 }}>
+							<div className="d-flex flex-column text-center form-group phone-num home-screen-part">
+								<span className="reg-label home-screen-label" style={{ fontSize: 16 }}>
 									Enter your mobile phone number and we'll send you a text message
 									with a verification code
 								</span>
-								<div className="d-sm-flex country-code">
-									<Dropdown
-										options={options0}
-										styles={{
-											...dropdownStyles, 
-											title: { 
-												...dropdownStyles,
-												width: '100px !important', 
-												height: '50px !important', 
-												fontSize:'16px !important', 
-												padding: '6px 28px 0px 8px',
-												marginRight: '0 !important' 
-											},
-											caretDownWrapper: { 
-												fontSize: 14,
-												right: '40px !important'
-											}
-										}}
-										defaultSelectedKey={this.state.step_4Values.dbdy}
-										onChange={(e, i: any) => {
-											this.setState({
-												step_4Values: {
-													dbdy: i.key,
-													ibdy: i.prefix,
+								<div className='btn-with-dropdown d-flex align-items-center justify-content-center'>
+									<ActionButton
+							onClick={this.previous}
+							disabled={this.state.step === -4}
+							className={'step-button back-btn ' + opacity}
+						>
+							<FontIcon
+								aria-label="Compass"
+								iconName="ChevronLeftSmall"
+								className={iconClass + ' back '}
+								
+							/>
+							back
+									</ActionButton>
+									<div className="d-sm-flex country-code">
+										<Dropdown
+											className='home-country'
+											options={options0}
+											styles={{
+												...dropdownStyles, 
+												title: { 
+													...dropdownStyles,
+													width: '100px !important', 
+													height: '26px !important', 
+													fontSize:'16px !important', 
+													padding: '6px 28px 0px 8px',
+													marginRight: '0 !important',
+													fontFamily: 'ModernEraRegular',
 												},
-											});
-											this.setState({
-												step5Values: i.key,
-											});
-										}}
-									/>
-									<input
-										style={{ fontSize: 16, height: 50, width: 300}}
-										placeholder=""
-										type="text"
-										onKeyPress={(e: any) => {
-											if (e.code === 'Enter') {
-												this.next();
-											}
-										}}
-										value={this.state.step_4Values.ibdy}
-										onChange={(e) => {
-											this.setState({
-												step_4Values: {
-													ibdy: e.currentTarget.value,
-													dbdy: this.state.step_4Values.dbdy,
-												},
-											});
-										}}
-									/>
+												caretDownWrapper: { 
+													fontSize: 14,
+													right: '40px !important'
+												}
+											}}
+											defaultSelectedKey={this.state.step_4Values.dbdy}
+											onChange={(e, i: any) => {
+												this.setState({
+													step_4Values: {
+														dbdy: i.key,
+														ibdy: i.prefix,
+													},
+												});
+												this.setState({
+													step5Values: i.key,
+												});
+											}}
+										/>
+										<input
+											style={{ fontSize: 16, height: 50, width: 215}}
+											className="home-phone-no"
+											placeholder=""
+											type="text"
+											onKeyPress={(e: any) => {
+												if (e.code === 'Enter') {
+													this.next();
+												}
+											}}
+											value={this.state.step_4Values.ibdy}
+											onChange={(e) => {
+												this.setState({
+													step_4Values: {
+														ibdy: e.currentTarget.value,
+														dbdy: this.state.step_4Values.dbdy,
+													},
+												});
+											}}
+										/>
+									</div>
+									<ActionButton
+								disabled={!this.validate()}
+								onClick={this.next}
+								className={'step-button next-btn ' + nextOpct + ' ' + blurOpac + (this.state.step === -4 ? 'class-when-first-screen' : 'class-when-other-screens')}
+							>
+								next
+								<FontIcon
+									aria-label="Compass"
+									iconName="ChevronRightSmall"
+									className={iconClass}
+								/>
+									</ActionButton>
 								</div>
+								
 							</div>
 						</>
 					) : (
@@ -1071,7 +1103,7 @@ export class Demo extends React.Component<any, any> {
 						<ActionButton
 							disabled={!this.validate()}
 							onClick={this.next}
-							className={'step-button ' + nextOpct + ' ' + blurOpac}
+							className={'step-button main-next-button ' + nextOpct + ' ' + blurOpac}
 						>
 							next
 							<FontIcon

@@ -11,11 +11,6 @@
 }
 
 @font-face {
-  font-family: 'ModernEraReguar';
-  src: local('ModernEraReguar'), url(./assets/fonts/ModernEra-Regular.otf) format('opentype');
-}
-
-@font-face {
   font-family: 'ModernEraBlack';
   src: local('ModernEraBlack'), url(./assets/fonts/ModernEra-Black.otf) format('opentype');
 }
@@ -553,6 +548,70 @@ font-weight: bold;
   bottom: 12%;
 }
 
+.home-screen-part .home-screen-label{
+  font-weight: 500;
+  font-family: 'ModernEraRegular';
+  text-align: left;
+}
+.home-screen-part .country-code .ms-Dropdown{
+  width: 86px !important;
+}
+.home-screen-part .home-country{
+  font-family: 'ModernEraRegular';
+  height: 28px;
+}
+.home-screen-part .country-code .ms-Dropdown-title{
+    border: 2px solid black;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 10px;
+    font-family: 'ModernEraRegular';
+    font-weight: 700;
+    width: 80px !important;
+}
+.home-screen-part .ms-Dropdown-caretDownWrapper i {
+    font-size: 16px!important;
+    color: #000 !important;
+    font-weight: bolder!important;
+    display: flex;
+    align-items: center;
+}
+.home-screen-part  .ms-Dropdown-caretDownWrapper{
+  height: 18px;
+  right: 18px !important;
+}
+.home-screen-part .home-phone-no{
+  border: 2px solid black;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 10px;
+    font-family: 'ModernEraRegular';
+    height: 28px !important;
+    font-weight: 700;
+}
+.registration-form .home-screen-part .step-button{
+  font-size: 14px;
+}
+.registration-form .home-screen-part .step-button i{
+  margin: 2px 17px 0px 0px;
+  font-size: 12px;
+}
+.registration-form .home-screen-part .step-button i.back {
+  margin: 2px 0px 0px 17px;
+  font-size: 12px;
+}
+.registration-form .home-screen-part .step-button.next-btn{
+  position: absolute;
+  right: 0;
+}
+.registration-form.home-screen-btn{
+  position: relative;
+}
+.registration-form.home-screen-btn .main-next-button{
+  opacity: 0;
+}
 /* @media screen and (max-width:1440px){ */
   @media screen and (max-width :1439px){
     .first-section {
@@ -690,9 +749,8 @@ font-weight: bold;
   .preview-section{
     max-height: 630px;
   }
-  .registration-form .ms-Dropdown-title, .registration-form input, .registration-form .ms-Dropdown{
-    width: 300px;
-    margin: auto;
+  .registration-form .country-code{
+    justify-content: center;
   }
   .registration-form input, .registration-form .ms-Dropdown span{
     font-size: 24px;
@@ -771,6 +829,9 @@ font-weight: bold;
     transform: none;
     margin-top: 40px;
   }
+  .registration-form .home-screen-part .step-button.next-btn{
+    top: 55%;
+  }
 }
 
 @media (max-width: 576px){
@@ -838,6 +899,12 @@ font-weight: bold;
   }
   .send-again-link a {
     font-size: 20px;
+  }
+  .registration-form.home-screen-btn .home-screen-part .step-button.back-btn{
+    display: none;
+  }
+  .home-screen-part .home-phone-no{
+    margin-top: 10px;
   }
 }
 
