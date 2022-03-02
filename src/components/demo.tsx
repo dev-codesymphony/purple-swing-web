@@ -301,7 +301,7 @@ export class Demo extends React.Component<any, any> {
 			if (this.state.step_1Values) return true;
 		if (this.state.step === 0) if (this.state.step0Values) return true;
 		if (this.state.step === 1) if (this.state.step1Values) return true;
-		if (this.state.step === 2) if (Array.isArray(this.state.step2Values) && this.state.step2Values.length > 0) return true;
+		if (this.state.step === 2) if (Array.isArray(this.state.step2Values) && this.state.step2Values.length > 0 && this.state.step2Values[0]) return true;
 		if (this.state.step === 5) if (this.state.step5Values) return true;
 		if (this.state.step === 3) {
 			if (this.state.step3Values && this.state.step3Values.person1) return true;
@@ -485,14 +485,28 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === -4 ? (
 						<>
 							<div className="d-flex flex-column text-center form-group phone-num">
-								<span className="reg-label">
+								<span className="reg-label" style={{ fontSize: 16 }}>
 									Enter your mobile phone number and we'll send you a text message
 									with a verification code
 								</span>
 								<div className="d-sm-flex country-code">
 									<Dropdown
 										options={options0}
-										styles={dropdownStyles}
+										styles={{
+											...dropdownStyles, 
+											title: { 
+												...dropdownStyles,
+												width: '100px !important', 
+												height: '50px !important', 
+												fontSize:'16px !important', 
+												padding: '6px 28px 0px 8px',
+												marginRight: '0 !important' 
+											},
+											caretDownWrapper: { 
+												fontSize: 14,
+												right: '40px !important'
+											}
+										}}
 										defaultSelectedKey={this.state.step_4Values.dbdy}
 										onChange={(e, i: any) => {
 											this.setState({
@@ -507,6 +521,7 @@ export class Demo extends React.Component<any, any> {
 										}}
 									/>
 									<input
+										style={{ fontSize: 16, height: 50, width: 300}}
 										placeholder=""
 										type="text"
 										onKeyPress={(e: any) => {
