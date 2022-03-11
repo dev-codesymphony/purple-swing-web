@@ -486,24 +486,11 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === -4 ? (
 						<>
 							<div className="d-flex flex-column text-center form-group phone-num home-screen-part">
-								<span className="reg-label home-screen-label" style={{ fontSize: 16 }}>
+								<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}>
 									Enter your mobile phone number and we'll send you a text message
 									with a verification code
 								</span>
 								<div className='btn-with-dropdown d-flex align-items-center justify-content-center'>
-									<ActionButton
-							onClick={this.previous}
-							disabled={this.state.step === -4}
-							className={'step-button back-btn ' + opacity}
-						>
-							<FontIcon
-								aria-label="Compass"
-								iconName="ChevronLeftSmall"
-								className={iconClass + ' back '}
-								
-							/>
-							back
-									</ActionButton>
 									<div className="d-sm-flex country-code">
 										<Dropdown
 											className='home-country'
@@ -517,7 +504,7 @@ export class Demo extends React.Component<any, any> {
 													fontSize:'16px !important', 
 													padding: '6px 28px 0px 8px',
 													marginRight: '0 !important',
-													fontFamily: 'ModernEraRegular',
+													fontFamily: 'ModernEraBold',
 												},
 												caretDownWrapper: { 
 													fontSize: 14,
@@ -538,7 +525,7 @@ export class Demo extends React.Component<any, any> {
 											}}
 										/>
 										<input
-											style={{ fontSize: 16, height: 50, width: 215}}
+											style={{ fontSize: 16, height: 50, width: 215, fontFamily: 'ModernEraBold'}}
 											className="home-phone-no"
 											placeholder=""
 											type="text"
@@ -549,6 +536,9 @@ export class Demo extends React.Component<any, any> {
 											}}
 											value={this.state.step_4Values.ibdy}
 											onChange={(e) => {
+												if(e.currentTarget.value == '' || e.currentTarget.value == '+' || e.currentTarget.value == '+9' || e.currentTarget.value == '+6') {
+													return 
+												}
 												this.setState({
 													step_4Values: {
 														ibdy: e.currentTarget.value,
@@ -558,18 +548,20 @@ export class Demo extends React.Component<any, any> {
 											}}
 										/>
 									</div>
-									<ActionButton
-								disabled={!this.validate()}
-								onClick={this.next}
-								className={'step-button next-btn ' + nextOpct + ' ' + blurOpac + (this.state.step === -4 ? 'class-when-first-screen' : 'class-when-other-screens')}
-							>
-								next
-								<FontIcon
-									aria-label="Compass"
-									iconName="ChevronRightSmall"
-									className={iconClass}
-								/>
-									</ActionButton>
+									{!this.state.isLoading && 
+										<ActionButton
+									disabled={!this.validate()}
+									onClick={this.next}
+									className={'step-button next-btn ' + nextOpct + ' ' + blurOpac + (this.state.step === -4 ? 'class-when-first-screen' : 'class-when-other-screens')}
+								>
+									next
+									<FontIcon
+										aria-label="Compass"
+										iconName="ChevronRightSmall"
+										className={iconClass}
+									/>
+										</ActionButton>
+									}
 								</div>
 								
 							</div>
