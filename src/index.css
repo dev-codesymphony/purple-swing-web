@@ -537,6 +537,64 @@ font-weight: bold;
   font-family: "ModernEraBold"!important;
 }
 
+.images_container{
+    display: flex;
+    align-items: center;
+    height: 300px;
+    width: 800px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px;
+   
+}
+
+.image{
+    margin-right: 20px;
+    height: 150px;
+    width:  150px;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 30px;
+}
+
+.image_close_button{
+    background-color: black;
+    color: antiquewhite;
+    position: absolute;
+    padding-left: 8px;
+    padding-right: 8px;
+    top: 0px;
+    right: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.add_icon{
+margin-top: 55px;
+font-size: 25px;
+}
+
+.image_wrapper{
+    position: relative;
+}
+
+.main_image{
+    height: 100%;
+    width: 100%;
+}
+
+.add_image{
+    border: 1px solid black;
+    height: 150px;
+    width:  150px;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.add_image_input{
+    display: none;
+}
+
 .registration-form .form-group {
   font-size: 39px;
   justify-content: center;

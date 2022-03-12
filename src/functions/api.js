@@ -15,7 +15,7 @@ async function apiCall(value, body, setEmail) {
 				});
 
 				if (response.status === 200) {
-					toast.success(response?.data?.data?.message);
+					toast.success('OTP sent successfully');
 					return { success: true, message: response?.data?.data?.message };
 				}
 
@@ -32,13 +32,14 @@ async function apiCall(value, body, setEmail) {
 				});
 
 				if (otpResponse.status === 200) {
+                    toast.success('OTP verified successfully');
 					localStorage.setItem('token', otpResponse?.data?.data?.data?.jwt);
 					return { success: true, message: otpResponse?.data?.data?.message };
 				}
 
 				throw new Error('Something went wrong');
 
-			case -1:
+			case -2:
 				const email = body.step_1Values;
 				const token = localStorage.getItem('token');
 				if(!email) {
@@ -60,7 +61,7 @@ async function apiCall(value, body, setEmail) {
 
 				throw new Error('Something went wrong');
 			// break;
-			case 0:
+			case -1:
 				const emailOtp = body.step0Values;
 				const verifiedEmail = body.step_1Values;
 				const jwt = localStorage.getItem('token');
@@ -87,7 +88,16 @@ async function apiCall(value, body, setEmail) {
 				}
 
 				throw new Error('Something went wrong');
-			case 8:
+            case 0:
+                const password1 = body.password;
+                const password2 = body.password2
+
+                if(password1 !== password2){
+                    throw new Error('Password does not match!')
+               }
+
+              return {success: true, message: 'Success'}
+			case 6:
 				const bdy1 = body.step4Values.ebdy;
 				const bdy2 = body.step4Values.tbdy;
 
@@ -95,9 +105,9 @@ async function apiCall(value, body, setEmail) {
 				const secondResponse = body.step2Values;
 				const person1 = body.step3Values.person1;
 				const person2 = body.step3Values.person2;
-				let person1Birthday = `${bdy1.day}/${bdy1.month}/${bdy1.year}`;
-				let person2Birthday = `${bdy2.day}/${bdy2.month}/${bdy2.year}`;
-				const password = body.step8Values;
+				let person1Birthday = `${bdy1.month}/${bdy1.day}/${bdy1.year}`;
+				let person2Birthday = `${bdy2.month}/${bdy2.day}/${bdy2.year}`;
+				const password = body.password;
 
 				const jwtToken = localStorage.getItem('token');
 
