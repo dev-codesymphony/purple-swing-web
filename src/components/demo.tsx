@@ -334,6 +334,11 @@ export class Demo extends React.Component<any, any> {
 
 	async next() {
 		try {
+			let step = this.state.step;
+			this.setState((prevState: any) => {
+				return { ...prevState, step: step + 1 };
+			});
+			return 
 			this.setLoading(true);
 			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
 
@@ -469,8 +474,8 @@ export class Demo extends React.Component<any, any> {
 		return (
 			<>
 				<OnlyLogoLayout />
-				<div className={"registration-form d-flex justify-content-between align-items-center" + (this.state.step === -4 ? ' home-screen-btn' : '')} >
-					<ActionButton
+				<div className={"registration-form" + (this.state.step === -4 ? ' home-screen-btn' : '') } >
+					{/* <ActionButton
 						onClick={this.previous}
 						disabled={this.state.step === -4}
 						className={'step-button ' + opacity}
@@ -482,114 +487,153 @@ export class Demo extends React.Component<any, any> {
 							
 						/>
 						back
-					</ActionButton>
+					</ActionButton> */}
 					{this.state.step === -4 ? (
 						<>
-							<div className="d-flex flex-column text-center form-group phone-num home-screen-part">
-								<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}>
-									Enter your mobile phone number and we'll send you a text message
-									with a verification code
-								</span>
-								<div className='btn-with-dropdown d-flex align-items-center justify-content-center'>
-									<div className="d-sm-flex country-code">
-										<Dropdown
-											className='home-country'
-											options={options0}
-											styles={{
-												...dropdownStyles, 
-												title: { 
-													...dropdownStyles,
-													width: '100px !important', 
-													height: '26px !important', 
-													fontSize:'16px !important', 
-													padding: '6px 28px 0px 8px',
-													marginRight: '0 !important',
-													fontFamily: 'ModernEraBold',
-												},
-												caretDownWrapper: { 
-													fontSize: 14,
-													right: '40px !important'
-												}
-											}}
-											defaultSelectedKey={this.state.step_4Values.dbdy}
-											onChange={(e, i: any) => {
-												this.setState({
-													step_4Values: {
-														dbdy: i.key,
-														ibdy: i.prefix,
-													},
-												});
-												this.setState({
-													step5Values: i.key,
-												});
-											}}
-										/>
-										<input
-											style={{ fontSize: 16, height: 50, width: 215, fontFamily: 'ModernEraBold'}}
-											className="home-phone-no"
-											placeholder=""
-											type="text"
-											onKeyPress={(e: any) => {
-												if (e.code === 'Enter') {
-													this.next();
-												}
-											}}
-											value={this.state.step_4Values.ibdy}
-											onChange={(e) => {
-												if(e.currentTarget.value == '' || e.currentTarget.value == '+' || e.currentTarget.value == '+9' || e.currentTarget.value == '+6') {
-													return 
-												}
-												this.setState({
-													step_4Values: {
-														ibdy: e.currentTarget.value,
-														dbdy: this.state.step_4Values.dbdy,
-													},
-												});
-											}}
-										/>
-									</div>
-									{!this.state.isLoading && 
-										<ActionButton
-									disabled={!this.validate()}
-									onClick={this.next}
-									className={'step-button next-btn ' + nextOpct + ' ' + blurOpac + (this.state.step === -4 ? 'class-when-first-screen' : 'class-when-other-screens')}
-								>
-									next
-									<FontIcon
-										aria-label="Compass"
-										iconName="ChevronRightSmall"
-										className={iconClass}
-									/>
-										</ActionButton>
-									}
-								</div>
-								
-							</div>
+						<div className='common-section-padding'>
+						<div className="d-flex flex-column text-center form-group phone-num home-screen-part ">
+
+<span className="home-bottom home-screen-label large-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold', marginBottom:'80px', marginTop:'0' }}>
+	Enter your mobile phone number and we'll send you a text message
+	with a verification code
+</span>
+<div className='btn-with-dropdown d-flex align-items-center justify-content-center'>
+	<div className="d-sm-flex country-code">
+		<Dropdown
+			className='home-country'
+			options={options0}
+			styles={{
+				...dropdownStyles, 
+				title: { 
+					...dropdownStyles,
+					width: '100px !important', 
+					height: '26px !important', 
+					fontSize:'16px !important', 
+					padding: '6px 28px 0px 8px',
+					marginRight: '0 !important',
+					fontFamily: 'ModernEraBold',
+				},
+				caretDownWrapper: { 
+					fontSize: 14,
+					top:'50% !important',
+					right: '16px !important'
+				}
+			}}
+			defaultSelectedKey={this.state.step_4Values.dbdy}
+			onChange={(e, i: any) => {
+				this.setState({
+					step_4Values: {
+						dbdy: i.key,
+						ibdy: i.prefix,
+					},
+				});
+				this.setState({
+					step5Values: i.key,
+				});
+			}}
+		/>
+		<input
+			style={{ fontSize: 16, height: 50, width: 215, fontFamily: 'ModernEraBold'}}
+			className="home-phone-no"
+			placeholder=""
+			type="text"
+			onKeyPress={(e: any) => {
+				if (e.code === 'Enter') {
+					this.next();
+				}
+			}}
+			value={this.state.step_4Values.ibdy}
+			onChange={(e) => {
+				if(e.currentTarget.value == '' || e.currentTarget.value == '+' || e.currentTarget.value == '+9' || e.currentTarget.value == '+6') {
+					return 
+				}
+				this.setState({
+					step_4Values: {
+						ibdy: e.currentTarget.value,
+						dbdy: this.state.step_4Values.dbdy,
+					},
+				});
+			}}
+		/>
+	</div>
+	{!this.state.isLoading && 
+		<ActionButton
+	disabled={!this.validate()}
+	onClick={this.next}
+	className={'step-button next-btn ' + nextOpct + ' ' + blurOpac + (this.state.step === -4 ? 'class-when-first-screen' : 'class-when-other-screens')}
+>
+	next
+	<FontIcon
+		aria-label="Compass"
+		iconName="ChevronRightSmall"
+		className={iconClass}
+	/>
+		</ActionButton>
+	}
+</div>
+<span className="home-bottom home-screen-label small-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}>*Your phone number or email will never be shown or given to others users</span>
+</div>
+						</div>
+							
 						</>
 					) : (
 						<></>
 					)}
 					{this.state.step === -3 ? (
 						<>
-							<div className="">
-								<div className="d-flex flex-column text-center form-group phone-otp">
-									<span className="reg-label">
+							<div className="common-section-padding">
+								<div className="d-flex flex-column text-center form-group phone-otp home-screen-part">
+									<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}>
 										{' '}
 										Enter the code that was just sent to your mobile phone
 									</span>
-									<input
-										placeholder=""
-										onKeyPress={(e: any) => {
-											if (e.code === 'Enter') {
-												this.next();
-											}
-										}}
-										onChange={(e) => {
-											this.setState({
-												step_3Values: e.currentTarget.value,
-											});
-										}}
-									/>
+									<div className='btn-with-dropdown d-flex align-items-center justify-content-center'>
+										<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+												
+											/>
+											back
+										</ActionButton>
+										<div className='field-part'>
+											<input
+											style={{ fontSize: 16, height: 50,  fontFamily: 'ModernEraBold'}}
+											className="home-phone-no home-OTP-no"
+											placeholder=""
+											onKeyPress={(e: any) => {
+												if (e.code === 'Enter') {
+													this.next();
+												}
+											}}
+											onChange={(e) => {
+												this.setState({
+													step_3Values: e.currentTarget.value,
+												});
+											}}
+										/>
+										</div>
+										{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+												</ActionButton>
+										}
+									</div>
+									
 								</div>
 
 								<p className="text-center">
@@ -614,65 +658,95 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === -2 ? (
 						<>
-							<div className="">
-								<div className="d-flex flex-column form-group">
-									{/* <span className="reg-label"> step_2Values:</span> */}
-									<button
-										className="btn reg-link"
-										value="email"
-										onClick={(e) => {
-											this.setState({ step_2Values: { emailBtn: e } });
-										}}
-									>
-										{' '}
-										<FaEnvelope /> Continue with Email
-									</button>
-									<GoogleLogin
-										onSuccess={this.responseGoogle}
-										onFailure={this.responseGoogle}
-										cookiePolicy={'single_host_origin'}
-										autoLoad={false}
-										buttonText="Login with Google"
-										clientId={GOOGLE_CLIENT_ID}
-										icon
-										render={(renderProps) => (
-											<button
-												className="btn reg-link"
-												onClick={renderProps.onClick}
-											>
-												<FaGoogle /> Continue with Google
-											</button>
-										)}
-									></GoogleLogin>
-									{/* <button
-										className="btn reg-link"
-										value="google"
-										onClick={(e) => {
-											this.setState({ step_2Values: { googleBtn: e } });
-										}}
-									>
-										<FaGoogle /> Continue with Google
-									</button> */}
-
-									<FacebookLogin
-										appId={FACEBOOK_CLIENT_ID}
-										callback={this.responseFacebook}
-										fields="name,email,picture"
-										scope="public_profile,email"
-									>
-										{(renderProps: any) => {
-											return (
+							<div className="common-section-padding home-screen-part ">
+								<div className='d-flex field-with-button align-items-center justify-content-center'>
+									<ActionButton
+												onClick={this.previous}
+												// disabled={this.state.step === -4}
+												className={'step-button back-btn' + opacity}
+												>
+												<FontIcon
+													aria-label="Compass"
+													iconName="ChevronLeftSmall"
+													className={iconClass + ' back '}
+													
+												/>
+												back
+									</ActionButton>
+									<div className="d-flex flex-column form-group ">
+										{/* <span className="reg-label"> step_2Values:</span> */}
+										<button
+											className="btn reg-link"
+											value="email"
+											onClick={(e) => {
+												this.setState({ step_2Values: { emailBtn: e } });
+											}}
+										>
+											{' '}
+											<FaEnvelope /> Continue with Email
+										</button>
+										<GoogleLogin
+											onSuccess={this.responseGoogle}
+											onFailure={this.responseGoogle}
+											cookiePolicy={'single_host_origin'}
+											autoLoad={false}
+											buttonText="Login with Google"
+											clientId={GOOGLE_CLIENT_ID}
+											icon
+											render={(renderProps) => (
 												<button
 													className="btn reg-link"
-													value="facebook"
 													onClick={renderProps.onClick}
 												>
-													<FaFacebook /> Continue with Facebook
+													<FaGoogle /> Continue with Google
 												</button>
-											);
-										}}
-									</FacebookLogin>
+											)}
+										></GoogleLogin>
+										{/* <button
+											className="btn reg-link"
+											value="google"
+											onClick={(e) => {
+												this.setState({ step_2Values: { googleBtn: e } });
+											}}
+										>
+											<FaGoogle /> Continue with Google
+										</button> */}
+
+										<FacebookLogin
+											appId={FACEBOOK_CLIENT_ID}
+											callback={this.responseFacebook}
+											fields="name,email,picture"
+											scope="public_profile,email"
+										>
+											{(renderProps: any) => {
+												return (
+													<button
+														className="btn reg-link"
+														value="facebook"
+														onClick={renderProps.onClick}
+													>
+														<FaFacebook /> Continue with Facebook
+													</button>
+												);
+											}}
+										</FacebookLogin>
+									</div>
+								{!this.state.isLoading && 
+									<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+									</ActionButton>
+								}
 								</div>
+								
 							</div>
 						</>
 					) : (
@@ -680,10 +754,27 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === -1 ? (
 						<>
-							<div className="">
+							<div className="home-screen-part common-section-padding">
 								<div className="d-flex flex-column text-center form-group email-id">
-									<span className="reg-label"> Enter your email</span>
-									<input
+									<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}> Enter your email</span>
+									<div className='btn-with-dropdown d-flex align-items-center justify-content-center'>
+										<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+												
+											/>
+											back
+										</ActionButton>
+										<div className='field-part'>
+											<input
+										style={{ fontSize: 16, height: 50,  width: 280, fontFamily: 'ModernEraBold'}}
+										className="home-phone-no"
 										onKeyPress={(e: any) => {
 											if (e.code === 'Enter') {
 												this.next();
@@ -694,6 +785,23 @@ export class Demo extends React.Component<any, any> {
 											this.setState({ step_1Values: e.currentTarget.value });
 										}}
 									/>
+										
+										</div>
+										{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+												</ActionButton>
+										}
+									</div>
 								</div>
 							</div>
 						</>
@@ -702,13 +810,30 @@ export class Demo extends React.Component<any, any> {
 					)}
 					{this.state.step === 0 ? (
 						<>
-							<div className="">
-								<div className="d-flex flex-column text-center form-group email-otp">
-									<span className="reg-label">
+							<div className="home-screen-part common-section-padding">
+								<div className="d-flex flex-column text-center form-group email-otp home-screen-part">
+									<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}>
 										{' '}
 										Enter the code that was just sent to your email
 									</span>
-									<input
+									<div className='d-flex align-items-center justify-content-center'>
+									<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+												
+											/>
+											back
+										</ActionButton>
+										<div className='filed-part'>
+										<input
+										style={{ fontSize: 16, height: 50, width: 70, fontFamily: 'ModernEraBold'}}
+										className="home-phone-no"
 										onKeyPress={(e: any) => {
 											if (e.code === 'Enter') {
 												this.next();
@@ -720,7 +845,24 @@ export class Demo extends React.Component<any, any> {
 												step0Values: e.currentTarget.value,
 											});
 										}}
-									/>
+									/>	
+										</div>
+										{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+												</ActionButton>
+										}
+									</div>
+									
 								</div>
 							</div>
 						</>
@@ -730,20 +872,42 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === 1 ? (
 						<>
 							<p className="step-number">1/8</p>
-							<div className="first-step">
-								{/* ChevronLeftIcon
-                        ChevronLeftMedIcon
-                        ChevronLeftSmallIcon
-
-                        ChevronRightIcon
-                        ChevronRightMedIcon
-                        ChevronRightSmallIcon */}
-
-								<div className="d-flex form-group">
-									<span className="reg-label"> I am / we are:</span>
+							
+							<div className="first-step common-section-padding">
+								<div className="d-flex form-group home-screen-part">
+								<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+												
+											/>
+											back
+										</ActionButton>
+									<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}> I am / we are:</span>
 									<Dropdown
+										className='down-arrow'
 										options={options}
-										styles={dropdownStyles}
+										styles={{
+											...dropdownStyles, 
+											title: { 
+												...dropdownStyles,
+												width: '300px !important', 
+												height: '26px !important', 
+												fontSize:'16px !important', 
+												padding: '6px 28px 0px 8px',
+												marginRight: '0 !important',
+												fontFamily: 'ModernEraBold',
+											},
+											caretDownWrapper: { 
+												fontSize: 14,
+												right: '20px !important'
+											}
+										}}
 										onChange={(e, i: any) => {
 											this.setState({
 												step1Values: i.key,
@@ -751,8 +915,23 @@ export class Demo extends React.Component<any, any> {
 											});
 										}}
 									/>
+										{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+												</ActionButton>
+										}
 								</div>
 							</div>
+							
 						</>
 					) : (
 						<></>
@@ -760,59 +939,124 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === 2 ? (
 						<>
 							<p className="step-number">2/8</p>
-							<div className="d-flex form-group">
-								<span className="reg-label"> I am / we are looking for:</span>
-								<div className="add-more-div">
-									{(this.state.step2Values && this.state.step2Values.length > 0
-										? this.state.step2Values
-										: ['']
-									).map((val: any, key: any) => {
-										if (key === 0) {
-											return (
-												<Dropdown
-													defaultSelectedKey={val}
-													placeholder={val}
-													options={lookingForOptions}
-													styles={dropdownStyles}
-													onChange={(e) => {
-														this.setStep2Value(
-															e.currentTarget.textContent,
-															key
+							<div className='second step common-section-padding'>
+							<div className="d-flex form-group home-screen-part">
+								<div className='button-with-field d-flex align-items-center justify-content-center'>
+										<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+												
+											/>
+											back
+										</ActionButton>
+										<div className='d-flex align-items-center center-content'>
+										<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold', marginTop: "-20px" }}> I am / we are looking for:</span>
+											<div className="add-more-div">
+												{(this.state.step2Values && this.state.step2Values.length > 0
+													? this.state.step2Values
+													: ['']
+												).map((val: any, key: any) => {
+													if (key === 0) {
+														return (
+															<Dropdown
+																className="down-arrow"
+																defaultSelectedKey={val}
+																placeholder={val}
+																options={lookingForOptions}
+																styles={{
+																	...dropdownStyles, 
+																	title: { 
+																		...dropdownStyles,
+																		width: '300px !important', 
+																		height: '26px !important', 
+																		fontSize:'16px !important', 
+																		padding: '6px 28px 0px 8px',
+																		marginRight: '0 !important',
+																		fontFamily: 'ModernEraBold',
+																	},
+																	caretDownWrapper: { 
+																		fontSize: 14,
+																		right: '20px !important'
+																	}
+																}}
+																onChange={(e) => {
+																	this.setStep2Value(
+																		e.currentTarget.textContent,
+																		key
+																	);
+																}}
+															/>
 														);
-													}}
-												/>
-											);
-										}
-										return (
-											<div className="mt-3">
-												<Dropdown
-													defaultSelectedKey={val}
-													placeholder={val}
-													options={lookingForOptions}
-													styles={dropdownStyles}
-													onChange={(e) => {
-														this.setStep2Value(
-															e.currentTarget.textContent,
-															key
-														);
-													}}
-												/>
+													}
+													return (
+														<div className="mt-3">
+															<Dropdown
+																defaultSelectedKey={val}
+																placeholder={val}
+																options={lookingForOptions}
+																styles={{
+																	...dropdownStyles, 
+																	title: { 
+																		...dropdownStyles,
+																		width: '300px !important', 
+																		height: '26px !important', 
+																		fontSize:'16px !important', 
+																		padding: '6px 28px 0px 8px',
+																		marginRight: '0 !important',
+																		fontFamily: 'ModernEraBold',
+																	},
+																	caretDownWrapper: { 
+																		fontSize: 14,
+																		right: '20px !important'
+																	}
+																}}
+																onChange={(e) => {
+																	this.setStep2Value(
+																		e.currentTarget.textContent,
+																		key
+																	);
+																}}
+															/>
+														</div>
+													);
+												})}
+												{(!this.state.step2Values ||
+													this.state.step2Values.length < 5) &&
+												!this.state.step2Values.includes('anyone') ? (
+													<p>
+														<a onClick={this.addMore} style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}>Add more</a>
+													</p>
+												) : (
+													<p style={{ opacity: '0' }}>
+														<a onClick={(e: any) => e.preventDefault()}>hidden</a>
+													</p>
+												)}
 											</div>
-										);
-									})}
-									{(!this.state.step2Values ||
-										this.state.step2Values.length < 5) &&
-									!this.state.step2Values.includes('anyone') ? (
-										<p>
-											<a onClick={this.addMore}>Add more</a>
-										</p>
-									) : (
-										<p style={{ opacity: '0' }}>
-											<a onClick={(e: any) => e.preventDefault()}>hidden</a>
-										</p>
-									)}
+										</div>
+										{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+												</ActionButton>
+										}
 								</div>
 							</div>
+							</div>
+							
 						</>
 					) : (
 						<></>
@@ -820,10 +1064,26 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === 3 ? (
 						<>
 							<p className="step-number">3/8</p>
-							<div>
-								<div className="d-flex form-group" style={{ marginBottom: '31px' }}>
-									<span className="reg-label"> First name:</span>
+							<div className='common-section-padding'>
+									<div className='d-flex align-items-center justify-content-center home-screen-part'>
+										<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+											/>
+											back
+										</ActionButton>
+									<div>
+								<div className="d-flex form-group " style={{ marginBottom: '31px' }}>
+									<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}> First name:</span>
 									<input
+										style={{ fontSize: 16, height: 50, width: 288, fontFamily: 'ModernEraBold'}}
+										className="home-phone-no"
 										onKeyPress={(e: any) => {
 											if (e.code === 'Enter') {
 												this.next();
@@ -841,9 +1101,11 @@ export class Demo extends React.Component<any, any> {
 									/>
 								</div>
 								{!this.state.isSingle && (
-									<div className="d-flex form-group">
-										<span className="reg-label"> First name:</span>
+									<div className="d-flex form-group home-screen-part">
+										<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}> First name:</span>
 										<input
+											style={{ fontSize: 16, height: 50, width: 288, fontFamily: 'ModernEraBold'}}
+											className="home-phone-no"
 											placeholder="person 2"
 											onKeyPress={(e: any) => {
 												if (e.code === 'Enter') {
@@ -861,8 +1123,26 @@ export class Demo extends React.Component<any, any> {
 										/>
 									</div>
 								)}
+								</div>
+								{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+												</ActionButton>
+										}
+								</div>
+								
+							
 
-								<p className="name-para">
+								<p className="name-para home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}>
 									*The name(s) you add above are seen by other users, so if it
 									makes you more comfortable, feel free to make them up.
 								</p>
@@ -874,92 +1154,135 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === 4 ? (
 						<>
 							<p className="step-number">4/8</p>
-							<div>
-								<div className="d-flex form-group" style={{ marginBottom: '31px' }}>
-									<div className="bdy">
-										<span className="reg-label">
-											{this.state.step3Values.person1}’s birthday:
-										</span>
-									</div>
-									<input
-										style={{ width: '6rem', marginRight: '.5rem' }}
-										placeholder="MM"
-										type="text"
-										value={this.state.step4Values.ebdy.month}
-										onChange={(e) =>
-											this.handlePerson1Change(e.target.value, 'month')
-										}
-									/>
-									<input
-										style={{ width: '6rem', marginRight: '.5rem' }}
-										placeholder="DD"
-										type="text"
-										value={this.state.step4Values.ebdy.day}
-										onChange={(e) =>
-											this.handlePerson1Change(e.target.value, 'day')
-										}
-										ref={this.person1DayRef}
-									/>
-									<input
-										style={{ width: '7rem' }}
-										placeholder="YYYY"
-										type="text"
-										value={this.state.step4Values.ebdy.year}
-										onKeyPress={(e: any) => {
-											if (e.code === 'Enter') {
-												this.next();
-											}
-										}}
-										onChange={(e) =>
-											this.handlePerson1Change(e.target.value, 'year')
-										}
-										ref={this.person1YearRef}
-									/>
-								</div>
-								{!this.state.isSingle && (
-									<div className="d-flex form-group">
-										<div className="bdy">
-											<span className="reg-label">
-												{this.state.step3Values.person2}’s birthday:
-											</span>
-										</div>
+							
+							<div className='common-section-padding  home-screen-part'>
+										<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+											/>
+											back
+										</ActionButton>
+										<div>
+										<div className="d-flex form-group align-items-center justify-content-center " style={{ marginBottom: '31px' }}>
+												<div className="bdy" style={{marginBottom:"14px"}}>
+													<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}>
+														{this.state.step3Values.person1}’s birthday:
+													</span>
+												</div>
+												<div className='bday-part d-flex'>
+												<input
+													// style={{ width: '6rem', marginRight: '.5rem' }}
+													style={{ fontSize: 16, height: 50, width: 98, fontFamily: 'ModernEraBold' ,  marginRight: "23px"}}
+													className="home-phone-no"
+													placeholder="MM"
+													type="text"
+													value={this.state.step4Values.ebdy.month}
+													onChange={(e) =>
+														this.handlePerson1Change(e.target.value, 'month')
+													}
+												/>
+												<input
+													// style={{ width: '6rem', marginRight: '.5rem' }}
+													style={{ fontSize: 16, height: 50, width: 68, fontFamily: 'ModernEraBold', marginRight: "23px"}}
+													className="home-phone-no"
+													placeholder="DD"
+													type="text"
+													value={this.state.step4Values.ebdy.day}
+													onChange={(e) =>
+														this.handlePerson1Change(e.target.value, 'day')
+													}
+													ref={this.person1DayRef}
+												/>
+												<input
+													// style={{ width: '7rem' }}
+													style={{ fontSize: 16, height: 50, width: 70, fontFamily: 'ModernEraBold'}}
+													className="home-phone-no"
+													placeholder="YYYY"
+													type="text"
+													value={this.state.step4Values.ebdy.year}
+													onKeyPress={(e: any) => {
+														if (e.code === 'Enter') {
+															this.next();
+														}
+													}}
+													onChange={(e) =>
+														this.handlePerson1Change(e.target.value, 'year')
+													}
+													ref={this.person1YearRef}
+												/>
+												</div>
 
-										<input
-											style={{ width: '6rem', marginRight: '.5rem' }}
-											placeholder="MM"
-											type="text"
-											value={this.state.step4Values.tbdy.month}
-											onChange={(e) =>
-												this.handlePerson2Change(e.target.value, 'month')
-											}
-										/>
-										<input
-											style={{ width: '6rem', marginRight: '.5rem' }}
-											placeholder="DD"
-											type="text"
-											value={this.state.step4Values.tbdy.day}
-											onChange={(e) =>
-												this.handlePerson2Change(e.target.value, 'day')
-											}
-											ref={this.person2DayRef}
-										/>
-										<input
-											style={{ width: '7rem' }}
-											placeholder="YYYY"
-											type="text"
-											value={this.state.step4Values.tbdy.year}
-											onKeyPress={(e: any) => {
-												if (e.code === 'Enter') {
-													this.next();
-												}
-											}}
-											onChange={(e) =>
-												this.handlePerson2Change(e.target.value, 'year')
-											}
-											ref={this.person2YearRef}
-										/>
-									</div>
-								)}
+											</div>
+											{!this.state.isSingle && (
+												<div className="d-flex align-items-center justify-content-center form-group home-screen-part">
+													<div className="bdy"  style={{marginBottom:"14px"}}>
+														<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}>
+															{this.state.step3Values.person2}’s birthday:
+														</span>
+													</div>
+													<div className='bday-part d-flex'>
+													<input
+														style={{ fontSize: 16, height: 50, width: 98, fontFamily: 'ModernEraBold', marginRight: "23px"}}
+														className="home-phone-no"
+														placeholder="MM"
+														type="text"
+														value={this.state.step4Values.tbdy.month}
+														onChange={(e) =>
+															this.handlePerson2Change(e.target.value, 'month')
+														}
+													/>
+													<input
+														style={{ fontSize: 16, height: 50, width: 68, fontFamily: 'ModernEraBold', marginRight: "23px"}}
+														className="home-phone-no"
+														placeholder="DD"
+														type="text"
+														value={this.state.step4Values.tbdy.day}
+														onChange={(e) =>
+															this.handlePerson2Change(e.target.value, 'day')
+														}
+														ref={this.person2DayRef}
+													/>
+													<input
+														style={{ fontSize: 16, height: 50, width: 70, fontFamily: 'ModernEraBold'}}
+														className="home-phone-no"
+														placeholder="YYYY"
+														type="text"
+														value={this.state.step4Values.tbdy.year}
+														onKeyPress={(e: any) => {
+															if (e.code === 'Enter') {
+																this.next();
+															}
+														}}
+														onChange={(e) =>
+															this.handlePerson2Change(e.target.value, 'year')
+														}
+														ref={this.person2YearRef}
+													/>
+													</div>
+													
+												</div>
+											)}	
+										</div>
+										{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+										</ActionButton>
+										}
 							</div>
 						</>
 					) : (
@@ -968,21 +1291,161 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === 5 ? (
 						<>
 							<p className="step-number">5/8</p>
-							<div className="d-flex form-group">
-								<span className="reg-label"> Country:</span>
-								<input
-									onKeyPress={(e: any) => {
-										if (e.code === 'Enter') {
-											this.next();
+							<div className='common-section-padding home-screen-part'>
+								<div className='d-flex align-items-center justify-content-center'>
+									<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+											/>
+											back
+									</ActionButton>
+									<div className="d-flex form-group flex-column">
+										<div className='drop-down-part d-flex' style={{marginBottom:"30px"}}>
+										<span className="reg-label home-screen-label same-width-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}> Country:</span>
+										<Dropdown
+													className='home-country  '
+													options={options0}
+													styles={{
+														...dropdownStyles, 
+														title: { 
+															...dropdownStyles,
+															height: '26px !important', 
+															fontSize:'16px !important', 
+															padding: '6px 28px 0px 8px',
+															marginRight: '0 !important',
+															fontFamily: 'ModernEraBold',
+														},
+														caretDownWrapper: { 
+															fontSize: 14,
+															top:'50% !important',
+															right: '16px !important'
+														}
+													}}
+													defaultSelectedKey={this.state.step_4Values.dbdy}
+													onChange={(e, i: any) => {
+														this.setState({
+															step_4Values: {
+																dbdy: i.key,
+																ibdy: i.prefix,
+															},
+														});
+														this.setState({
+															step5Values: i.key,
+														});
+													}}
+												/>
+										</div>
+										<div className='drop-down-part d-flex' style={{marginBottom:"30px"}}>
+										<span className="reg-label home-screen-label same-width-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}> State/Province:</span>
+										<Dropdown
+													className='home-country '
+													options={options0}
+													styles={{
+														...dropdownStyles, 
+														title: { 
+															...dropdownStyles,
+															height: '26px !important', 
+															fontSize:'16px !important', 
+															padding: '6px 28px 0px 8px',
+															marginRight: '0 !important',
+															fontFamily: 'ModernEraBold',
+														},
+														caretDownWrapper: { 
+															fontSize: 14,
+															top:'50% !important',
+															right: '16px !important'
+														}
+													}}
+													defaultSelectedKey={this.state.step_4Values.dbdy}
+													onChange={(e, i: any) => {
+														this.setState({
+															step_4Values: {
+																dbdy: i.key,
+																ibdy: i.prefix,
+															},
+														});
+														this.setState({
+															step5Values: i.key,
+														});
+													}}
+												/>
+										</div>
+										<div className='drop-down-part d-flex' >
+										<span className="reg-label home-screen-label same-width-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}> City:</span>
+										<Dropdown
+													className='home-country '
+													options={options0}
+													styles={{
+														...dropdownStyles, 
+														title: { 
+															...dropdownStyles,
+															height: '26px !important', 
+															fontSize:'16px !important', 
+															padding: '6px 28px 0px 8px',
+															marginRight: '0 !important',
+															fontFamily: 'ModernEraBold',
+														},
+														caretDownWrapper: { 
+															fontSize: 14,
+															top:'50% !important',
+															right: '16px !important'
+														}
+													}}
+													defaultSelectedKey={this.state.step_4Values.dbdy}
+													onChange={(e, i: any) => {
+														this.setState({
+															step_4Values: {
+																dbdy: i.key,
+																ibdy: i.prefix,
+															},
+														});
+														this.setState({
+															step5Values: i.key,
+														});
+													}}
+												/>
+										</div>
+										{/* <input
+											onKeyPress={(e: any) => {
+												if (e.code === 'Enter') {
+													this.next();
+												}
+											}}
+											value={this.state.step5Values}
+											type="text"
+											onChange={(e: any) => {
+												this.setState({ step5Values: e.target.value });
+											}}
+										/> */}
+									</div>
+									{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+										</ActionButton>
 										}
-									}}
-									value={this.state.step5Values}
-									type="text"
-									onChange={(e: any) => {
-										this.setState({ step5Values: e.target.value });
-									}}
-								/>
+								</div>
+								<div className='d-flex justify-content-center' style={{marginTop:'80px' }}>
+								<span className="home-bottom home-screen-label small-label counrty-part" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' ,}}>*If your town/city doesn’t appear in the results, try searching for 
+								the nearest larger city. </span>
+								</div>
+								
 							</div>
+							
 						</>
 					) : (
 						<></>
@@ -990,10 +1453,24 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === 6 ? (
 						<>
 							<p className="step-number">6/8</p>
-							<div>
+							<div className='common-section-padding home-screen-part'>
+								<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+											/>
+											back
+									</ActionButton>
 								<div className="d-flex form-group">
-									<span className="reg-label"> City:</span>
+									<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}> City:</span>
 									<input
+										style={{ fontSize: 16, height: 50, width: 288, fontFamily: 'ModernEraBold'}}
+										className="home-phone-no"
 										onKeyPress={(e: any) => {
 											if (e.code === 'Enter') {
 												this.next();
@@ -1004,6 +1481,20 @@ export class Demo extends React.Component<any, any> {
 										}}
 									/>
 								</div>
+								{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+										</ActionButton>
+										}
 							</div>
 						</>
 					) : (
@@ -1012,10 +1503,24 @@ export class Demo extends React.Component<any, any> {
 					{this.state.step === 7 ? (
 						<>
 							<p className="step-number">7/8</p>
-							<div>
+							<div className='common-section-padding  home-screen-part'>
+								<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+											/>
+											back
+									</ActionButton>
 								<div className="d-flex form-group">
-									<span className="reg-label"> Email:</span>
+									<span className="reg-label home-screen-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}> Email:</span>
 									<input
+										style={{ fontSize: 16, height: 50, width: 288, fontFamily: 'ModernEraBold'}}
+										className="home-phone-no"
 										value={this.state.step7Values || ''}
 										onKeyPress={(e: any) => {
 											if (e.code === 'Enter') {
@@ -1028,27 +1533,103 @@ export class Demo extends React.Component<any, any> {
 										}}
 									/>
 								</div>
+								{!this.state.isLoading && 
+										<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+										</ActionButton>
+										}
 							</div>
+							
 						</>
 					) : (
 						<></>
 					)}
 					{this.state.step === 8 ? (
 						<>
-							<div>
-								<div className="d-flex form-group">
-									<span className="reg-label"> Password:</span>
-									<input
-										onKeyPress={(e: any) => {
-											if (e.code === 'Enter') {
-												this.next();
-											}
-										}}
-										type="password"
-										onChange={(e) => {
-											this.setState({ step8Values: e.currentTarget.value });
-										}}
-									/>
+							<div className='common-section-padding '>
+							
+							<div className='d-flex align-items-center justify-content-center home-screen-part flex-column'>
+							
+								<div className='d-flex align-items-center justify-content-center'>
+								<ActionButton
+											onClick={this.previous}
+											// disabled={this.state.step === -4}
+											className={'step-button back-btn' + opacity}
+											>
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronLeftSmall"
+												className={iconClass + ' back '}
+											/>
+											back
+								</ActionButton>
+								<div className="d-flex form-group flex-column align-items-center  justify-content-center">
+								<div className='d-flex justify-content-center text-center' style={{marginBottom:'50px', width: "100%" }}>
+								<span className="home-bottom home-screen-label small-label text-center" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold', width: "100%"}}>Create a password</span>
+								</div>
+									<div className='d-flex password-section'  style={{marginBottom: "30px"}}>
+										<span className="reg-label home-screen-label same-width-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}>Password:</span>
+										<input
+											style={{ fontSize: 16, height: 50, width: 288, fontFamily: 'ModernEraBold'}}
+											className="home-phone-no"
+											onKeyPress={(e: any) => {
+												if (e.code === 'Enter') {
+													this.next();
+												}
+											}}
+											type="password"
+											onChange={(e) => {
+												this.setState({ step8Values: e.currentTarget.value });
+											}}
+										/>
+									</div>
+									
+									<div className='d-flex password-section'>
+										<span className="reg-label home-screen-label same-width-label" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold'}}>Re-enter password:</span>
+										
+										<input
+											style={{ fontSize: 16, height: 50, width: 288, fontFamily: 'ModernEraBold'}}
+											className="home-phone-no"
+											onKeyPress={(e: any) => {
+												if (e.code === 'Enter') {
+													this.next();
+												}
+											}}
+											type="password"
+											onChange={(e) => {
+												this.setState({ step8Values: e.currentTarget.value });
+											}}
+										/>
+									</div>
+								</div>
+								{!this.state.isLoading && 
+								<ActionButton
+											// disabled={!this.validate()}
+											onClick={this.next}
+											className={'step-button next-btn ' + nextOpct + ' ' + blurOpac  }
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+								</ActionButton>
+								}
+								</div>
+								
+							</div>
+							<div className='d-flex justify-content-center' style={{marginTop:'80px' }}>
+								<span className="home-bottom home-screen-label small-label counrty-part" style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' ,}}>- Password must be at least 6 characters</span>
 								</div>
 							</div>
 						</>
@@ -1089,13 +1670,13 @@ export class Demo extends React.Component<any, any> {
 
 					{/* {this.state.step === 8 ? ()} */}
 
-					{this.state.isLoading ? (
+					{/* {this.state.isLoading ? (
 						<Loader />
 					) : (
 						<ActionButton
 							disabled={!this.validate()}
 							onClick={this.next}
-							className={'step-button main-next-button ' + nextOpct + ' ' + blurOpac}
+							className={'step-button main-next-button next-btn' + nextOpct + ' ' + blurOpac}
 						>
 							next
 							<FontIcon
@@ -1104,7 +1685,7 @@ export class Demo extends React.Component<any, any> {
 								className={iconClass}
 							/>
 						</ActionButton>
-					)}
+					)} */}
 				</div>
 			</>
 		);

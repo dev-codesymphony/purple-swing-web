@@ -54,12 +54,13 @@ code {
   margin-top: 30px;
   background: none!important;
   border: none;
-  font-size: 28px;
+  font-size: 16px;
   padding: 0!important;
   font-family: arial, sans-serif;
   color: red;
   text-decoration: underline;
   cursor: pointer;
+  font-family: 'ModernEraBold';
 }
 .send-again-link:hover{
     color: blue;
@@ -74,6 +75,7 @@ code {
   position: absolute;
   top: 25px;
   right: 30px;
+  z-index: 5;
 }
 .mobile-container {
   display: none;
@@ -103,7 +105,7 @@ code {
   border-radius: 34px!important;
   border: 4px solid #D6D6D6;
   height: 65px;
-  width: 500px;
+  /* width: 500px; */
   font-size: 25px;
 }
 .registration-form input{
@@ -116,7 +118,7 @@ code {
   color: #D6D6D6;
 }
 .registration-form .ms-Dropdown{
-  width: 500px;
+  width: 300px;
   height: auto;
 }
 .registration-form .ms-Dropdown:focus::after{
@@ -137,17 +139,25 @@ code {
   padding: 0;
 }
 .phone-num span.reg-label{
-  margin-top: -180px;
   margin-bottom: 60px;
-  padding: 0 13%;
+  /* padding: 10% 13% 0; */
+}
+.phone-num span.home-bottom{
+  margin-top: 80px;
 }
 .phone-otp span.reg-label, .email-id span.reg-label, .email-otp span.reg-label{
   margin-bottom: 60px;
-  margin-top: -20px;
+  /* padding-top: 12%; */
 }
-
+.common-section-padding{
+  height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 .bdy{
-  min-width: 50%;
+  /* min-width: 50%; */
   text-align: right;
 }
 .awe-final{
@@ -545,13 +555,27 @@ font-weight: bold;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 12%;
+  bottom: 22%;
+  max-width: 40%;
 }
 
 .home-screen-part .home-screen-label{
   font-weight: 500;
   font-family: 'ModernEraRegular';
   text-align: left;
+}
+.same-width-label{
+  min-width: 160px;
+    text-align: right !important;
+}
+.home-screen-part .home-screen-label.large-label{
+  max-width: 64%;
+}
+.home-screen-part .home-screen-label.small-label{
+  max-width: 67%;
+}
+.home-screen-part .home-screen-label.small-label.counrty-part{
+  max-width: 75%;
 }
 .home-screen-part .country-code .ms-Dropdown{
   width: 86px !important;
@@ -570,16 +594,36 @@ font-weight: bold;
     font-weight: 700;
     width: 80px !important;
 }
+.home-screen-part .ms-Dropdown-title{
+  border: 2px solid black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 10px;
+  font-family: 'ModernEraBold';
+  font-weight: 700;
+}
 .home-screen-part .ms-Dropdown-caretDownWrapper i {
+  font-size: 16px!important;
+  color: #000 !important;
+  font-weight: bolder!important;
+  display: flex;
+  align-items: center;
+}
+.home-screen-part .we-are .ms-Dropdown-caretDownWrapper i {
     font-size: 16px!important;
     color: #000 !important;
     font-weight: bolder!important;
     display: flex;
     align-items: center;
 }
+.home-screen-part .ms-Dropdown-caretDownWrapper
 .home-screen-part  .ms-Dropdown-caretDownWrapper{
   height: 18px;
   right: 18px !important;
+}
+.home-screen-part .we-are .ms-Dropdown-caretDownWrapper{
+  right: -60px !important;
 }
 .home-screen-part .home-phone-no{
   border: 2px solid black;
@@ -590,6 +634,9 @@ font-weight: bold;
     font-family: 'ModernEraRegular';
     height: 28px !important;
     font-weight: 700;
+}
+.home-screen-part .home-phone-no.home-OTP-no{
+  width: 90px !important;
 }
 .registration-form .home-screen-part .step-button{
   font-size: 14px;
@@ -606,19 +653,40 @@ font-weight: bold;
   position: absolute;
   right: 0;
 }
+.registration-form .home-screen-part .step-button.back-btn{
+  position: absolute;
+  left: 0;
+}
 .registration-form.home-screen-btn{
   position: relative;
 }
 .registration-form.home-screen-btn .main-next-button{
   opacity: 0;
 }
+
+.registration-form  .step-button{
+  font-size: 14px;
+}
+.registration-form .step-button i{
+  margin: 2px 17px 0px 0px;
+  font-size: 12px;
+}
+.registration-form .step-button i.back {
+  margin: 2px 0px 0px 17px;
+  font-size: 12px;
+}
+.registration-form .step-button.next-btn{
+  position: absolute;
+  right: 0;
+}
+
 /* @media screen and (max-width:1440px){ */
   @media screen and (max-width :1439px){
     .first-section {
       position: relative;
     }
     .phone-num span.reg-label {
-      padding: 0 9%;
+      /* padding: 10% 9% 0; */
     }
   
 }
@@ -633,7 +701,7 @@ font-weight: bold;
     font-size: 42px;
   }
   .phone-num span.reg-label {
-    padding: 0 6%;
+    /* padding: 10% 6% 0%; */
   }
 }
 @media screen and (max-width: 1200px) {
@@ -729,7 +797,7 @@ font-weight: bold;
     font-size: 36px;
   }
   .phone-num span.reg-label {
-    padding: 0%;
+    /* padding: 10% 0% 0; */
   }
 }
 @media screen and (max-width: 950px) {
@@ -786,6 +854,14 @@ font-weight: bold;
 }
 
 @media (max-width: 768px){
+  .common-section-padding{
+    height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 200px;
+  }
   .registration-form .form-group{
     display: block!important;
     font-size: 30px;
@@ -830,14 +906,102 @@ font-weight: bold;
     margin-top: 40px;
   }
   .registration-form .home-screen-part .step-button.next-btn{
-    top: 55%;
+    top: 30%;
   }
+  .registration-form .home-screen-part .step-button.back-btn{
+    top: 30%;
+  }
+  .registration-form .home-screen-part .first-section .step-button.next-btn{
+    top: 40%;
+  }
+  .registration-form .home-screen-part .first-section .step-button.back-btn{
+    top: 40%;
+  }
+  .home-screen-label{
+    text-align: center;
+  }
+  .home-screen-part .home-screen-label{
+    text-align: center;
+  }
+  .ms-Dropdown-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .registration-form .down-arrow .ms-Dropdown-caretDownWrapper {
+    right: 60px !important;
+  }
+  .registration-form .ms-Dropdown-caretDownWrapper{
+    right: 20px !important;
+  }
+  .center-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .drop-down-part{
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px !important;
+  }
+  .drop-down-part .same-width-label{
+    text-align: center !important;
+  }
+  .home-screen-part .home-screen-label.small-label {
+    max-width: 90%;
+}
+.name-para {
+  margin-top: 100px;
+  bottom: 32%;
+    max-width: 100%;
+    text-align: center;
+}
 }
 
 @media (max-width: 576px){
+  .registration-form .home-screen-part .step-button.next-btn{
+    top: 60%;
+  }
+  .registration-form .home-screen-part .step-button.back-btn{
+    top: 60%;
+  }
+  .registration-form .down-arrow .ms-Dropdown-caretDownWrapper {
+    right: 10px !important;
+}
+.registration-form .password-section{
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.registration-form .password-section .same-width-label{
+  min-width: 100% !important;
+  text-align: center !important;
+}
   .register-btn:hover a{
     background-color: transparent !important;
   }
+  .registration-form .ms-Dropdown-caretDownWrapper{
+    right: 20px !important;
+  }
+  .registration-form{
+    margin-top: 25%;
+  }
+  .registration-form .ms-Dropdown-title{
+    width: 200px !important;
+  }
+  
+  .name-para {
+    margin-top: 150px;
+    bottom: 32%;
+      max-width: 90%;
+      text-align: center;
+  }
+  
+ 
+
   .registration-form .ms-Dropdown-title, .registration-form input, .registration-form .ms-Dropdown{
     width: 197px;
   }
