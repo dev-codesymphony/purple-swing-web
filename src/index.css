@@ -543,7 +543,7 @@ font-weight: bold;
     height: 300px;
     width: 800px;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 5px;
    
 }
@@ -1423,4 +1423,15 @@ font-size: 25px;
     margin: 0 0 0 12px!important;
     font-size: 18px;
   }
+}
+.custom-simple-dropdown{
+  font-size: 16px;
+  margin-right: 14px;
+  border: 2px solid black;
+  border-radius: 30px;
+  padding: 0 12px 0 6px;
+  font-family: ModernEraBold;
+}
+.custom-simple-dropdown.large{
+  width: 280px;
 }
