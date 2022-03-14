@@ -137,7 +137,7 @@ async function apiCall(value, body, setEmail) {
 				formData.append('Firstname2', person2);
 				formData.append('Birthday1', person1Birthday);
 				formData.append('Birthday2', person2Birthday);
-				formData.append('password', password);
+				formData.append('Password', password);
 
 				const country = body.countries.find(
 					(country) => country.id === parseInt(body.country)
@@ -145,12 +145,12 @@ async function apiCall(value, body, setEmail) {
 				const state = body.states.find((state) => state.id === parseInt(body.state));
 				const city = body.cities.find((city) => city.id === parseInt(body.city));
 
-				formData.append('country', country?.name);
-				formData.append('state', state?.name);
-				formData.append('city', city?.name);
+				formData.append('Country', country?.name);
+				formData.append('State', state?.name);
+				formData.append('City', city?.name);
 
 				body.images.map((image) => {
-					return formData.append('images', image);
+					return formData.append('Images', image);
 				});
 
 				const finalResponse = await axios.post(
