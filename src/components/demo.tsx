@@ -21,6 +21,7 @@ import axios from 'axios';
 import FacebookLogin from '@doopage/react-facebook-login';
 import Loader from './Loader';
 import { getYear, MONTHS } from '../functions/dateUtils';
+import { getCities, getCountries, getStates } from '../functions/locations';
 
 const YEARS = getYear();
 
@@ -47,6 +48,7 @@ const lookingForDefaultOptions: IDropdownOption[] = [
 	{ key: 'male/male couple', text: 'male/male couple' },
 	{ key: 'anyone', text: 'anyone' }, // (if this is chosen in on of the ‘add more’ boxes, delete all the other boxes
 ];
+
 const dropdownStyles: Partial<IDropdownStyles> = {
 	dropdown: { width: 514, height: 60 },
 	title: { width: 514, height: 60, fontSize: 30, padding: 12 },
@@ -98,6 +100,12 @@ export class Demo extends React.Component<any, any> {
 		days1: any;
 		days2: any;
 		images: any;
+		countries: any;
+		states: any;
+		cities: any;
+		country: any;
+		state: any;
+		city: any;
 	};
 
 	constructor(props: any) {
@@ -114,8 +122,8 @@ export class Demo extends React.Component<any, any> {
 			},
 			step_1Values: '',
 			step0Values: null,
-			step1Values: null,
-			step2Values: [],
+			step1Values: '',
+			step2Values: [''],
 			step3Values: {
 				person1: null,
 				person2: null,
@@ -154,6 +162,12 @@ export class Demo extends React.Component<any, any> {
 			days1: [],
 			days2: [],
 			images: [],
+			countries: [],
+			states: [],
+			cities: [],
+			country: '',
+			state: '',
+			city: '',
 		};
 		this.next = this.next.bind(this);
 		this.previous = this.previous.bind(this);
@@ -169,6 +183,10 @@ export class Demo extends React.Component<any, any> {
 		this.setDays2 = this.setDays2.bind(this);
 		this.handleImageChange = this.handleImageChange.bind(this);
 		this.getImageUrl = this.getImageUrl.bind(this);
+		this.handlePrefixChange = this.handlePrefixChange.bind(this);
+		this.setUserType = this.setUserType.bind(this);
+		this.handleState = this.handleState.bind(this);
+		this.handleCity = this.handleCity.bind(this);
 	}
 
 	imageRef: any = createRef();
@@ -230,6 +248,40 @@ export class Demo extends React.Component<any, any> {
 		}, 1000);
 	}
 
+	handlePrefixChange(e: any) {
+		const city: any = options0.find((otp) => otp.key === e.target.value);
+
+		this.setState({
+			step_4Values: {
+				dbdy: city.key,
+				ibdy: city.prefix,
+			},
+		});
+		//can set in step 5 here
+	}
+
+	async handleState(e: any) {
+		const country = e.target.value;
+		const states = await getStates(country);
+		console.log(states);
+		this.setState({ states: states, country });
+	}
+
+	async handleCity(e: any) {
+		const state = e.target.value;
+		const cities = await getCities(this.state.country, state);
+		this.setState({ cities, state });
+	}
+
+	setUserType(e: any) {
+		const userType: any = options.find((opt) => opt.key === e.target.value);
+
+		this.setState({
+			step1Values: userType.key,
+			isSingle: userType.isSingle,
+		});
+	}
+
 	handleImageChange(e: any) {
 		this.setState((prev: any) => {
 			return { images: [...prev.images, e.target.files[0]] };
@@ -244,6 +296,11 @@ export class Demo extends React.Component<any, any> {
 
 	getImageUrl(file: any) {
 		return window.URL.createObjectURL(file);
+	}
+
+	async componentDidMount() {
+		const countries = await getCountries();
+		this.setState({ countries });
 	}
 
 	async resendOtp(e: any) {
@@ -292,19 +349,14 @@ export class Demo extends React.Component<any, any> {
 	};
 
 	setStep2Value = (e: any, index: any) => {
-		if (!this.state.step2Values.includes(e))
-			this.setState((state: any) => {
-				if (e === 'anyone') {
-					state.step2Values = [e];
-					// state.lookingForOptions =  [] //lookingForDefaultOptions.filter((op:any) => !state.step2Values.includes(op.key))
-				} else {
-					state.step2Values[index] = e;
-				}
-				state.lookingForOptions = lookingForDefaultOptions.filter(
-					(op: any) => !state.step2Values.includes(op.key)
-				);
-				return state;
-			});
+		this.setState((prev: any) => {
+			if (e === 'anyone') {
+				return { step2Values: [e] };
+			}
+
+			prev.step2Values[index] = e;
+			return { step2Values: [...prev.step2Values] };
+		});
 	};
 
 	validate() {
@@ -374,7 +426,7 @@ export class Demo extends React.Component<any, any> {
 		let days: any = [];
 
 		for (let i = 1; i <= selectedMonth.days; i++) {
-			days = [...days, { key: i, text: i }];
+			days = [...days, i];
 		}
 
 		this.setState({ days1: days });
@@ -386,7 +438,7 @@ export class Demo extends React.Component<any, any> {
 		let days: any = [];
 
 		for (let i = 1; i <= selectedMonth.days; i++) {
-			days = [...days, { key: i, text: i }];
+			days = [...days, i];
 		}
 
 		this.setState({ days2: days });
@@ -394,12 +446,12 @@ export class Demo extends React.Component<any, any> {
 
 	async next() {
 		try {
-			let step = this.state.step;
-			this.setState((prevState: any) => {
-				return { ...prevState, step: step + 1 };
-			});
-			console.log(this.state);
-			return;
+			// let step = this.state.step;
+			// this.setState((prevState: any) => {
+			// 	return { ...prevState, step: step + 1 };
+			// });
+			// console.log(this.state);
+			// return;
 			this.setLoading(true);
 			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
 
@@ -450,6 +502,8 @@ export class Demo extends React.Component<any, any> {
 					},
 				};
 			});
+
+			this.setDays1(value);
 		}
 
 		if (type === 'year') {
@@ -489,6 +543,7 @@ export class Demo extends React.Component<any, any> {
 					},
 				};
 			});
+			this.setDays2(value);
 		}
 
 		if (type === 'year') {
@@ -571,9 +626,16 @@ export class Demo extends React.Component<any, any> {
 													});
 												}}
 											/> */}
-											<select className='custom-simple-dropdown'>
-												<option>IN</option>
-												<option>US</option>
+											<select
+												value={this.state.step_4Values.dbdy}
+												className="custom-simple-dropdown"
+												onChange={this.handlePrefixChange}
+											>
+												{options0.map((opt) => (
+													<option value={opt.key} key={opt.key}>
+														{opt.text}
+													</option>
+												))}
 											</select>
 											<input
 												style={{
@@ -1136,12 +1198,17 @@ export class Demo extends React.Component<any, any> {
 										{' '}
 										I am / we are:
 									</span>
-									<select className='custom-simple-dropdown large'>
-										<option>Single female</option>
-										<option>Single male</option>
-										<option>female/male couple</option>
-										<option>female/female couple</option>
-										<option>male/male couple</option>
+									<select
+										value={this.state.step1Values}
+										className="custom-simple-dropdown large"
+										onChange={this.setUserType}
+									>
+										<option value=""></option>
+										{options.map((opt) => (
+											<option key={opt.key} value={opt.key}>
+												{opt.text}
+											</option>
+										))}
 									</select>
 									{/* <Dropdown
 										className="down-arrow"
@@ -1222,92 +1289,39 @@ export class Demo extends React.Component<any, any> {
 												I am / we are looking for:
 											</span>
 											<div className="add-more-div">
-												{(this.state.step2Values &&
-												this.state.step2Values.length > 0
-													? this.state.step2Values
-													: ['']
-												).map((val: any, key: any) => {
-													if (key === 0) {
+												{this.state.step2Values.map(
+													(val: any, key: any) => {
 														return (
-															// <Dropdown
-															// 	className="down-arrow"
-															// 	defaultSelectedKey={val}
-															// 	placeholder={val}
-															// 	options={lookingForOptions}
-															// 	styles={{
-															// 		...dropdownStyles,
-															// 		title: {
-															// 			...dropdownStyles,
-															// 			width: '300px !important',
-															// 			height: '26px !important',
-															// 			fontSize: '16px !important',
-															// 			padding: '6px 28px 0px 8px',
-															// 			marginRight: '0 !important',
-															// 			fontFamily: 'ModernEraBold',
-															// 		},
-															// 		caretDownWrapper: {
-															// 			fontSize: 14,
-															// 			right: '20px !important',
-															// 		},
-															// 	}}
-															// 	onChange={(e) => {
-															// 		this.setStep2Value(
-															// 			e.currentTarget.textContent,
-															// 			key
-															// 		);
-															// 	}}
-															// />
-															<select className='custom-simple-dropdown large'>
-																<option>Single female</option>
-																<option>Single male</option>
-																<option>female/male couple</option>
-																<option>female/female couple</option>
-																<option>male/male couple</option>
-															</select>
+															<div className="">
+																<select
+																	value={
+																		this.state.step2Values[key]
+																	}
+																	onChange={(e: any) => {
+																		this.setStep2Value(
+																			e.target.value,
+																			key
+																		);
+																	}}
+																	className="custom-simple-dropdown large"
+																>
+																	<option value=""></option>
+																	{lookingForOptions.map(
+																		(opt: any) => (
+																			<option
+																				key={opt.key}
+																				value={opt.key}
+																			>
+																				{opt.text}
+																			</option>
+																		)
+																	)}
+																</select>
+															</div>
 														);
 													}
-													return (
-														<div className="">
-																<select className='custom-simple-dropdown large'>
-																	<option>Single female</option>
-																	<option>Single male</option>
-																	<option>female/male couple</option>
-																	<option>female/female couple</option>
-																	<option>male/male couple</option>
-																</select>
-															{/* <Dropdown
-																defaultSelectedKey={val}
-																placeholder={val}
-																options={lookingForOptions}
-																styles={{
-																	...dropdownStyles,
-																	title: {
-																		...dropdownStyles,
-																		width: '300px !important',
-																		height: '26px !important',
-																		fontSize: '16px !important',
-																		padding: '6px 28px 0px 8px',
-																		marginRight: '0 !important',
-																		fontFamily: 'ModernEraBold',
-																	},
-																	caretDownWrapper: {
-																		fontSize: 14,
-																		right: '20px !important',
-																	},
-																}}
-																onChange={(e) => {
-																	this.setStep2Value(
-																		e.currentTarget.textContent,
-																		key
-																	);
-																}}
-															/> */}
-														</div>
-													);
-												})}
-												{(!this.state.step2Values ||
-													this.state.step2Values.length < 5) &&
-												!this.state.step2Values.includes('anyone') ? (
+												)}
+												{!this.state.step2Values.includes('anyone') && (
 													<p>
 														<a
 															onClick={this.addMore}
@@ -1317,12 +1331,6 @@ export class Demo extends React.Component<any, any> {
 															}}
 														>
 															Add more
-														</a>
-													</p>
-												) : (
-													<p style={{ opacity: '0' }}>
-														<a onClick={(e: any) => e.preventDefault()}>
-															hidden
 														</a>
 													</p>
 												)}
@@ -1513,20 +1521,22 @@ export class Demo extends React.Component<any, any> {
 											</span>
 										</div>
 										<div className="bday-part d-flex">
-											<select className='custom-simple-dropdown'>
-												<option>Jan</option>
-												<option>Feb</option>
-												<option>Mar</option>
-												<option>Apr</option>
-												<option>May</option>
-												<option>Jun</option>
-												<option>Jul</option>
-												<option>Aug</option>
-												<option>Sep</option>
-												<option>Oct</option>
-												<option>Nov</option>
-												<option>Dec</option>
-												<option>12</option>
+											<select
+												value={this.state.step4Values.ebdy.month}
+												className="custom-simple-dropdown"
+												onChange={(e: any) =>
+													this.handlePerson1Change(
+														e.target.value,
+														'month'
+													)
+												}
+											>
+												<option value=""></option>
+												{MONTHS.map((month: any) => (
+													<option key={month.key} value={month.key}>
+														{month.text}
+													</option>
+												))}
 											</select>
 											{/* <Dropdown
 												options={MONTHS}
@@ -1545,19 +1555,19 @@ export class Demo extends React.Component<any, any> {
 													this.setDays1(i.key);
 												}}
 											/> */}
-											<select className='custom-simple-dropdown'>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-												<option>4</option>
-												<option>5</option>
-												<option>6</option>
-												<option>7</option>
-												<option>8</option>
-												<option>9</option>
-												<option>10</option>
-												<option>11</option>
-												<option>12</option>
+											<select
+												value={this.state.step4Values.ebdy.day}
+												className="custom-simple-dropdown"
+												onChange={(e: any) => {
+													this.handlePerson1Change(e.target.value, 'day');
+												}}
+											>
+												<option value=""></option>
+												{this.state.days1.map((day: any) => (
+													<option key={day} value={day}>
+														{day}
+													</option>
+												))}
 											</select>
 											{/* <Dropdown
 												options={this.state.days1}
@@ -1573,21 +1583,24 @@ export class Demo extends React.Component<any, any> {
 													this.handlePerson1Change(i.key, 'day');
 												}}
 											/> */}
-											<select className='custom-simple-dropdown'>
-												<option>1990</option>
-												<option>1992</option>
-												<option>1993</option>
-												<option>1994</option>
-												<option>1995</option>
-												<option>1996</option>
-												<option>1997</option>
-												<option>1998</option>
-												<option>1999</option>
-												<option>2000</option>
-												<option>2001</option>
-												<option>2002</option>
+											<select
+												value={this.state.step4Values.ebdy.year}
+												onChange={(e: any) => {
+													this.handlePerson1Change(
+														e.target.value,
+														'year'
+													);
+												}}
+												className="custom-simple-dropdown"
+											>
+												<option value=""></option>
+												{YEARS.map((year) => (
+													<option key={year.key} value={year.key}>
+														{year.text}
+													</option>
+												))}
 											</select>
-											
+
 											{/* <Dropdown
 												options={YEARS}
 												style={{
@@ -1620,49 +1633,59 @@ export class Demo extends React.Component<any, any> {
 												</span>
 											</div>
 											<div className="bday-part d-flex">
-											<select className='custom-simple-dropdown'>
-												<option>Jan</option>
-												<option>Feb</option>
-												<option>Mar</option>
-												<option>Apr</option>
-												<option>May</option>
-												<option>Jun</option>
-												<option>Jul</option>
-												<option>Aug</option>
-												<option>Sep</option>
-												<option>Oct</option>
-												<option>Nov</option>
-												<option>Dec</option>
-												<option>12</option>
-											</select>
-											<select className='custom-simple-dropdown'>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-												<option>4</option>
-												<option>5</option>
-												<option>6</option>
-												<option>7</option>
-												<option>8</option>
-												<option>9</option>
-												<option>10</option>
-												<option>11</option>
-												<option>12</option>
-											</select>
-											<select className='custom-simple-dropdown'>
-												<option>1990</option>
-												<option>1992</option>
-												<option>1993</option>
-												<option>1994</option>
-												<option>1995</option>
-												<option>1996</option>
-												<option>1997</option>
-												<option>1998</option>
-												<option>1999</option>
-												<option>2000</option>
-												<option>2001</option>
-												<option>2002</option>
-											</select>
+												<select
+													value={this.state.step4Values.tbdy.month}
+													className="custom-simple-dropdown"
+													onChange={(e: any) =>
+														this.handlePerson2Change(
+															e.target.value,
+															'month'
+														)
+													}
+												>
+													<option value=""></option>
+													{MONTHS.map((month: any) => (
+														<option key={month.key} value={month.key}>
+															{month.text}
+														</option>
+													))}
+												</select>
+
+												<select
+													value={this.state.step4Values.tbdy.day}
+													className="custom-simple-dropdown"
+													onChange={(e: any) => {
+														this.handlePerson2Change(
+															e.target.value,
+															'day'
+														);
+													}}
+												>
+													<option value=""></option>
+													{this.state.days2.map((day: any) => (
+														<option key={day} value={day}>
+															{day}
+														</option>
+													))}
+												</select>
+
+												<select
+													value={this.state.step4Values.tbdy.year}
+													onChange={(e: any) => {
+														this.handlePerson2Change(
+															e.target.value,
+															'year'
+														);
+													}}
+													className="custom-simple-dropdown"
+												>
+													<option value=""></option>
+													{YEARS.map((year) => (
+														<option key={year.key} value={year.key}>
+															{year.text}
+														</option>
+													))}
+												</select>
 											</div>
 										</div>
 									)}
@@ -1720,11 +1743,17 @@ export class Demo extends React.Component<any, any> {
 												{' '}
 												Country:
 											</span>
-											<select className='custom-simple-dropdown large'>
-												<option>IN</option>
-												<option>US</option>
-												<option>CA</option>
-												<option>AUS</option>
+											<select
+												value={this.state.country}
+												className="custom-simple-dropdown large"
+												onChange={this.handleState}
+											>
+												<option value=""></option>
+												{this.state.countries.map((country: any) => (
+													<option key={country.id} value={country.id}>
+														{country.name}
+													</option>
+												))}
 											</select>
 											{/* <Dropdown
 												className="home-country  "
@@ -1770,14 +1799,21 @@ export class Demo extends React.Component<any, any> {
 													fontFamily: 'ModernEraExtraBold',
 												}}
 											>
-												{' '}
 												State/Province:
 											</span>
-											<select className='custom-simple-dropdown large'>
-												<option>IN</option>
-												<option>US</option>
-												<option>CA</option>
-												<option>AUS</option>
+											<select
+												value={this.state.state}
+												onChange={this.handleCity}
+												className="custom-simple-dropdown large"
+											>
+												<option value=""></option>
+												{this.state.states.map((state: any) => {
+													return (
+														<option key={state.id} value={state.id}>
+															{state.name}
+														</option>
+													);
+												})}
 											</select>
 										</div>
 										<div className="drop-down-part d-flex">
@@ -1791,11 +1827,21 @@ export class Demo extends React.Component<any, any> {
 												{' '}
 												City:
 											</span>
-											<select className='custom-simple-dropdown large'>
-												<option>IN</option>
-												<option>US</option>
-												<option>CA</option>
-												<option>AUS</option>
+											<select
+												value={this.state.city}
+												className="custom-simple-dropdown large"
+												onChange={(e: any) =>
+													this.setState({ city: e.target.value })
+												}
+											>
+												<option value=""></option>
+												{this.state.cities.map((city: any) => {
+													return (
+														<option key={city.id} value={city.id}>
+															{city.name}
+														</option>
+													);
+												})}
 											</select>
 										</div>
 									</div>
@@ -1881,7 +1927,7 @@ export class Demo extends React.Component<any, any> {
 										className="add_image"
 										onClick={(e) => this.imageRef.current.click()}
 									>
-                                        <div className='add_icon' >+</div>
+										<div className="add_icon">+</div>
 										<input
 											accept="image/*"
 											className="add_image_input"

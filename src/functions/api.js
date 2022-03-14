@@ -7,8 +7,8 @@ async function apiCall(value, body, setEmail) {
 		switch (value) {
 			case -4:
 				let contactNumber = body.step_4Values.ibdy;
-				if(!contactNumber) {
-					throw new Error('Please enter a valid mobile number')
+				if (!contactNumber) {
+					throw new Error('Please enter a valid mobile number');
 				}
 				const response = await axios.post(`${BASE_URL}/auth/send-otp`, {
 					mobile: contactNumber,
@@ -23,8 +23,8 @@ async function apiCall(value, body, setEmail) {
 			case -3:
 				let otp = body.step_3Values;
 				let mobile = body.step_4Values.ibdy;
-				if(!otp) {
-					throw new Error('Please enter a valid OTP.')
+				if (!otp) {
+					throw new Error('Please enter a valid OTP.');
 				}
 				const otpResponse = await axios.post(`${BASE_URL}/auth/verify-otp`, {
 					otp,
@@ -32,7 +32,7 @@ async function apiCall(value, body, setEmail) {
 				});
 
 				if (otpResponse.status === 200) {
-                    toast.success('OTP verified successfully');
+					toast.success('OTP verified successfully');
 					localStorage.setItem('token', otpResponse?.data?.data?.data?.jwt);
 					return { success: true, message: otpResponse?.data?.data?.message };
 				}
@@ -42,7 +42,7 @@ async function apiCall(value, body, setEmail) {
 			case -2:
 				const email = body.step_1Values;
 				const token = localStorage.getItem('token');
-				if(!email) {
+				if (!email) {
 					throw new Error('Please enter a valid email address');
 				}
 				const emailResponse = await axios.post(
@@ -66,8 +66,8 @@ async function apiCall(value, body, setEmail) {
 				const verifiedEmail = body.step_1Values;
 				const jwt = localStorage.getItem('token');
 
-				if(!emailOtp) {
-					throw new Error('Please enter a valid OTP.')
+				if (!emailOtp) {
+					throw new Error('Please enter a valid OTP.');
 				}
 
 				const finalEmailResponse = await axios.post(
@@ -88,16 +88,17 @@ async function apiCall(value, body, setEmail) {
 				}
 
 				throw new Error('Something went wrong');
-            case 0:
-                const password1 = body.password;
-                const password2 = body.password2
+			case 0:
+				const password1 = body.password;
+				const password2 = body.password2;
 
-                if(password1 !== password2){
-                    throw new Error('Password does not match!')
-               }
+				if (password1 !== password2) {
+					throw new Error('Password does not match!');
+				}
 
-              return {success: true, message: 'Success'}
+				return { success: true, message: 'Success' };
 			case 6:
+				const formData = new FormData();
 				const bdy1 = body.step4Values.ebdy;
 				const bdy2 = body.step4Values.tbdy;
 
@@ -111,8 +112,15 @@ async function apiCall(value, body, setEmail) {
 
 				const jwtToken = localStorage.getItem('token');
 
-				if(!fristResponse || !secondResponse || (Array.isArray(secondResponse) && secondResponse.length < 1) || !person1 || !person1Birthday || !password) {
-					throw new Error('Some of the required fields are missing')
+				if (
+					!fristResponse ||
+					!secondResponse ||
+					(Array.isArray(secondResponse) && secondResponse.length < 1) ||
+					!person1 ||
+					!person1Birthday ||
+					!password
+				) {
+					throw new Error('Some of the required fields are missing');
 				}
 
 				if (!bdy1.day || !bdy1.month || !bdy1.year) {
@@ -123,17 +131,31 @@ async function apiCall(value, body, setEmail) {
 					person2Birthday = null;
 				}
 
+				formData.append('UserType', fristResponse);
+				formData.append('LookingFor', JSON.stringify(secondResponse));
+				formData.append('Firstname1', person1);
+				formData.append('Firstname2', person2);
+				formData.append('Birthday1', person1Birthday);
+				formData.append('Birthday2', person2Birthday);
+				formData.append('password', password);
+
+				const country = body.countries.find(
+					(country) => country.id === parseInt(body.country)
+				);
+				const state = body.states.find((state) => state.id === parseInt(body.state));
+				const city = body.cities.find((city) => city.id === parseInt(body.city));
+
+				formData.append('country', country?.name);
+				formData.append('state', state?.name);
+				formData.append('city', city?.name);
+
+				body.images.map((image) => {
+					return formData.append('images', image);
+				});
+
 				const finalResponse = await axios.post(
 					`${BASE_URL}/user/update-profile`,
-					{
-						UserType: fristResponse,
-						LookingFor: secondResponse,
-						Firstname1: person1,
-						Firstname2: person2,
-						Birthday1: person1Birthday,
-						Birthday2: person2Birthday,
-						password,
-					},
+					formData,
 					{ headers: { Authorization: `Bearer ${jwtToken}` } }
 				);
 
@@ -148,7 +170,9 @@ async function apiCall(value, body, setEmail) {
 		}
 	} catch (error) {
 		console.log(error.response);
-		throw new Error(error?.response?.data?.message || error?.response?.data?.error || error.message);
+		throw new Error(
+			error?.response?.data?.message || error?.response?.data?.error || error.message
+		);
 	}
 }
 
