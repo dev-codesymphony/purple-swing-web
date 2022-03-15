@@ -457,7 +457,7 @@ export class Demo extends React.Component<any, any> {
 			// 		return { ...prevState, step: step + 1 };
 			// 	});
 			// 	this.setLoading(false);
-			// }, 2000);
+			// }, 1000);
 
 			// return;
 			this.setLoading(true);
@@ -905,13 +905,6 @@ export class Demo extends React.Component<any, any> {
 						<>
 							<div className="home-screen-part common-section-padding">
 								<div className="d-flex flex-column text-center form-group email-id">
-									<span
-										className="reg-label home-screen-label"
-										style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}
-									>
-										{' '}
-										Enter your email
-									</span>
 									<div className="btn-with-dropdown d-flex align-items-center justify-content-center">
 										<ActionButton
 											onClick={this.previous}
@@ -926,27 +919,113 @@ export class Demo extends React.Component<any, any> {
 											back
 										</ActionButton>
 										<div className="field-part">
-											<input
-												style={{
-													fontSize: 16,
-													height: 50,
-													width: 280,
-													fontFamily: 'ModernEraBold',
-												}}
-												className="home-phone-no"
-												onKeyPress={(e: any) => {
-													if (e.code === 'Enter') {
-														this.next();
-													}
-												}}
-												pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-												onChange={(e) => {
-													this.setState({
-														step_1Values: e.currentTarget.value,
-													});
-												}}
-											/>
+											<div
+												className="d-flex password-section"
+												
+											>
+												<span
+													className="reg-label home-screen-label same-width-label"
+													style={{
+														fontSize: 16,
+														fontFamily: 'ModernEraExtraBold',
+                                                        marginBottom:'40px'
+													}}
+												>
+													Email:
+												</span>
+												<input
+													style={{
+														fontSize: 16,
+														height: 50,
+														width: 280,
+														fontFamily: 'ModernEraBold',
+													}}
+													className="home-phone-no"
+													onKeyPress={(e: any) => {
+														if (e.code === 'Enter') {
+															this.next();
+														}
+													}}
+													pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+													onChange={(e) => {
+														this.setState({
+															step_1Values: e.currentTarget.value,
+														});
+													}}
+												/>
+											</div>
+
+											<div
+												className="d-flex password-section"
+											>
+												<span
+													className="reg-label home-screen-label same-width-label"
+													style={{
+														fontSize: 16,
+														fontFamily: 'ModernEraExtraBold',
+                                                        marginBottom:'40px'
+													}}
+												>
+													Password:
+												</span>
+												<input
+													style={{
+														fontSize: 16,
+														height: 50,
+														width: 288,
+														fontFamily: 'ModernEraBold',
+													}}
+													value={this.state.password}
+													className="home-phone-no"
+													onKeyPress={(e: any) => {
+														if (e.code === 'Enter') {
+															this.next();
+														}
+													}}
+													type="password"
+													onChange={(e) => {
+														this.setState({
+															password: e.currentTarget.value,
+														});
+													}}
+												/>
+											</div>
+											<div className="d-flex password-section">
+												<span
+													className="reg-label home-screen-label same-width-label"
+													style={{
+														fontSize: 16,
+														fontFamily: 'ModernEraExtraBold',
+                                                        marginBottom:'40px'
+													}}
+												>
+													Re-enter password:
+												</span>
+
+												<input
+													style={{
+														fontSize: 16,
+														height: 50,
+														width: 288,
+														fontFamily: 'ModernEraBold',
+													}}
+													value={this.state.password2}
+													className="home-phone-no"
+													onKeyPress={(e: any) => {
+														if (e.code === 'Enter') {
+															this.next();
+														}
+													}}
+													type="password"
+													onChange={(e) => {
+														this.setState({
+															password2: e.currentTarget.value,
+														});
+													}}
+												/>
+											</div>
 										</div>
+
 										{this.state.isLoading ? (
 											<Loader />
 										) : (
@@ -1049,7 +1128,7 @@ export class Demo extends React.Component<any, any> {
 					) : (
 						<></>
 					)}
-					{this.state.step === 0 ? (
+					{/* {this.state.step === 0 ? (
 						<>
 							<div className="common-section-padding ">
 								<div className="d-flex align-items-center justify-content-center home-screen-part flex-column">
@@ -1082,75 +1161,7 @@ export class Demo extends React.Component<any, any> {
 													Create a password
 												</span>
 											</div>
-											<div
-												className="d-flex password-section"
-												style={{ marginBottom: '30px' }}
-											>
-												<span
-													className="reg-label home-screen-label same-width-label"
-													style={{
-														fontSize: 16,
-														fontFamily: 'ModernEraExtraBold',
-													}}
-												>
-													Password:
-												</span>
-												<input
-													style={{
-														fontSize: 16,
-														height: 50,
-														width: 288,
-														fontFamily: 'ModernEraBold',
-													}}
-													value={this.state.password}
-													className="home-phone-no"
-													onKeyPress={(e: any) => {
-														if (e.code === 'Enter') {
-															this.next();
-														}
-													}}
-													type="password"
-													onChange={(e) => {
-														this.setState({
-															password: e.currentTarget.value,
-														});
-													}}
-												/>
-											</div>
-
-											<div className="d-flex password-section">
-												<span
-													className="reg-label home-screen-label same-width-label"
-													style={{
-														fontSize: 16,
-														fontFamily: 'ModernEraExtraBold',
-													}}
-												>
-													Re-enter password:
-												</span>
-
-												<input
-													style={{
-														fontSize: 16,
-														height: 50,
-														width: 288,
-														fontFamily: 'ModernEraBold',
-													}}
-													value={this.state.password2}
-													className="home-phone-no"
-													onKeyPress={(e: any) => {
-														if (e.code === 'Enter') {
-															this.next();
-														}
-													}}
-													type="password"
-													onChange={(e) => {
-														this.setState({
-															password2: e.currentTarget.value,
-														});
-													}}
-												/>
-											</div>
+											Empty
 										</div>
 										{this.state.isLoading ? (
 											<Loader />
@@ -1190,8 +1201,8 @@ export class Demo extends React.Component<any, any> {
 						</>
 					) : (
 						<></>
-					)}
-					{this.state.step === 1 ? (
+					)} */}
+					{this.state.step === 0 ? (
 						<>
 							<p className="step-number">1/6</p>
 
@@ -1278,7 +1289,7 @@ export class Demo extends React.Component<any, any> {
 					) : (
 						<></>
 					)}
-					{this.state.step === 2 ? (
+					{this.state.step === 1 ? (
 						<>
 							<p className="step-number">2/6</p>
 							<div className="second step common-section-padding">
@@ -1384,7 +1395,7 @@ export class Demo extends React.Component<any, any> {
 					) : (
 						<></>
 					)}
-					{this.state.step === 3 ? (
+					{this.state.step === 2 ? (
 						<>
 							<p className="step-number">3/6</p>
 							<div className="common-section-padding">
@@ -1511,7 +1522,7 @@ export class Demo extends React.Component<any, any> {
 					) : (
 						<></>
 					)}
-					{this.state.step === 4 ? (
+					{this.state.step === 3 ? (
 						<>
 							<p className="step-number">4/6</p>
 
@@ -1737,7 +1748,7 @@ export class Demo extends React.Component<any, any> {
 					) : (
 						<></>
 					)}
-					{this.state.step === 5 ? (
+					{this.state.step === 4 ? (
 						<>
 							<p className="step-number">5/6</p>
 							<div className="common-section-padding home-screen-part">
@@ -1909,7 +1920,7 @@ export class Demo extends React.Component<any, any> {
 					) : (
 						<></>
 					)}
-					{this.state.step === 6 ? (
+					{this.state.step === 5 ? (
 						<>
 							<p className="step-number">6/6</p>
 							<div className="common-section-padding  home-screen-part">
@@ -1973,8 +1984,7 @@ export class Demo extends React.Component<any, any> {
 									<ActionButton
 										// disabled={!this.validate()}
 										onClick={this.next}
-										className={
-											'step-button next-btn ' + nextOpct}
+										className={'step-button next-btn ' + nextOpct}
 									>
 										{this.state.images.length > 0 ? 'next' : 'Skip'}
 										<FontIcon
@@ -1990,7 +2000,7 @@ export class Demo extends React.Component<any, any> {
 						<></>
 					)}
 
-					{this.state.step === 7 ? (
+					{this.state.step === 6 ? (
 						<>
 							<div style={{ paddingTop: '15rem' }}>
 								<div className="awe-final">

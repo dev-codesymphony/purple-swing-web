@@ -41,7 +41,14 @@ async function apiCall(value, body, setEmail) {
 
 			case -2:
 				const email = body.step_1Values;
-				const token = localStorage.getItem('token');
+                const password1 = body.password;
+				const password2 = body.password2;
+                const token = localStorage.getItem('token');
+
+				if (password1 !== password2) {
+					throw new Error('Password does not match!');
+				}
+
 				if (!email) {
 					throw new Error('Please enter a valid email address');
 				}
@@ -88,16 +95,8 @@ async function apiCall(value, body, setEmail) {
 				}
 
 				throw new Error('Something went wrong');
-			case 0:
-				const password1 = body.password;
-				const password2 = body.password2;
-
-				if (password1 !== password2) {
-					throw new Error('Password does not match!');
-				}
-
-				return { success: true, message: 'Success' };
-			case 6:
+				
+			case 5:
 				const formData = new FormData();
 				const bdy1 = body.step4Values.ebdy;
 				const bdy2 = body.step4Values.tbdy;
