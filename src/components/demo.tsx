@@ -363,56 +363,94 @@ export class Demo extends React.Component<any, any> {
 	};
 
 	validate() {
-		if (this.state.step === -4)
+		if (this.state.step === -4) {
 			if (
 				this.state.step_4Values &&
-				// && this.state.step_4Values.dbdy) return true;
 				this.state.step_4Values.dbdy &&
 				this.state.step_4Values.ibdy &&
 				this.state.step_4Values.ibdy.length !== 10
-			)
+			) {
 				return true;
-		if (this.state.step === -3) if (this.state.step_3Values) return true;
-		// if (this.state.step == -2) if (this.state.step_2Values && this.state.step_2Values.emailBtn) return true;
-		if (this.state.step === -2)
-			if (this.state.step_2Values && this.state.step_2Values.emailBtn) {
-				let step = this.state.step;
-				return this.setState({ step: step + 1 });
 			}
-		if (
-			this.state.step === -1 &&
-			/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.step_1Values)
-		)
-			if (this.state.step_1Values) return true;
-		if (this.state.step === 0) if (this.state.step0Values) return true;
-		if (this.state.step === 1) if (this.state.step1Values) return true;
-		if (this.state.step === 2)
+		}
+
+		if (this.state.step === -3) {
+			if (this.state.step_3Values) return true;
+		}
+
+		if (this.state.step === -2) {
 			if (
-				Array.isArray(this.state.step2Values) &&
-				this.state.step2Values.length > 0 &&
-				this.state.step2Values[0]
-			)
+				this.state.step_1Values &&
+				this.state.password.length >= 6 &&
+				this.state.password2.length >= 6 &&
+				/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.step_1Values)
+			) {
 				return true;
-		if (this.state.step === 5) if (this.state.step5Values) return true;
+			}
+		}
+
+		if (this.state.step === -1) {
+			if (this.state.step0Values) return true;
+		}
+
+		if (this.state.step === 0) {
+			if (this.state.step1Values) return true;
+		}
+
+		if (this.state.step === 1) {
+			if (this.state.step2Values.length !== 0 && this.state.step2Values[0]) return true;
+		}
+
+		if (this.state.step === 2) {
+			if (!this.state.isSingle) {
+				if (this.state.step3Values.person1 && this.state.step3Values.person2) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			if (this.state.step3Values.person1) {
+				return true;
+			}
+
+			return false;
+		}
+
 		if (this.state.step === 3) {
-			if (this.state.step3Values && this.state.step3Values.person1) return true;
-			if (!this.state.isSingle && this.state.step3Values.person2) return true;
+			if (!this.state.isSingle) {
+				if (
+					this.state.step4Values &&
+					this.state.step4Values.ebdy.month &&
+					this.state.step4Values.ebdy.year &&
+					this.state.step4Values.ebdy.day &&
+					this.state.step4Values.tbdy.month &&
+					this.state.step4Values.tbdy.year &&
+					this.state.step4Values.tbdy.day
+				) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			if (
+				this.state.step4Values &&
+				this.state.step4Values.ebdy.month &&
+				this.state.step4Values.ebdy.year &&
+				this.state.step4Values.ebdy.day
+			) {
+				return true;
+			}
+
+			return false;
 		}
 
 		if (this.state.step === 4) {
-			if (this.state.step4Values && this.state.step4Values.ebdy) return true;
-			if (!this.state.isSingle && this.state.step4Values.tbdy) return true;
+			if (this.state.country && this.state.state && this.state.city) return true;
 		}
-		if (this.state.step === 6) if (this.state.step6Values) return true;
-		if (this.state.step === 7)
-			if (
-				this.state.step7Values &&
-				/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.step7Values)
-			)
-				return true;
-		if (this.state.step === 8)
-			if (this.state.step8Values) return true;
-			else return false;
+
+		return false;
 	}
 
 	setEmail(email: any) {
@@ -689,10 +727,7 @@ export class Demo extends React.Component<any, any> {
 													'step-button next-btn ' +
 													nextOpct +
 													' ' +
-													blurOpac +
-													(this.state.step === -4
-														? 'class-when-first-screen'
-														: 'class-when-other-screens')
+													blurOpac
 												}
 											>
 												next
@@ -766,7 +801,7 @@ export class Demo extends React.Component<any, any> {
 											<Loader />
 										) : (
 											<ActionButton
-												// disabled={!this.validate()}
+												disabled={!this.validate()}
 												onClick={this.next}
 												className={
 													'step-button next-btn ' +
@@ -919,16 +954,13 @@ export class Demo extends React.Component<any, any> {
 											back
 										</ActionButton>
 										<div className="field-part">
-											<div
-												className="d-flex password-section"
-												
-											>
+											<div className="d-flex password-section">
 												<span
 													className="reg-label home-screen-label same-width-label"
 													style={{
 														fontSize: 16,
 														fontFamily: 'ModernEraExtraBold',
-                                                        marginBottom:'40px'
+														marginBottom: '40px',
 													}}
 												>
 													Email:
@@ -955,15 +987,13 @@ export class Demo extends React.Component<any, any> {
 												/>
 											</div>
 
-											<div
-												className="d-flex password-section"
-											>
+											<div className="d-flex password-section">
 												<span
 													className="reg-label home-screen-label same-width-label"
 													style={{
 														fontSize: 16,
 														fontFamily: 'ModernEraExtraBold',
-                                                        marginBottom:'40px'
+														marginBottom: '40px',
 													}}
 												>
 													Password:
@@ -996,7 +1026,7 @@ export class Demo extends React.Component<any, any> {
 													style={{
 														fontSize: 16,
 														fontFamily: 'ModernEraExtraBold',
-                                                        marginBottom:'40px'
+														marginBottom: '40px',
 													}}
 												>
 													Re-enter password:
@@ -1030,7 +1060,7 @@ export class Demo extends React.Component<any, any> {
 											<Loader />
 										) : (
 											<ActionButton
-												// disabled={!this.validate()}
+												disabled={!this.validate()}
 												onClick={this.next}
 												className={
 													'step-button next-btn ' +
@@ -1104,7 +1134,7 @@ export class Demo extends React.Component<any, any> {
 											<Loader />
 										) : (
 											<ActionButton
-												// disabled={!this.validate()}
+												disabled={!this.validate()}
 												onClick={this.next}
 												className={
 													'step-button next-btn ' +
@@ -1269,7 +1299,7 @@ export class Demo extends React.Component<any, any> {
 										<Loader />
 									) : (
 										<ActionButton
-											// disabled={!this.validate()}
+											disabled={!this.validate()}
 											onClick={this.next}
 											className={
 												'step-button next-btn ' + nextOpct + ' ' + blurOpac
@@ -1371,7 +1401,7 @@ export class Demo extends React.Component<any, any> {
 											<Loader />
 										) : (
 											<ActionButton
-												// disabled={!this.validate()}
+												disabled={!this.validate()}
 												onClick={this.next}
 												className={
 													'step-button next-btn ' +
@@ -1494,7 +1524,7 @@ export class Demo extends React.Component<any, any> {
 										<Loader />
 									) : (
 										<ActionButton
-											// disabled={!this.validate()}
+											disabled={!this.validate()}
 											onClick={this.next}
 											className={
 												'step-button next-btn ' + nextOpct + ' ' + blurOpac
@@ -1729,7 +1759,7 @@ export class Demo extends React.Component<any, any> {
 									<Loader />
 								) : (
 									<ActionButton
-										// disabled={!this.validate()}
+										disabled={!this.validate()}
 										onClick={this.next}
 										className={
 											'step-button next-btn ' + nextOpct + ' ' + blurOpac
@@ -1843,6 +1873,11 @@ export class Demo extends React.Component<any, any> {
 												value={this.state.state}
 												onChange={this.handleCity}
 												className="custom-simple-dropdown large"
+												style={
+													!this.state.country
+														? { border: '2px solid grey' }
+														: undefined
+												}
 											>
 												<option value=""></option>
 												{this.state.states.map((state: any) => {
@@ -1872,6 +1907,11 @@ export class Demo extends React.Component<any, any> {
 												onChange={(e: any) =>
 													this.setState({ city: e.target.value })
 												}
+												style={
+													!this.state.state
+														? { border: '2px solid grey' }
+														: undefined
+												}
 											>
 												<option value=""></option>
 												{this.state.cities.map((city: any) => {
@@ -1888,7 +1928,7 @@ export class Demo extends React.Component<any, any> {
 										<Loader />
 									) : (
 										<ActionButton
-											// disabled={!this.validate()}
+											disabled={!this.validate()}
 											onClick={this.next}
 											className={
 												'step-button next-btn ' + nextOpct + ' ' + blurOpac
