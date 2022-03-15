@@ -268,8 +268,11 @@ export class Demo extends React.Component<any, any> {
 	}
 
 	async handleCity(e: any) {
-		const state = e.target.value;
-		const cities = await getCities(this.state.country, state);
+		const state = e.target.value || '';
+		let cities = [];
+		if (this.state.country && state) {
+			cities = await getCities(this.state.country, state);
+		}
 		this.setState({ cities, state });
 	}
 
@@ -446,11 +449,16 @@ export class Demo extends React.Component<any, any> {
 
 	async next() {
 		try {
-			// let step = this.state.step;
-			// this.setState((prevState: any) => {
-			// 	return { ...prevState, step: step + 1 };
-			// });
-			// console.log(this.state);
+			// this.setLoading(true);
+
+			// setTimeout(() => {
+			// 	let step = this.state.step;
+			// 	this.setState((prevState: any) => {
+			// 		return { ...prevState, step: step + 1 };
+			// 	});
+			// 	this.setLoading(false);
+			// }, 2000);
+
 			// return;
 			this.setLoading(true);
 			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
@@ -671,7 +679,9 @@ export class Demo extends React.Component<any, any> {
 												}}
 											/>
 										</div>
-										{!this.state.isLoading && (
+										{this.state.isLoading ? (
+											<Loader />
+										) : (
 											<ActionButton
 												disabled={!this.validate()}
 												onClick={this.next}
@@ -752,7 +762,9 @@ export class Demo extends React.Component<any, any> {
 												}}
 											/>
 										</div>
-										{!this.state.isLoading && (
+										{this.state.isLoading ? (
+											<Loader />
+										) : (
 											<ActionButton
 												// disabled={!this.validate()}
 												onClick={this.next}
@@ -935,7 +947,9 @@ export class Demo extends React.Component<any, any> {
 												}}
 											/>
 										</div>
-										{!this.state.isLoading && (
+										{this.state.isLoading ? (
+											<Loader />
+										) : (
 											<ActionButton
 												// disabled={!this.validate()}
 												onClick={this.next}
@@ -1007,7 +1021,9 @@ export class Demo extends React.Component<any, any> {
 												}}
 											/>
 										</div>
-										{!this.state.isLoading && (
+										{this.state.isLoading ? (
+											<Loader />
+										) : (
 											<ActionButton
 												// disabled={!this.validate()}
 												onClick={this.next}
@@ -1136,7 +1152,9 @@ export class Demo extends React.Component<any, any> {
 												/>
 											</div>
 										</div>
-										{!this.state.isLoading && (
+										{this.state.isLoading ? (
+											<Loader />
+										) : (
 											<ActionButton
 												// disabled={!this.validate()}
 												onClick={this.next}
@@ -1236,7 +1254,9 @@ export class Demo extends React.Component<any, any> {
 											});
 										}}
 									/> */}
-									{!this.state.isLoading && (
+									{this.state.isLoading ? (
+										<Loader />
+									) : (
 										<ActionButton
 											// disabled={!this.validate()}
 											onClick={this.next}
@@ -1336,7 +1356,9 @@ export class Demo extends React.Component<any, any> {
 												)}
 											</div>
 										</div>
-										{!this.state.isLoading && (
+										{this.state.isLoading ? (
+											<Loader />
+										) : (
 											<ActionButton
 												// disabled={!this.validate()}
 												onClick={this.next}
@@ -1457,7 +1479,9 @@ export class Demo extends React.Component<any, any> {
 											</div>
 										)}
 									</div>
-									{!this.state.isLoading && (
+									{this.state.isLoading ? (
+										<Loader />
+									) : (
 										<ActionButton
 											// disabled={!this.validate()}
 											onClick={this.next}
@@ -1690,7 +1714,9 @@ export class Demo extends React.Component<any, any> {
 										</div>
 									)}
 								</div>
-								{!this.state.isLoading && (
+								{this.state.isLoading ? (
+									<Loader />
+								) : (
 									<ActionButton
 										// disabled={!this.validate()}
 										onClick={this.next}
@@ -1802,6 +1828,7 @@ export class Demo extends React.Component<any, any> {
 												State/Province:
 											</span>
 											<select
+												disabled={!this.state.country}
 												value={this.state.state}
 												onChange={this.handleCity}
 												className="custom-simple-dropdown large"
@@ -1828,6 +1855,7 @@ export class Demo extends React.Component<any, any> {
 												City:
 											</span>
 											<select
+												disabled={!this.state.state}
 												value={this.state.city}
 												className="custom-simple-dropdown large"
 												onChange={(e: any) =>
@@ -1845,7 +1873,9 @@ export class Demo extends React.Component<any, any> {
 											</select>
 										</div>
 									</div>
-									{!this.state.isLoading && (
+									{this.state.isLoading ? (
+										<Loader />
+									) : (
 										<ActionButton
 											// disabled={!this.validate()}
 											onClick={this.next}
@@ -1937,15 +1967,16 @@ export class Demo extends React.Component<any, any> {
 										></input>
 									</div>
 								</div>
-								{!this.state.isLoading && (
+								{this.state.isLoading ? (
+									<Loader />
+								) : (
 									<ActionButton
 										// disabled={!this.validate()}
 										onClick={this.next}
 										className={
-											'step-button next-btn ' + nextOpct + ' ' + blurOpac
-										}
+											'step-button next-btn ' + nextOpct}
 									>
-										next
+										{this.state.images.length > 0 ? 'next' : 'Skip'}
 										<FontIcon
 											aria-label="Compass"
 											iconName="ChevronRightSmall"
@@ -1961,7 +1992,6 @@ export class Demo extends React.Component<any, any> {
 
 					{this.state.step === 7 ? (
 						<>
-							<p className="step-number">8/8</p>
 							<div style={{ paddingTop: '15rem' }}>
 								<div className="awe-final">
 									{`Awesome, ${

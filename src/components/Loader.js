@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { SpinnerCircular } from 'spinners-react';
 
-
 function Loader() {
-  return (<SpinnerCircular style={{marginRight:'40px'}} />)
+	return <SpinnerCircular style={{ position: 'absolute', right: '0', marginRight: '20px' }} />;
 }
 
-export default Loader
+export default Loader;
