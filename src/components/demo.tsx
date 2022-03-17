@@ -111,7 +111,7 @@ export class Demo extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			step: -4,
+			step: 5,
 			step_4Values: {
 				dbdy: 'India',
 				ibdy: '+91',
@@ -286,9 +286,14 @@ export class Demo extends React.Component<any, any> {
 	}
 
 	handleImageChange(e: any) {
-		this.setState((prev: any) => {
-			return { images: [...prev.images, e.target.files[0]] };
-		});
+		this.setState(
+			(prev: any) => {
+				return { images: [...prev.images, e.target.files[0]] };
+			},
+			() => {
+				e.target.value = '';
+			}
+		);
 	}
 
 	removeImage(index: any) {
@@ -487,17 +492,18 @@ export class Demo extends React.Component<any, any> {
 
 	async next() {
 		try {
-			// this.setLoading(true);
+			this.setLoading(true);
 
-			// setTimeout(() => {
-			// 	let step = this.state.step;
-			// 	this.setState((prevState: any) => {
-			// 		return { ...prevState, step: step + 1 };
-			// 	});
-			// 	this.setLoading(false);
-			// }, 1000);
+			setTimeout(() => {
+				let step = this.state.step;
+				this.setState((prevState: any) => {
+					return { ...prevState, step: step + 1 };
+				});
+				console.log(this.state);
+				this.setLoading(false);
+			}, 1000);
 
-			// return;
+			return;
 			this.setLoading(true);
 			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
 
@@ -615,6 +621,7 @@ export class Demo extends React.Component<any, any> {
 
 		return (
 			<>
+				{console.log(this.state.images)}
 				<OnlyLogoLayout />
 				<div
 					className={
@@ -966,6 +973,7 @@ export class Demo extends React.Component<any, any> {
 													Email:
 												</span>
 												<input
+													value={this.state.step_1Values}
 													style={{
 														fontSize: 16,
 														height: 50,
@@ -1349,12 +1357,13 @@ export class Demo extends React.Component<any, any> {
 												{' '}
 												I am / we are looking for:
 											</span>
-											<div className="add-more-div">
-												{this.state.step2Values.map(
-													(val: any, key: any) => {
-														return (
-															<div className="">
+											<div className="dropdown-container">
+												<div className="add-more-div">
+													{this.state.step2Values.map(
+														(val: any, key: any) => {
+															return (
 																<select
+																	key={key}
 																	value={
 																		this.state.step2Values[key]
 																	}
@@ -1378,12 +1387,12 @@ export class Demo extends React.Component<any, any> {
 																		)
 																	)}
 																</select>
-															</div>
-														);
-													}
-												)}
-												{!this.state.step2Values.includes('anyone') && (
-													<p>
+															);
+														}
+													)}
+												</div>
+												<div className="add-more-btn">
+													{!this.state.step2Values.includes('anyone') && (
 														<a
 															onClick={this.addMore}
 															style={{
@@ -1393,8 +1402,8 @@ export class Demo extends React.Component<any, any> {
 														>
 															Add more
 														</a>
-													</p>
-												)}
+													)}
+												</div>
 											</div>
 										</div>
 										{this.state.isLoading ? (
