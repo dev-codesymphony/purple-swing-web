@@ -1433,8 +1433,7 @@ font-size: 25px;
   border-radius: 30px;
   padding: 0 12px 0 6px;
   font-family: ModernEraBold;
-  margin-top: 15px;
-  flex-basis: 80%;
+  /* margin-top: 15px; */
 }
 
 .add-more-btn{

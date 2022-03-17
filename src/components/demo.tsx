@@ -111,7 +111,7 @@ export class Demo extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			step: -4,
+			step: 1,
 			step_4Values: {
 				dbdy: 'India',
 				ibdy: '+91',
@@ -492,18 +492,18 @@ export class Demo extends React.Component<any, any> {
 
 	async next() {
 		try {
-			// this.setLoading(true);
+			this.setLoading(true);
 
-			// setTimeout(() => {
-			// 	let step = this.state.step;
-			// 	this.setState((prevState: any) => {
-			// 		return { ...prevState, step: step + 1 };
-			// 	});
-			// 	console.log(this.state);
-			// 	this.setLoading(false);
-			// }, 1000);
+			setTimeout(() => {
+				let step = this.state.step;
+				this.setState((prevState: any) => {
+					return { ...prevState, step: step + 1 };
+				});
+				console.log(this.state);
+				this.setLoading(false);
+			}, 1000);
 
-			// return;
+			return;
 			this.setLoading(true);
 			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
 
@@ -1363,6 +1363,7 @@ export class Demo extends React.Component<any, any> {
 														(val: any, key: any) => {
 															return (
 																<select
+																	style={{ marginTop: '20px' }}
 																	key={key}
 																	value={
 																		this.state.step2Values[key]
