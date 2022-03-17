@@ -166,7 +166,9 @@ code {
   max-width: 1517px;
 }
 .add-more-div{
-  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .add-more-div p{
   text-align: center;
@@ -1431,7 +1433,20 @@ font-size: 25px;
   border-radius: 30px;
   padding: 0 12px 0 6px;
   font-family: ModernEraBold;
+  margin-top: 15px;
+  flex-basis: 80%;
 }
+
+.add-more-btn{
+    min-height: 60px;
+}
+
 .custom-simple-dropdown.large{
   width: 280px;
+}
+.dropdown-container{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
