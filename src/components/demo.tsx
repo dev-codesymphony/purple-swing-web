@@ -1362,7 +1362,7 @@ export class Demo extends React.Component<any, any> {
 														(val: any, key: any) => {
 															return (
 																<select
-																	style={{ marginTop: '20px' }}
+																	style={{ marginTop: '14px' }}
 																	key={key}
 																	value={
 																		this.state.step2Values[key]
