@@ -111,7 +111,7 @@ export class Demo extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			step: -4,
+			step: 1,
 			step_4Values: {
 				dbdy: 'India',
 				ibdy: '+91',
@@ -353,6 +353,14 @@ export class Demo extends React.Component<any, any> {
 	};
 
 	addMore = (e: any) => {
+		if (this.state.step2Values.length === 5) {
+			return;
+		}
+
+		if (this.state.step2Values.some((val: any) => val === '')) {
+			return;
+		}
+
 		this.setState({ step2Values: [...this.state.step2Values, ''] });
 	};
 
