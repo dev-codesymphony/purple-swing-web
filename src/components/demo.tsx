@@ -111,7 +111,7 @@ export class Demo extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			step: 1,
+			step: -4,
 			step_4Values: {
 				dbdy: 'India',
 				ibdy: '+91',
@@ -367,11 +367,14 @@ export class Demo extends React.Component<any, any> {
 	setStep2Value = (e: any, index: any) => {
 		this.setState((prev: any) => {
 			if (e === 'anyone') {
-				return { step2Values: [e] };
+				prev.step2Values = [e];
+			} else {
+				prev.step2Values[index] = e;
 			}
-
-			prev.step2Values[index] = e;
-			return { step2Values: [...prev.step2Values] };
+			prev.lookingForOptions = lookingForDefaultOptions.filter(
+				(op: any) => !prev.step2Values.includes(op.key)
+			);
+			return prev;
 		});
 	};
 
@@ -1368,13 +1371,51 @@ export class Demo extends React.Component<any, any> {
 												<div className="add-more-div">
 													{this.state.step2Values.map(
 														(val: any, key: any) => {
+															if (key === 0) {
+																return (
+																	<select
+																		style={{
+																			marginTop: '14px',
+																		}}
+																		key={key}
+																		value={val}
+																		onChange={(e: any) => {
+																			this.setStep2Value(
+																				e.target.value,
+																				key
+																			);
+																		}}
+																		className="custom-simple-dropdown large"
+																	>
+																		<option value="">
+																			{val}
+																		</option>
+																		{lookingForOptions.map(
+																			(opt: any) => {
+																				return (
+																					<option
+																						key={
+																							opt.key
+																						}
+																						value={
+																							opt.key
+																						}
+																					>
+																						{opt.text}
+																					</option>
+																				);
+																			}
+																		)}
+																	</select>
+																);
+															}
 															return (
 																<select
-																	style={{ marginTop: '14px' }}
+																	style={{
+																		marginTop: '14px',
+																	}}
 																	key={key}
-																	value={
-																		this.state.step2Values[key]
-																	}
+																	value={val}
 																	onChange={(e: any) => {
 																		this.setStep2Value(
 																			e.target.value,
@@ -1383,16 +1424,18 @@ export class Demo extends React.Component<any, any> {
 																	}}
 																	className="custom-simple-dropdown large"
 																>
-																	<option value=""></option>
+																	<option value="">{val}</option>
 																	{lookingForOptions.map(
-																		(opt: any) => (
-																			<option
-																				key={opt.key}
-																				value={opt.key}
-																			>
-																				{opt.text}
-																			</option>
-																		)
+																		(opt: any) => {
+																			return (
+																				<option
+																					key={opt.key}
+																					value={opt.key}
+																				>
+																					{opt.text}
+																				</option>
+																			);
+																		}
 																	)}
 																</select>
 															);
