@@ -1472,6 +1472,7 @@ export class Demo extends React.Component<any, any> {
 													height: 50,
 													width: 288,
 													fontFamily: 'ModernEraBold',
+													textTransform: 'capitalize',
 												}}
 												className="home-phone-no"
 												onKeyPress={(e: any) => {
