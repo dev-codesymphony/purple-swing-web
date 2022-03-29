@@ -51,7 +51,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 .send-again-link{
-  margin-top: 30px;
+  margin-top: 50px;
   background: none!important;
   border: none;
   font-size: 16px;
@@ -71,11 +71,12 @@ code {
   font-size: 28px;
 }
 .step-number{
-  font-size: 23px;
+  font-size: 18px;
   position: absolute;
   top: 25px;
   right: 30px;
   z-index: 5;
+  font-family: "ModernEraBold";
 }
 .mobile-container {
   display: none;
@@ -145,9 +146,12 @@ code {
 .phone-num span.home-bottom{
   margin-top: 80px;
 }
-.phone-otp span.reg-label, .email-id span.reg-label, .email-otp span.reg-label{
+.phone-otp span.reg-label,  .email-otp span.reg-label{
   margin-bottom: 60px;
   /* padding-top: 12%; */
+}
+.email-id span.reg-label{
+  margin-bottom: 24px;
 }
 .common-section-padding{
   height: 100%;
@@ -162,7 +166,7 @@ code {
 }
 .awe-final{
   font-size: 50px;
-  font-family: "ModernEraExtraBold"!important;
+  /* font-family: "ModernEraExtraBold"!important; */
   max-width: 1517px;
 }
 .add-more-div{
@@ -223,7 +227,7 @@ code {
 }
 
 .app-title {
-  font-size: 30px;
+  font-size: 18px;
   text-decoration: none;
   color: black;
 }
@@ -547,6 +551,8 @@ font-weight: bold;
     align-items: center;
     justify-content: center;
     padding: 5px;
+    flex-wrap: wrap;
+    grid-gap: 18px 0;
    
 }
 
@@ -578,6 +584,7 @@ font-size: 25px;
 
 .image_wrapper{
     position: relative;
+    /* margin-bottom: 30px; */
 }
 
 .main_image{
@@ -586,11 +593,13 @@ font-size: 25px;
 }
 
 .add_image{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 150px;
     width:  150px;
     border-radius: 30px;
     text-align: center;
+    background-color: #E8E7E4;
+    cursor: pointer;
 }
 
 .add_image_input{
@@ -609,7 +618,9 @@ font-size: 25px;
   margin-left: 8px;
   margin-right: 8px;
 }
-
+.additional-info{
+  max-width: 40%;
+}
 .name-para{
   font-size: 23px;
   position: absolute;
@@ -695,8 +706,11 @@ font-size: 25px;
     height: 28px !important;
     font-weight: 700;
 }
+/* .home-screen-part .home-phone-no:hover,.home-screen-part .home-phone-no:focus{
+  border: 2px solid #5640FB;
+} */
 .home-screen-part .home-phone-no.home-OTP-no{
-  width: 90px !important;
+  width: 70px !important;
 }
 .registration-form .home-screen-part .step-button{
   font-size: 14px;
@@ -1024,10 +1038,10 @@ font-size: 25px;
 
 @media (max-width: 576px){
   .registration-form .home-screen-part .step-button.next-btn{
-    top: 60%;
+    top: 50%;
   }
   .registration-form .home-screen-part .step-button.back-btn{
-    top: 60%;
+    top: 50%;
   }
   .registration-form .down-arrow .ms-Dropdown-caretDownWrapper {
     right: 10px !important;
@@ -1129,6 +1143,9 @@ font-size: 25px;
   }
   .home-screen-part .home-phone-no{
     margin-top: 10px;
+  }
+  .dropdown-container{
+    margin-top: 0 !important;
   }
 }
 
@@ -1356,6 +1373,12 @@ font-size: 25px;
     top: 57%;
     width: 197px;
   } */
+  .awe-section{
+    padding-top: 5rem;
+  }
+  .email-id span.reg-label{
+    margin-bottom: 0;
+  }
 }
 @media screen and (max-width:450px){
   .inner-110 {
@@ -1437,9 +1460,17 @@ font-size: 25px;
 }
 
 .add-more-btn{
-    min-height: 60px;
+    cursor: pointer;
 }
-
+.add-more-btn .add-link{
+  font-size: 14px;
+  font-family: 'ModernEraBold';
+  color: #000000;
+  text-decoration: none;
+}
+.add-more-btn .add-link.disabled{
+  color: #D0D0D0;
+}
 .custom-simple-dropdown.large{
   width: 280px;
 }
@@ -1449,3 +1480,43 @@ font-size: 25px;
     flex-direction: column;
     align-items: center;
 }
+
+
+
+.custom-simple-dropdown{
+  width: 68px;
+  height: 28px;
+}
+select.custom-simple-dropdown{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("./assets/images/select-arrow.svg");
+  background-repeat: no-repeat;
+  background-position-x: 86%;
+  background-position-y: 8px;
+ cursor: pointer;
+}
+select.custom-simple-dropdown.bday-month{
+  background-position: 92%;
+}
+.custom-simple-dropdown:hover,.custom-simple-dropdown:focus,.custom-simple-dropdown:active{
+  background-image: url("./assets/images/select-arrow-hover.svg");
+  border: 2px solid #5640FB;
+}
+select.custom-simple-dropdown.large{
+  background-position-x: 95%;
+}
+.awe-section{
+  padding-top: 15rem;
+}
+.awe-text{
+  font-size: 16px;
+  font-family: 'ModernEraBold';
+  color: #000000;
+}
+
+.awe-final{
+  margin-bottom: 30px;
+}
+

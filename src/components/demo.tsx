@@ -503,18 +503,18 @@ export class Demo extends React.Component<any, any> {
 
 	async next() {
 		try {
-			// this.setLoading(true);
+			this.setLoading(true);
 
-			// setTimeout(() => {
-			// 	let step = this.state.step;
-			// 	this.setState((prevState: any) => {
-			// 		return { ...prevState, step: step + 1 };
-			// 	});
-			// 	console.log(this.state);
-			// 	this.setLoading(false);
-			// }, 1000);
+			setTimeout(() => {
+				let step = this.state.step;
+				this.setState((prevState: any) => {
+					return { ...prevState, step: step + 1 };
+				});
+				console.log(this.state);
+				this.setLoading(false);
+			}, 1000);
 
-			// return;
+			return;
 			this.setLoading(true);
 			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
 
@@ -646,7 +646,7 @@ export class Demo extends React.Component<any, any> {
 										className="home-bottom home-screen-label large-label"
 										style={{
 											fontSize: 16,
-											fontFamily: 'ModernEraExtraBold',
+											fontFamily: 'ModernEraBold',
 											marginBottom: '80px',
 											marginTop: '0',
 										}}
@@ -758,7 +758,7 @@ export class Demo extends React.Component<any, any> {
 									</div>
 									<span
 										className="home-bottom home-screen-label small-label"
-										style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}
+										style={{ fontSize: 16, fontFamily: 'ModernEraBold' }}
 									>
 										*Your phone number or email will never be shown or given to
 										others users
@@ -775,7 +775,7 @@ export class Demo extends React.Component<any, any> {
 								<div className="d-flex flex-column text-center form-group phone-otp home-screen-part">
 									<span
 										className="reg-label home-screen-label"
-										style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}
+										style={{ fontSize: 16, fontFamily: 'ModernEraBold' }}
 									>
 										{' '}
 										Enter the code that was just sent to your mobile phone
@@ -976,11 +976,42 @@ export class Demo extends React.Component<any, any> {
 													className="reg-label home-screen-label same-width-label"
 													style={{
 														fontSize: 16,
-														fontFamily: 'ModernEraExtraBold',
-														marginBottom: '40px',
+														fontFamily: 'ModernEraBold',
 													}}
 												>
-													Email:
+													Your email:
+												</span>
+												<input
+													value={this.state.step_1Values}
+													style={{
+														fontSize: 16,
+														height: 50,
+														width: 280,
+														fontFamily: 'ModernEraBold',
+													}}
+													className="home-phone-no"
+													onKeyPress={(e: any) => {
+														if (e.code === 'Enter') {
+															this.next();
+														}
+													}}
+													pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+													onChange={(e) => {
+														this.setState({
+															step_1Values: e.currentTarget.value,
+														});
+													}}
+												/>
+											</div>
+											<div className="d-flex password-section" style={{marginBottom:"50px" }}>
+												<span
+													className="reg-label home-screen-label same-width-label"
+													style={{
+														fontSize: 16,
+														fontFamily: 'ModernEraBold',
+													}}
+												>
+													Re-enter email:
 												</span>
 												<input
 													value={this.state.step_1Values}
@@ -1010,11 +1041,10 @@ export class Demo extends React.Component<any, any> {
 													className="reg-label home-screen-label same-width-label"
 													style={{
 														fontSize: 16,
-														fontFamily: 'ModernEraExtraBold',
-														marginBottom: '40px',
+														fontFamily: 'ModernEraBold',
 													}}
 												>
-													Password:
+													Create a password:
 												</span>
 												<input
 													style={{
@@ -1043,8 +1073,7 @@ export class Demo extends React.Component<any, any> {
 													className="reg-label home-screen-label same-width-label"
 													style={{
 														fontSize: 16,
-														fontFamily: 'ModernEraExtraBold',
-														marginBottom: '40px',
+														fontFamily: 'ModernEraBold',
 													}}
 												>
 													Re-enter password:
@@ -1096,6 +1125,9 @@ export class Demo extends React.Component<any, any> {
 											</ActionButton>
 										)}
 									</div>
+									<span className="home-bottom home-screen-label small-label" style={{fontSize: 16, fontFamily: 'ModernEraBold', marginTop: 40 }}>
+										- Password must be at least 6 characters
+									</span>
 								</div>
 							</div>
 						</>
@@ -1108,7 +1140,7 @@ export class Demo extends React.Component<any, any> {
 								<div className="d-flex flex-column text-center form-group email-otp home-screen-part">
 									<span
 										className="reg-label home-screen-label"
-										style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}
+										style={{ fontSize: 16, fontFamily: 'ModernEraBold' }}
 									>
 										{' '}
 										Enter the code that was just sent to your email
@@ -1170,6 +1202,9 @@ export class Demo extends React.Component<any, any> {
 											</ActionButton>
 										)}
 									</div>
+									<p className="text-center">
+										<button className="send-again-link">Send again</button>
+									</p>
 								</div>
 							</div>
 						</>
@@ -1202,7 +1237,7 @@ export class Demo extends React.Component<any, any> {
 													className="home-bottom home-screen-label small-label text-center"
 													style={{
 														fontSize: 16,
-														fontFamily: 'ModernEraExtraBold',
+														fontFamily: 'ModernEraBold',
 														width: '100%',
 													}}
 												>
@@ -1240,7 +1275,7 @@ export class Demo extends React.Component<any, any> {
 								>
 									<span
 										className="home-bottom home-screen-label small-label counrty-part"
-										style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}
+										style={{ fontSize: 16, fontFamily: 'ModernEraBold' }}
 									>
 										- Password must be at least 6 characters
 									</span>
@@ -1270,7 +1305,7 @@ export class Demo extends React.Component<any, any> {
 									</ActionButton>
 									<span
 										className="reg-label home-screen-label"
-										style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}
+										style={{ fontSize: 16, fontFamily: 'ModernEraBold' }}
 									>
 										{' '}
 										I am / we are:
@@ -1360,8 +1395,7 @@ export class Demo extends React.Component<any, any> {
 												className="reg-label home-screen-label"
 												style={{
 													fontSize: 16,
-													fontFamily: 'ModernEraExtraBold',
-													marginTop: '-8px',
+													fontFamily: 'ModernEraBold',
 												}}
 											>
 												{' '}
@@ -1446,10 +1480,7 @@ export class Demo extends React.Component<any, any> {
 													{!this.state.step2Values.includes('anyone') && (
 														<a
 															onClick={this.addMore}
-															style={{
-																fontSize: 16,
-																fontFamily: 'ModernEraExtraBold',
-															}}
+															className="add-link"
 														>
 															Add more
 														</a>
@@ -1511,7 +1542,7 @@ export class Demo extends React.Component<any, any> {
 												className="reg-label home-screen-label"
 												style={{
 													fontSize: 16,
-													fontFamily: 'ModernEraExtraBold',
+													fontFamily: 'ModernEraBold',
 												}}
 											>
 												{' '}
@@ -1548,7 +1579,7 @@ export class Demo extends React.Component<any, any> {
 													className="reg-label home-screen-label"
 													style={{
 														fontSize: 16,
-														fontFamily: 'ModernEraExtraBold',
+														fontFamily: 'ModernEraBold',
 													}}
 												>
 													{' '}
@@ -1601,13 +1632,16 @@ export class Demo extends React.Component<any, any> {
 									)}
 								</div>
 
-								<p
+								
+								<span className="home-bottom home-screen-label small-label additional-info" style={{fontSize: 16, fontFamily: 'ModernEraBold', marginTop: 70 }}>
+									*The name(s) you add above are seen by other users, so if it makes you more comfortable, feel free to make them up.</span>
+								{/* <p
 									className="name-para home-screen-label"
-									style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}
+									style={{ fontSize: 16, fontFamily: 'ModernEraBold' }}
 								>
 									*The name(s) you add above are seen by other users, so if it
 									makes you more comfortable, feel free to make them up.
-								</p>
+								</p> */}
 							</div>
 						</>
 					) : (
@@ -1618,222 +1652,244 @@ export class Demo extends React.Component<any, any> {
 							<p className="step-number">4/6</p>
 
 							<div className="common-section-padding  home-screen-part">
-								<ActionButton
-									onClick={this.previous}
-									// disabled={this.state.step === -4}
-									className={'step-button back-btn' + opacity}
-								>
-									<FontIcon
-										aria-label="Compass"
-										iconName="ChevronLeftSmall"
-										className={iconClass + ' back '}
-									/>
-									back
-								</ActionButton>
-								<div>
-									<div
-										className="d-flex form-group align-items-center justify-content-center "
-										style={{ marginBottom: '31px' }}
+								<div className='d-flex align-items-center'>
+									<ActionButton
+										onClick={this.previous}
+										// disabled={this.state.step === -4}
+										className={'step-button back-btn' + opacity}
 									>
-										<div className="bdy" style={{ marginBottom: '14px' }}>
-											<span
-												className="reg-label home-screen-label"
-												style={{
-													fontSize: 16,
-													fontFamily: 'ModernEraExtraBold',
-												}}
-											>
-												{this.state.step3Values.person1}’s birthday:
-											</span>
-										</div>
-										<div className="bday-part d-flex">
-											<select
-												value={this.state.step4Values.ebdy.month}
-												className="custom-simple-dropdown"
-												onChange={(e: any) =>
-													this.handlePerson1Change(
-														e.target.value,
-														'month'
-													)
-												}
-											>
-												<option value=""></option>
-												{MONTHS.map((month: any) => (
-													<option key={month.key} value={month.key}>
-														{month.text}
-													</option>
-												))}
-											</select>
-											{/* <Dropdown
-												options={MONTHS}
-												style={{
-													fontSize: 16,
-													height: 50,
-													width: 98,
-													fontFamily: 'ModernEraBold',
-													marginRight: '23px',
-												}}
-												defaultSelectedKey={
-													this.state.step4Values.ebdy.month
-												}
-												onChange={(e, i: any) => {
-													this.handlePerson1Change(i.key, 'month');
-													this.setDays1(i.key);
-												}}
-											/> */}
-											<select
-												value={this.state.step4Values.ebdy.day}
-												className="custom-simple-dropdown"
-												onChange={(e: any) => {
-													this.handlePerson1Change(e.target.value, 'day');
-												}}
-											>
-												<option value=""></option>
-												{this.state.days1.map((day: any) => (
-													<option key={day} value={day}>
-														{day}
-													</option>
-												))}
-											</select>
-											{/* <Dropdown
-												options={this.state.days1}
-												style={{
-													fontSize: 16,
-													height: 50,
-													width: 98,
-													fontFamily: 'ModernEraBold',
-													marginRight: '23px',
-												}}
-												defaultSelectedKey={this.state.step4Values.ebdy.day}
-												onChange={(e, i: any) => {
-													this.handlePerson1Change(i.key, 'day');
-												}}
-											/> */}
-											<select
-												value={this.state.step4Values.ebdy.year}
-												onChange={(e: any) => {
-													this.handlePerson1Change(
-														e.target.value,
-														'year'
-													);
-												}}
-												className="custom-simple-dropdown"
-											>
-												<option value=""></option>
-												{YEARS.map((year) => (
-													<option key={year.key} value={year.key}>
-														{year.text}
-													</option>
-												))}
-											</select>
-
-											{/* <Dropdown
-												options={YEARS}
-												style={{
-													fontSize: 16,
-													height: 50,
-													width: 98,
-													fontFamily: 'ModernEraBold',
-													marginRight: '23px',
-												}}
-												defaultSelectedKey={
-													this.state.step4Values.ebdy.year
-												}
-												onChange={(e, i: any) => {
-													this.handlePerson1Change(i.key, 'year');
-												}}
-											/> */}
-										</div>
-									</div>
-									{!this.state.isSingle && (
-										<div className="d-flex align-items-center justify-content-center form-group home-screen-part">
+										<FontIcon
+											aria-label="Compass"
+											iconName="ChevronLeftSmall"
+											className={iconClass + ' back '}
+										/>
+										back
+									</ActionButton>
+									<div>
+										<div
+											className="d-flex form-group align-items-center justify-content-center "
+										>
 											<div className="bdy" style={{ marginBottom: '14px' }}>
 												<span
 													className="reg-label home-screen-label"
 													style={{
 														fontSize: 16,
-														fontFamily: 'ModernEraExtraBold',
+														fontFamily: 'ModernEraBold',
 													}}
 												>
-													{this.state.step3Values.person2}’s birthday:
+													{this.state.step3Values.person1}’s birthday:
 												</span>
 											</div>
 											<div className="bday-part d-flex">
 												<select
-													value={this.state.step4Values.tbdy.month}
-													className="custom-simple-dropdown"
+													value={this.state.step4Values.ebdy.month}
+													className="custom-simple-dropdown bday-month"
+													style={{
+														width: 122,
+													}}
 													onChange={(e: any) =>
-														this.handlePerson2Change(
+														this.handlePerson1Change(
 															e.target.value,
 															'month'
 														)
 													}
 												>
-													<option value=""></option>
+													<option value="">Month</option>
 													{MONTHS.map((month: any) => (
 														<option key={month.key} value={month.key}>
 															{month.text}
 														</option>
 													))}
 												</select>
-
+												{/* <Dropdown
+													options={MONTHS}
+													style={{
+														fontSize: 16,
+														height: 50,
+														width: 98,
+														fontFamily: 'ModernEraBold',
+														marginRight: '23px',
+													}}
+													defaultSelectedKey={
+														this.state.step4Values.ebdy.month
+													}
+													onChange={(e, i: any) => {
+														this.handlePerson1Change(i.key, 'month');
+														this.setDays1(i.key);
+													}}
+												/> */}
 												<select
-													value={this.state.step4Values.tbdy.day}
+													value={this.state.step4Values.ebdy.day}
 													className="custom-simple-dropdown"
+													style={{
+														width: 68,
+													}}
 													onChange={(e: any) => {
-														this.handlePerson2Change(
-															e.target.value,
-															'day'
-														);
+														this.handlePerson1Change(e.target.value, 'day');
 													}}
 												>
-													<option value=""></option>
-													{this.state.days2.map((day: any) => (
+													<option value="">Day</option>
+													{this.state.days1.map((day: any) => (
 														<option key={day} value={day}>
 															{day}
 														</option>
 													))}
 												</select>
-
+												{/* <Dropdown
+													options={this.state.days1}
+													style={{
+														fontSize: 16,
+														height: 50,
+														width: 98,
+														fontFamily: 'ModernEraBold',
+														marginRight: '23px',
+													}}
+													defaultSelectedKey={this.state.step4Values.ebdy.day}
+													onChange={(e, i: any) => {
+														this.handlePerson1Change(i.key, 'day');
+													}}
+												/> */}
 												<select
-													value={this.state.step4Values.tbdy.year}
+													value={this.state.step4Values.ebdy.year}
+													style={{
+														width: 70,
+													}}
 													onChange={(e: any) => {
-														this.handlePerson2Change(
+														this.handlePerson1Change(
 															e.target.value,
 															'year'
 														);
 													}}
 													className="custom-simple-dropdown"
 												>
-													<option value=""></option>
+													<option value="">Year</option>
 													{YEARS.map((year) => (
 														<option key={year.key} value={year.key}>
 															{year.text}
 														</option>
 													))}
 												</select>
+
+												{/* <Dropdown
+													options={YEARS}
+													style={{
+														fontSize: 16,
+														height: 50,
+														width: 98,
+														fontFamily: 'ModernEraBold',
+														marginRight: '23px',
+													}}
+													defaultSelectedKey={
+														this.state.step4Values.ebdy.year
+													}
+													onChange={(e, i: any) => {
+														this.handlePerson1Change(i.key, 'year');
+													}}
+												/> */}
 											</div>
 										</div>
+										{!this.state.isSingle && (
+											<div className="d-flex align-items-center justify-content-center form-group home-screen-part">
+												<div className="bdy" style={{ marginBottom: '14px' }}>
+													<span
+														className="reg-label home-screen-label"
+														style={{
+															fontSize: 16,
+															fontFamily: 'ModernEraBold',
+														}}
+													>
+														{this.state.step3Values.person2}’s birthday:
+													</span>
+												</div>
+												<div className="bday-part d-flex">
+													<select
+														value={this.state.step4Values.tbdy.month}
+														className="custom-simple-dropdown bday-month"
+														style={{
+															width: 122,
+														}}
+														onChange={(e: any) =>
+															this.handlePerson2Change(
+																e.target.value,
+																'month'
+															)
+														}
+													>
+														<option value="">Month</option>
+														{MONTHS.map((month: any) => (
+															<option key={month.key} value={month.key}>
+																{month.text}
+															</option>
+														))}
+													</select>
+
+													<select
+														value={this.state.step4Values.tbdy.day}
+														className="custom-simple-dropdown"
+														style={{
+															width: 68,
+														}}
+														onChange={(e: any) => {
+															this.handlePerson2Change(
+																e.target.value,
+																'day'
+															);
+														}}
+													>
+														<option value="">Day</option>
+														{this.state.days2.map((day: any) => (
+															<option key={day} value={day}>
+																{day}
+															</option>
+														))}
+													</select>
+
+													<select
+														value={this.state.step4Values.tbdy.year}
+														onChange={(e: any) => {
+															this.handlePerson2Change(
+																e.target.value,
+																'year'
+															);
+														}}
+														className="custom-simple-dropdown"
+														style={{
+															width: 70,
+														}}
+													>
+														<option value="">Year</option>
+														{YEARS.map((year) => (
+															<option key={year.key} value={year.key}>
+																{year.text}
+															</option>
+														))}
+													</select>
+												</div>
+											</div>
+										)}
+									</div>
+									{this.state.isLoading ? (
+										<Loader />
+									) : (
+										<ActionButton
+											disabled={!this.validate()}
+											onClick={this.next}
+											className={
+												'step-button next-btn ' + nextOpct + ' ' + blurOpac
+											}
+										>
+											next
+											<FontIcon
+												aria-label="Compass"
+												iconName="ChevronRightSmall"
+												className={iconClass}
+											/>
+										</ActionButton>
 									)}
 								</div>
-								{this.state.isLoading ? (
-									<Loader />
-								) : (
-									<ActionButton
-										disabled={!this.validate()}
-										onClick={this.next}
-										className={
-											'step-button next-btn ' + nextOpct + ' ' + blurOpac
-										}
-									>
-										next
-										<FontIcon
-											aria-label="Compass"
-											iconName="ChevronRightSmall"
-											className={iconClass}
-										/>
-									</ActionButton>
-								)}
+								<span className="home-bottom home-screen-label small-label" style={{fontSize: 16, fontFamily: 'ModernEraBold', marginTop: 70 }}>
+									(People will only see the year)
+								</span>
 							</div>
 						</>
 					) : (
@@ -1865,7 +1921,7 @@ export class Demo extends React.Component<any, any> {
 												className="reg-label home-screen-label same-width-label"
 												style={{
 													fontSize: 16,
-													fontFamily: 'ModernEraExtraBold',
+													fontFamily: 'ModernEraBold',
 												}}
 											>
 												{' '}
@@ -1924,7 +1980,7 @@ export class Demo extends React.Component<any, any> {
 												className="reg-label home-screen-label same-width-label"
 												style={{
 													fontSize: 16,
-													fontFamily: 'ModernEraExtraBold',
+													fontFamily: 'ModernEraBold',
 												}}
 											>
 												State/Province:
@@ -1955,7 +2011,7 @@ export class Demo extends React.Component<any, any> {
 												className="reg-label home-screen-label same-width-label"
 												style={{
 													fontSize: 16,
-													fontFamily: 'ModernEraExtraBold',
+													fontFamily: 'ModernEraBold',
 												}}
 											>
 												{' '}
@@ -2010,7 +2066,7 @@ export class Demo extends React.Component<any, any> {
 								>
 									<span
 										className="home-bottom home-screen-label small-label counrty-part"
-										style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}
+										style={{ fontSize: 16, fontFamily: 'ModernEraBold' }}
 									>
 										*If your town/city doesn’t appear in the results, try
 										searching for the nearest larger city.{' '}
@@ -2025,6 +2081,7 @@ export class Demo extends React.Component<any, any> {
 						<>
 							<p className="step-number">6/6</p>
 							<div className="common-section-padding  home-screen-part">
+								<div className='d-flex align-items-center'>
 								<ActionButton
 									onClick={this.previous}
 									// disabled={this.state.step === -4}
@@ -2037,10 +2094,11 @@ export class Demo extends React.Component<any, any> {
 									/>
 									back
 								</ActionButton>
+								<div className="image-added-box">
 								<div className="d-flex form-group">
 									<span
 										className="reg-label home-screen-label"
-										style={{ fontSize: 16, fontFamily: 'ModernEraExtraBold' }}
+										style={{ fontSize: 16, fontFamily: 'ModernEraBold' }}
 									>
 										Add photos
 									</span>
@@ -2079,6 +2137,8 @@ export class Demo extends React.Component<any, any> {
 										></input>
 									</div>
 								</div>
+								</div>
+								
 								{this.state.isLoading ? (
 									<Loader />
 								) : (
@@ -2095,6 +2155,9 @@ export class Demo extends React.Component<any, any> {
 										/>
 									</ActionButton>
 								)}
+								</div>
+								<div className="d-flex justify-content-center"><span className="home-bottom home-screen-label small-label counrty-part" style={{ fontSize: 16, fontFamily: 'ModernEraBold' }}>
+									Don’t worry, if you need some time choosing pictures, you can skip this step and do it later.</span></div>
 							</div>
 						</>
 					) : (
@@ -2103,22 +2166,22 @@ export class Demo extends React.Component<any, any> {
 
 					{this.state.step === 6 ? (
 						<>
-							<div style={{ paddingTop: '15rem' }}>
-								<div className="awe-final">
-									{`Awesome, ${
+							<div className="container awe-section">
+								<div className="awe-text awe-final">
+									{/* {`Awesome,
+									${
 										localStorage.getItem('email') || 'Anonymous'
-									} you’ve created your profile! 🥳`}
-									After you’ve checked out the platform and gotten a sense of it,
-									you can complete your profile (upload some photos, write your
-									description, etc) in the{' '}
-									<a href="javscript:;" className="prof-setting">
-										Profile/Settings
-									</a>{' '}
-									section. (Don’t worry, we’ll show you exactly how to do it!)
+									}
+									 you’ve created your profile! 🥳`} */}
+									 Awesome, you’ve created your profile! 🥳
+
+								</div>
+								<div className="awe-text awe-content">
+									After you’ve checked out the website and gotten a sense of it, you can complete your profile (write your description, add photos, etc) in the Profile/Settings section. (Don’t worry, it’s straightforward!) 
 								</div>
 								<div className="alignRight take-me">
 									<ActionButton className={'step-button '}>
-										take me to the show{' '}
+										continue to website{' '}
 										<FontIcon
 											aria-label="Compass"
 											iconName="ChevronRightSmall"
