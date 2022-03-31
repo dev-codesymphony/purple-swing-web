@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import {
 	ActionButton,
 	Dropdown,
@@ -74,6 +75,7 @@ export class Demo extends React.Component<any, any> {
 			emailBtn: any;
 		};
 		step_1Values: any;
+		re_email: any;
 		step0Values: any;
 		step1Values: any;
 		step2Values: any;
@@ -121,6 +123,7 @@ export class Demo extends React.Component<any, any> {
 				emailBtn: null,
 			},
 			step_1Values: '',
+			re_email: '',
 			step0Values: null,
 			step1Values: '',
 			step2Values: [''],
@@ -356,7 +359,9 @@ export class Demo extends React.Component<any, any> {
 		if (this.state.step2Values.length === 5) {
 			return;
 		}
-
+		if(this.state.step2Values.includes('anyone')) {
+			return;
+		}
 		if (this.state.step2Values.some((val: any) => val === '')) {
 			return;
 		}
@@ -397,9 +402,12 @@ export class Demo extends React.Component<any, any> {
 		if (this.state.step === -2) {
 			if (
 				this.state.step_1Values &&
+				this.state.re_email &&
 				this.state.password.length >= 6 &&
 				this.state.password2.length >= 6 &&
-				/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.step_1Values)
+				/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.step_1Values) &&
+				this.state.step_1Values === this.state.re_email &&
+				this.state.password === this.state.password2
 			) {
 				return true;
 			}
@@ -1014,7 +1022,7 @@ export class Demo extends React.Component<any, any> {
 													Re-enter email:
 												</span>
 												<input
-													value={this.state.step_1Values}
+													value={this.state.re_email}
 													style={{
 														fontSize: 16,
 														height: 50,
@@ -1030,7 +1038,7 @@ export class Demo extends React.Component<any, any> {
 													pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
 													onChange={(e) => {
 														this.setState({
-															step_1Values: e.currentTarget.value,
+															re_email: e.currentTarget.value,
 														});
 													}}
 												/>
@@ -1477,14 +1485,15 @@ export class Demo extends React.Component<any, any> {
 													)}
 												</div>
 												<div className="add-more-btn">
-													{!this.state.step2Values.includes('anyone') && (
+													{/* {!this.state.step2Values.includes('anyone') && ( */}
 														<a
+															// disabled={this.state.step2Values.length === 5 || this.state.step2Values.some((val: any) => val === '')}
 															onClick={this.addMore}
-															className="add-link"
+															className={`add-link ${this.state.step2Values.length === 5 || this.state.step2Values.some((val: any) => val === '') || this.state.step2Values.includes('anyone') ? 'disabled' : ''}`}
 														>
 															Add more
 														</a>
-													)}
+													{/* )} */}
 												</div>
 											</div>
 										</div>
@@ -1591,6 +1600,7 @@ export class Demo extends React.Component<any, any> {
 														height: 50,
 														width: 288,
 														fontFamily: 'ModernEraBold',
+														textTransform: 'capitalize',
 													}}
 													className="home-phone-no"
 													placeholder="person 2"
