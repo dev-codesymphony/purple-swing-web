@@ -1520,3 +1520,13 @@ select.custom-simple-dropdown.large{
   margin-bottom: 30px;
 }
 
+.static-field{
+  position: relative;
+}
+.static-field .code-field{
+  position: absolute;
+    left: 12px;
+    top: 2px;
+    font-size: 16px;
+    font-family: ModernEraBold;
+}

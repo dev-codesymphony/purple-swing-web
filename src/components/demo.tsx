@@ -708,11 +708,16 @@ export class Demo extends React.Component<any, any> {
 													</option>
 												))}
 											</select>
+											<div className='static-field'>
+												<span className="code-field">
+													+101
+												</span>
 											<input
 												style={{
 													fontSize: 16,
 													height: 50,
 													width: 215,
+													paddingLeft: 45,
 													fontFamily: 'ModernEraBold',
 												}}
 												className="home-phone-no"
@@ -741,6 +746,8 @@ export class Demo extends React.Component<any, any> {
 													});
 												}}
 											/>
+											</div>
+											
 										</div>
 										{this.state.isLoading ? (
 											<Loader />
