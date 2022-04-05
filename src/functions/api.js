@@ -159,7 +159,7 @@ async function apiCall(value, body, setEmail) {
 				);
 
 				if (finalResponse.status === 200) {
-					toast.success('User profile updated successfully');
+					toast.success('you successfully created a profile');
 					return { success: true, message: 'Success' };
 				}
 
