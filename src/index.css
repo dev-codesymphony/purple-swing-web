@@ -1551,3 +1551,14 @@ select.custom-simple-dropdown.large {
 .awe-final {
   margin-bottom: 30px;
 }
+
+.static-field{
+  position: relative;
+}
+.static-field .code-field{
+  position: absolute;
+    left: 12px;
+    top: 2px;
+    font-size: 16px;
+    font-family: ModernEraBold;
+}

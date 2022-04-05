@@ -6,8 +6,8 @@ async function apiCall(value, body, setEmail) {
 	try {
 		switch (value) {
 			case -4:
-				let contactNumber = body.step_4Values.ibdy;
-				if (!contactNumber) {
+				let contactNumber = `${body.numberPrefix}${body.step_4Values.ibdy}`;
+				if (!body.step_4Values.ibdy) {
 					throw new Error('Please enter a valid mobile number');
 				}
 				const response = await axios.post(`${BASE_URL}/auth/send-otp`, {
@@ -22,7 +22,7 @@ async function apiCall(value, body, setEmail) {
 				throw new Error('Something went wrong');
 			case -3:
 				let otp = body.step_3Values;
-				let mobile = body.step_4Values.ibdy;
+				let mobile = `${body.numberPrefix}${body.step_4Values.ibdy}`;
 				if (!otp) {
 					throw new Error('Please enter a valid OTP.');
 				}
@@ -41,9 +41,9 @@ async function apiCall(value, body, setEmail) {
 
 			case -2:
 				const email = body.step_1Values;
-                const password1 = body.password;
+				const password1 = body.password;
 				const password2 = body.password2;
-                const token = localStorage.getItem('token');
+				const token = localStorage.getItem('token');
 
 				if (password1 !== password2) {
 					throw new Error('Password does not match!');
@@ -95,7 +95,7 @@ async function apiCall(value, body, setEmail) {
 				}
 
 				throw new Error('Something went wrong');
-				
+
 			case 5:
 				const formData = new FormData();
 				const bdy1 = body.step4Values.ebdy;
