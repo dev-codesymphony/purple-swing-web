@@ -509,6 +509,12 @@ export class Demo extends React.Component<any, any> {
 		this.setState({ days2: days });
 	}
 
+	removeOption(index: any) {
+		const tempValues = [...this.state.step2Values];
+		tempValues.splice(index, 1);
+		this.setState({ step2Values: tempValues });
+	}
+
 	async next() {
 		try {
 			// this.setLoading(true);
@@ -1422,7 +1428,6 @@ export class Demo extends React.Component<any, any> {
 													fontFamily: 'ModernEraBold',
 												}}
 											>
-												{' '}
 												I am / we are looking for:
 											</span>
 											<div className="dropdown-container">
@@ -1431,9 +1436,76 @@ export class Demo extends React.Component<any, any> {
 														(val: any, key: any) => {
 															if (key === 0) {
 																return (
+																	<div
+																		style={{
+																			display: 'flex',
+																			fontSize: '33px',
+																			cursor: 'pointer',
+																		}}
+																	>
+																		<select
+																			style={{
+																				marginTop: '18px',
+																			}}
+																			key={key}
+																			value={val}
+																			onChange={(e: any) => {
+																				this.setStep2Value(
+																					e.target.value,
+																					key
+																				);
+																			}}
+																			className="custom-simple-dropdown large"
+																		>
+																			<option value="">
+																				{val}
+																			</option>
+																			{lookingForOptions.map(
+																				(opt: any) => {
+																					return (
+																						<option
+																							key={
+																								opt.key
+																							}
+																							value={
+																								opt.key
+																							}
+																						>
+																							{
+																								opt.text
+																							}
+																						</option>
+																					);
+																				}
+																			)}
+																		</select>
+																		<span
+																			style={{
+																				marginTop: '5px',
+																			}}
+																			onClick={() =>
+																				this.removeOption(
+																					key
+																				)
+																			}
+																		>
+																			-
+																		</span>
+																	</div>
+																);
+															}
+															return (
+																<div
+																	style={{
+																		display: 'flex',
+																		fontSize: '33px',
+																		cursor: 'pointer',
+																		// marginTop: '10px',
+																	}}
+																>
 																	<select
 																		style={{
-																			marginTop: '14px',
+																			marginTop: '18px',
 																		}}
 																		key={key}
 																		value={val}
@@ -1465,37 +1537,15 @@ export class Demo extends React.Component<any, any> {
 																			}
 																		)}
 																	</select>
-																);
-															}
-															return (
-																<select
-																	style={{
-																		marginTop: '14px',
-																	}}
-																	key={key}
-																	value={val}
-																	onChange={(e: any) => {
-																		this.setStep2Value(
-																			e.target.value,
-																			key
-																		);
-																	}}
-																	className="custom-simple-dropdown large"
-																>
-																	<option value="">{val}</option>
-																	{lookingForOptions.map(
-																		(opt: any) => {
-																			return (
-																				<option
-																					key={opt.key}
-																					value={opt.key}
-																				>
-																					{opt.text}
-																				</option>
-																			);
+																	<span
+																		style={{ marginTop: '5px' }}
+																		onClick={() =>
+																			this.removeOption(key)
 																		}
-																	)}
-																</select>
+																	>
+																		-
+																	</span>
+																</div>
 															);
 														}
 													)}
@@ -1591,6 +1641,7 @@ export class Demo extends React.Component<any, any> {
 													fontFamily: 'ModernEraBold',
 													textTransform: 'capitalize',
 												}}
+												value={this.state.step3Values.person1}
 												className="home-phone-no"
 												onKeyPress={(e: any) => {
 													if (e.code === 'Enter') {
@@ -1601,7 +1652,7 @@ export class Demo extends React.Component<any, any> {
 												onChange={(e) => {
 													this.setState({
 														step3Values: {
-															person1: e.currentTarget.value,
+															person1: e.target.value,
 															person2: this.state.step3Values.person2,
 														},
 													});
@@ -1628,6 +1679,7 @@ export class Demo extends React.Component<any, any> {
 														fontFamily: 'ModernEraBold',
 														textTransform: 'capitalize',
 													}}
+													value={this.state.step3Values.person2}
 													className="home-phone-no"
 													placeholder="person 2"
 													onKeyPress={(e: any) => {
@@ -1640,7 +1692,7 @@ export class Demo extends React.Component<any, any> {
 															step3Values: {
 																person1:
 																	this.state.step3Values.person1,
-																person2: e.currentTarget.value,
+																person2: e.target.value,
 															},
 														});
 													}}
