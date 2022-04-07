@@ -517,18 +517,18 @@ export class Demo extends React.Component<any, any> {
 
 	async next() {
 		try {
-			// this.setLoading(true);
+			this.setLoading(true);
 
-			// setTimeout(() => {
-			// 	let step = this.state.step;
-			// 	this.setState((prevState: any) => {
-			// 		return { ...prevState, step: step + 1 };
-			// 	});
-			// 	console.log(this.state);
-			// 	this.setLoading(false);
-			// }, 1000);
+			setTimeout(() => {
+				let step = this.state.step;
+				this.setState((prevState: any) => {
+					return { ...prevState, step: step + 1 };
+				});
+				console.log(this.state);
+				this.setLoading(false);
+			}, 1000);
 
-			// return;
+			return;
 			this.setLoading(true);
 			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
 
@@ -1441,6 +1441,7 @@ export class Demo extends React.Component<any, any> {
 																			display: 'flex',
 																			fontSize: '33px',
 																			cursor: 'pointer',
+																			alignItems: 'center'
 																		}}
 																	>
 																		<select
@@ -1479,18 +1480,16 @@ export class Demo extends React.Component<any, any> {
 																				}
 																			)}
 																		</select>
-																		<span
-																			style={{
-																				marginTop: '5px',
-																			}}
+																		<button className="remove-btn"
+																			
 																			onClick={() =>
 																				this.removeOption(
 																					key
 																				)
 																			}
 																		>
-																			-
-																		</span>
+																			<p className="desk"></p>
+																		</button>
 																	</div>
 																);
 															}
@@ -1500,6 +1499,7 @@ export class Demo extends React.Component<any, any> {
 																		display: 'flex',
 																		fontSize: '33px',
 																		cursor: 'pointer',
+																		alignItems:'center',
 																		// marginTop: '10px',
 																	}}
 																>
@@ -1537,14 +1537,16 @@ export class Demo extends React.Component<any, any> {
 																			}
 																		)}
 																	</select>
-																	<span
-																		style={{ marginTop: '5px' }}
-																		onClick={() =>
-																			this.removeOption(key)
-																		}
-																	>
-																		-
-																	</span>
+																	<button className="remove-btn"
+																			
+																			onClick={() =>
+																				this.removeOption(
+																					key
+																				)
+																			}
+																		>
+																			<p className="desk"></p>
+																		</button>
 																</div>
 															);
 														}

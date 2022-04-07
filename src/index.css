@@ -567,7 +567,7 @@ body #root.is-dialog-open {
 .images_container {
   display: flex;
   align-items: center;
-  height: 300px;
+  /* height: 300px; */
   width: 800px;
   align-items: center;
   justify-content: center;
@@ -1561,4 +1561,24 @@ select.custom-simple-dropdown.large {
     top: 2px;
     font-size: 16px;
     font-family: ModernEraBold;
+}
+.remove-btn{
+  border-radius: 50%;
+    padding: 12px 8px;
+    line-height: 0;
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 11px;
+    border: 0px;
+    background-color: #d9d9d9;
+}
+.remove-btn .desk{
+  height: 2px;
+    width: 10px;
+    background-color: #000;
+    color: black;
+    margin-bottom: 0;
+}
+.remove-btn:hover .desk{
+  background-color: #5640fb;
 }
