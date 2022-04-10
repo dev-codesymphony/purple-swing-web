@@ -1441,7 +1441,7 @@ export class Demo extends React.Component<any, any> {
 																			display: 'flex',
 																			fontSize: '33px',
 																			cursor: 'pointer',
-																			alignItems: 'center'
+																			alignItems: 'center',
 																		}}
 																	>
 																		<select
@@ -1480,16 +1480,19 @@ export class Demo extends React.Component<any, any> {
 																				}
 																			)}
 																		</select>
-																		<button className="remove-btn"
-																			
-																			onClick={() =>
-																				this.removeOption(
-																					key
-																				)
-																			}
-																		>
-																			<p className="desk"></p>
-																		</button>
+																		{this.state.step2Values
+																			.length > 1 && (
+																			<button
+																				className="remove-btn"
+																				onClick={() =>
+																					this.removeOption(
+																						key
+																					)
+																				}
+																			>
+																				<p className="desk"></p>
+																			</button>
+																		)}
 																	</div>
 																);
 															}
@@ -1499,7 +1502,7 @@ export class Demo extends React.Component<any, any> {
 																		display: 'flex',
 																		fontSize: '33px',
 																		cursor: 'pointer',
-																		alignItems:'center',
+																		alignItems: 'center',
 																		// marginTop: '10px',
 																	}}
 																>
@@ -1537,16 +1540,14 @@ export class Demo extends React.Component<any, any> {
 																			}
 																		)}
 																	</select>
-																	<button className="remove-btn"
-																			
-																			onClick={() =>
-																				this.removeOption(
-																					key
-																				)
-																			}
-																		>
-																			<p className="desk"></p>
-																		</button>
+																	<button
+																		className="remove-btn"
+																		onClick={() =>
+																			this.removeOption(key)
+																		}
+																	>
+																		<p className="desk"></p>
+																	</button>
 																</div>
 															);
 														}
