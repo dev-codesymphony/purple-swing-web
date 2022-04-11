@@ -517,18 +517,18 @@ export class Demo extends React.Component<any, any> {
 
 	async next() {
 		try {
-			this.setLoading(true);
+			// this.setLoading(true);
 
-			setTimeout(() => {
-				let step = this.state.step;
-				this.setState((prevState: any) => {
-					return { ...prevState, step: step + 1 };
-				});
-				console.log(this.state);
-				this.setLoading(false);
-			}, 1000);
+			// setTimeout(() => {
+			// 	let step = this.state.step;
+			// 	this.setState((prevState: any) => {
+			// 		return { ...prevState, step: step + 1 };
+			// 	});
+			// 	console.log(this.state);
+			// 	this.setLoading(false);
+			// }, 1000);
 
-			return;
+			// return;
 			this.setLoading(true);
 			const apiResponse: any = await apiCall(this.state.step, this.state, this.setEmail);
 
@@ -2208,7 +2208,7 @@ export class Demo extends React.Component<any, any> {
 										back
 									</ActionButton>
 									<div className="image-added-box">
-										<div className="d-flex form-group">
+										<div className="mb-3 d-flex form-group">
 											<span
 												className="reg-label home-screen-label"
 												style={{

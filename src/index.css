@@ -581,7 +581,7 @@ body #root.is-dialog-open {
   height: 150px;
   width: 150px;
   overflow: hidden;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 30px;
 }
 
